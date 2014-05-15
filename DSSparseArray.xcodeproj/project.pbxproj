@@ -18,6 +18,7 @@
 		2480FA96191EC961002158C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480FA75191EC961002158C9 /* Cocoa.framework */; };
 		2480FA9E191EC961002158C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2480FA9C191EC961002158C9 /* InfoPlist.strings */; };
 		2480FAA0191EC961002158C9 /* DSSparseArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480FA9F191EC961002158C9 /* DSSparseArrayTests.m */; };
+		2480FAAB191EC9CB002158C9 /* DSSparseArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480FAAA191EC9CB002158C9 /* DSSparseArray.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,8 @@
 		2480FA9B191EC961002158C9 /* DSSparseArrayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DSSparseArrayTests-Info.plist"; sourceTree = "<group>"; };
 		2480FA9D191EC961002158C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2480FA9F191EC961002158C9 /* DSSparseArrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSSparseArrayTests.m; sourceTree = "<group>"; };
+		2480FAA9191EC9CB002158C9 /* DSSparseArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSparseArray.h; sourceTree = "<group>"; };
+		2480FAAA191EC9CB002158C9 /* DSSparseArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSparseArray.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				2480FA88191EC961002158C9 /* AppDelegate.m */,
 				2480FA8A191EC961002158C9 /* MainMenu.xib */,
 				2480FA8D191EC961002158C9 /* Images.xcassets */,
+				2480FAA9191EC9CB002158C9 /* DSSparseArray.h */,
+				2480FAAA191EC9CB002158C9 /* DSSparseArray.m */,
 				2480FA7C191EC961002158C9 /* Supporting Files */,
 			);
 			path = DSSparseArray;
@@ -253,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2480FA89191EC961002158C9 /* AppDelegate.m in Sources */,
+				2480FAAB191EC9CB002158C9 /* DSSparseArray.m in Sources */,
 				2480FA82191EC961002158C9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,6 +472,7 @@
 				2480FAA5191EC961002158C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2480FAA6191EC961002158C9 /* Build configuration list for PBXNativeTarget "DSSparseArrayTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +481,7 @@
 				2480FAA8191EC961002158C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
