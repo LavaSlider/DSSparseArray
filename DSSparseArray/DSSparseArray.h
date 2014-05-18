@@ -10,7 +10,7 @@
 
 /****************	Immutable Sparse Array	****************/
 
-@interface DSSparseArray : NSObject
+@interface DSSparseArray : NSObject <NSCopying, NSMutableCopying, NSObject>
 
 - (NSUInteger) count;
 - (id) objectAtIndex: (NSUInteger) index;
@@ -18,6 +18,7 @@
 - (NSUInteger) indexOfObjectIdenticalTo: (id) anObject;
 - (NSEnumerator *) objectEnumerator;
 //- (NSEnumerator *) indexEnumerator;
++ (void) setThrowExceptionOnOutOfRangeIndex: (unsigned int) throwMode;
 
 @end
 
@@ -25,12 +26,12 @@
 
 - (NSIndexSet *) allIndexes;
 - (NSIndexSet *) allIndexesForObject: (id) anObject;
-- (NSArray *) allValues;
+//- (NSIndexSet *) allIndexesForObjectsIdenticalTo: (id) anObject;
+- (NSArray *) allValues; // Should this be 'allObjects'?
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
 - (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject;
 - (id) valueAtIndex: (NSUInteger) index;
-//- (NSUInteger)indexOfObjectIdenticalTo:(id)anObject;
 
 #if NS_BLOCKS_AVAILABLE
 - (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block;
@@ -66,27 +67,18 @@
 /****************	Mutable Sparse Array	****************/
 //
 //  Things to understand:
-//    Insertion shifts the indexes
-//    Setting over-writes or create the entry, no sifting
+//    Insertion shifts the indexes higher of everything at and beyond the insert point
+//    Setting over-writes or create the entry, no shifting
 //	(can be set to nil since this is a sparse array)
-//    Remove shifts the indexes
+//    Remove shifts the indexes lower of everything after the remove point
 
 @interface DSMutableSparseArray : DSSparseArray
 
 - (void) setObject: (id) anObject atIndex: (NSUInteger) index;
 - (void) insertObject: (id) object atIndex: (NSUInteger) index;
 - (void) removeObjectAtIndex: (NSUInteger) index;
+- (void) removeObject: (id) anObject;
 - (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta;
-
-// Additions to consider from NSMutableArray:
-//- (void) addObject: (id) anObject;		  // Append to the end of the array
-//- (void) addObjectsFromArray: (NSArray *) otherArray;  // Append multiple entries to the end of the array
-//- (void)removeLastObject;
-//- (void)removeObject:(id)anObject;
-//- (void)removeObject:(id)anObject inRange:(NSRange)aRange
-//- (void)removeObjectsInArray:(NSArray *)otherArray
-//- (void)removeObjectsInRange:(NSRange)aRange
-//- (void)filterUsingPredicate:(NSPredicate *)predicate
 
 @end
 
@@ -96,10 +88,21 @@
 - (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
 - (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
 - (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet;
+- (void) removeObjectsInRange: (NSRange) aRange;
+- (void) removeObjectsInArray: (NSArray *) array;
+- (void) removeLastObject;
 - (void) removeAllObjects;
 
+- (void) filterUsingPredicate: (NSPredicate *) predicate;
 - (void) setSparseArray: (DSMutableSparseArray *) otherSparseArray;
+
 - (void) addEntriesFromSparseArray: (DSMutableSparseArray *) otherSparseArray;  // What does this do? Append the objects? Set the objects?
+
+// Additions to consider from NSMutableArray:
+//- (void) addObject: (id) anObject;		  // Append to the end of the array
+//- (void) addObjectsFromArray: (NSArray *) otherArray;  // Append multiple entries to the end of the array
+//- (void) removeObject:(id)anObject inRange:(NSRange)aRange
+
 @end
 
 @interface DSMutableSparseArray (DSMutableSparseArrayCreation)
