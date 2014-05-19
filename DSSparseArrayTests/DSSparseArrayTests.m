@@ -456,6 +456,52 @@
 
 	//XCTFail( @"Testing of isEqualToSparseArray needs to be completed" );
 }
+//- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate;
+- (void) test_DSSparseArray_filteredSparseArrayUsingPredicate {
+	DSSparseArray *sparseArray;
+	DSSparseArray *derivedSparseArray;
+	NSMutableIndexSet *mutableIndexes;
+	NSArray *objects;
+
+	objects = [NSArray arrayWithObjects: @"one", @"two", @"three", @"four", @"five", nil];
+	mutableIndexes = [NSMutableIndexSet indexSet];
+	[mutableIndexes addIndex: 3];
+	[mutableIndexes addIndex: 6];
+	[mutableIndexes addIndex: 9];
+	[mutableIndexes addIndex: 15];
+	[mutableIndexes addIndex: 19];
+	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
+	XCTAssertTrue( sparseArray.allIndexes.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.allIndexes.count );
+	XCTAssertTrue( [@"one" isEqualToString: [sparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [sparseArray objectAtIndex: 3] );
+	XCTAssertTrue( [@"two" isEqualToString: [sparseArray objectAtIndex: 6]], @"The 6th entry should be 'two' not '%@'", [sparseArray objectAtIndex: 6] );
+	XCTAssertTrue( [@"three" isEqualToString: [sparseArray objectAtIndex: 9]], @"The 9th entry should be 'three' not '%@'", [sparseArray objectAtIndex: 9] );
+	XCTAssertTrue( [@"four" isEqualToString: [sparseArray objectAtIndex: 15]], @"The 15th entry should be 'four' not '%@'", [sparseArray objectAtIndex: 15] );
+	XCTAssertTrue( [@"five" isEqualToString: [sparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [sparseArray objectAtIndex: 19] );
+	derivedSparseArray = [sparseArray filteredSparseArrayUsingPredicate: [NSPredicate predicateWithFormat: @"length = 3"]];
+	XCTAssertNotNil( derivedSparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( derivedSparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.count );
+	XCTAssertTrue( derivedSparseArray.allIndexes.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.allIndexes.count );
+	XCTAssertTrue( [@"one" isEqualToString: [derivedSparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [derivedSparseArray objectAtIndex: 3] );
+	XCTAssertTrue( [@"two" isEqualToString: [derivedSparseArray objectAtIndex: 6]], @"The 6th entry should be 'two' not '%@'", [derivedSparseArray objectAtIndex: 6] );
+	//XCTAssertTrue( [@"three" isEqualToString: [derivedSparseArray objectAtIndex: 9]], @"The 9th entry should be 'three' not '%@'", [derivedSparseArray objectAtIndex: 9] );
+	//XCTAssertTrue( [@"four" isEqualToString: [derivedSparseArray objectAtIndex: 15]], @"The 15th entry should be 'four' not '%@'", [derivedSparseArray objectAtIndex: 15] );
+	//XCTAssertTrue( [@"five" isEqualToString: [derivedSparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [derivedSparseArray objectAtIndex: 19] );
+	derivedSparseArray = [sparseArray filteredSparseArrayUsingPredicate: [NSPredicate predicateWithFormat: @"length = 4"]];
+	XCTAssertNotNil( derivedSparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( derivedSparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.count );
+	XCTAssertTrue( derivedSparseArray.allIndexes.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.allIndexes.count );
+	//XCTAssertTrue( [@"one" isEqualToString: [derivedSparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [derivedSparseArray objectAtIndex: 3] );
+	//XCTAssertTrue( [@"two" isEqualToString: [derivedSparseArray objectAtIndex: 6]], @"The 6th entry should be 'two' not '%@'", [derivedSparseArray objectAtIndex: 6] );
+	//XCTAssertTrue( [@"three" isEqualToString: [derivedSparseArray objectAtIndex: 9]], @"The 9th entry should be 'three' not '%@'", [derivedSparseArray objectAtIndex: 9] );
+	XCTAssertTrue( [@"four" isEqualToString: [derivedSparseArray objectAtIndex: 15]], @"The 15th entry should be 'four' not '%@'", [derivedSparseArray objectAtIndex: 15] );
+	XCTAssertTrue( [@"five" isEqualToString: [derivedSparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [derivedSparseArray objectAtIndex: 19] );
+	derivedSparseArray = [sparseArray filteredSparseArrayUsingPredicate: nil];
+	XCTAssertNotNil( derivedSparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( derivedSparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", derivedSparseArray.count );
+	XCTAssertTrue( derivedSparseArray.allIndexes.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", derivedSparseArray.allIndexes.count );
+}
 - (void) test_DSSparseArray_objectEnumerator {
 	DSSparseArray *sparseArray;
 	NSMutableIndexSet *mutableIndexes;
@@ -977,6 +1023,35 @@
 	XCTAssertTrue( [[sparseArray objectAtIndex: 3] isEqualToString: @"b"], @"Should be two" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 4] isEqualToString: @"three"], @"Should be three" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 5] isEqualToString: @"four"], @"Should be four" );
+
+	// The example from my documentation -- make sure it works!!
+	DSMutableSparseArray *array2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"two", 1, @"three", 2, @"four", 3, @"ten", 9, nil];
+	NSArray *newAdditions2 = [NSArray arrayWithObjects: @"a", @"b", @"j", nil];
+	NSMutableIndexSet *indexes2 = [NSMutableIndexSet indexSetWithIndex: 1];
+	[indexes2 addIndex: 3];
+	[indexes2 addIndex: 11];
+	[array2 insertObjects: newAdditions2 atIndexes: indexes2];
+	NSLog(@"sparse array: %@", array2);
+	// Output: array: ( 0: one, 1: a, 2: two, 3: b, 4: three, 5: four, 11: j, 12: ten )
+	XCTAssertNotNil( array2, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( array2.count == 8, @"A sparse array with six objects should have a count of 4 not %lu", array2.count );
+	XCTAssertTrue( [array2.allIndexes count] == 8, @"The index set should have a count of 6 not %lu", [array2.allIndexes count] );
+	XCTAssertTrue( [[array2 objectAtIndex: 0] isEqualToString: @"one"], @"Should be one not %@", [array2 objectAtIndex: 0] );
+	XCTAssertTrue( [[array2 objectAtIndex: 1] isEqualToString: @"a"], @"Should be a not %@", [array2 objectAtIndex: 1] );
+	XCTAssertTrue( [[array2 objectAtIndex: 2] isEqualToString: @"two"], @"Should be two not %@", [array2 objectAtIndex: 2] );
+	XCTAssertTrue( [[array2 objectAtIndex: 3] isEqualToString: @"b"], @"Should be b not %@", [array2 objectAtIndex: 3] );
+	XCTAssertTrue( [[array2 objectAtIndex: 4] isEqualToString: @"three"], @"Should be three not %@", [array2 objectAtIndex: 4] );
+	XCTAssertTrue( [[array2 objectAtIndex: 5] isEqualToString: @"four"], @"Should be four not %@", [array2 objectAtIndex: 5] );
+	XCTAssertTrue( [[array2 objectAtIndex: 11] isEqualToString: @"j"], @"Should be j not %@", [array2 objectAtIndex: 11] );
+	XCTAssertTrue( [[array2 objectAtIndex: 12] isEqualToString: @"ten"], @"Should be ten not %@", [array2 objectAtIndex: 12] );
+
+	// Check the null or empty argument cases...
+	[array2 insertObjects: @[] atIndexes: [NSIndexSet indexSet]];
+	[array2 insertObjects: nil atIndexes: [NSIndexSet indexSet]];
+	[array2 insertObjects: @[] atIndexes: nil];
+	
+	// Need to test exception throwing / not-throwing if an insert is done that pushes an entry beyond the end of the array
+	XCTFail( @"Add additional testing here" );
 }
 - (void) test_DSMutableSparseArray_removeObjectAtIndex {
 	NSLog( @"==== Entering %s", __func__ );

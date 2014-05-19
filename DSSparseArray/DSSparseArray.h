@@ -32,6 +32,7 @@
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
 - (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject;
 - (id) valueAtIndex: (NSUInteger) index;
+- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate;
 
 #if NS_BLOCKS_AVAILABLE
 - (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block;

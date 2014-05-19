@@ -272,6 +272,11 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (id) valueAtIndex: (NSUInteger) index {
 	return [self objectAtIndex: index];
 }
+- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate {
+	DSMutableSparseArray *mutableCopy = [self mutableCopy];
+	[mutableCopy filterUsingPredicate: predicate];
+	return [mutableCopy copy];
+}
 
 #if NS_BLOCKS_AVAILABLE
 - (NSIndexSet *) indexesOfEntriesPassingTest: (BOOL (^)( NSUInteger idx, id obj, BOOL *stop) ) predicate {
@@ -367,7 +372,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return [[[self class] alloc] initWithObjects: objects atIndexes: indexes count: count];
 }
 + (instancetype) sparseArrayWithObjectsAndIndexes: (id) firstObject, ... {
-	NSLog( @">>>> Entering %s", __func__ );
+	//NSLog( @">>>> Entering %s", __func__ );
 	va_list args;
 	va_start( args, firstObject );
 	id sparseArray = [[[self class] alloc] initWithObject: firstObject indexAndObjectsAndIndexes: args asInts: YES];
@@ -375,7 +380,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return sparseArray;
 }
 + (instancetype) sparseArrayWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... {
-	NSLog( @">>>> Entering %s", __func__ );
+	//NSLog( @">>>> Entering %s", __func__ );
 	va_list args;
 	va_start( args, firstObject );
 	id sparseArray = [[[self class] alloc] initWithObject: firstObject indexAndObjectsAndIndexes: args asInts: NO];
@@ -437,7 +442,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return self;
 }
 - (instancetype) initWithObjects: (const id []) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count {
-	NSLog( @"Entering %s", __func__ );
+	//NSLog( @"Entering %s", __func__ );
 	self = [super init];
 	if( self ) {
 		NSMutableArray *keys = [NSMutableArray array];
@@ -457,7 +462,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return self;
 }
 - (instancetype) initWithObjectsAndIndexes: (id) firstObject, ... {
-	NSLog( @">>>> Entering %s", __func__ );
+	//NSLog( @">>>> Entering %s", __func__ );
 	va_list args;
 	va_start( args, firstObject );
 	self = [self initWithObject: firstObject indexAndObjectsAndIndexes: args asInts: YES];
@@ -465,7 +470,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return self;
 }
 - (instancetype) initWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... {
-	NSLog( @">>>> Entering %s", __func__ );
+	//NSLog( @">>>> Entering %s", __func__ );
 	va_list args;
 	va_start( args, firstObject );
 	self = [self initWithObject: firstObject indexAndObjectsAndIndexes: args asInts: NO];
@@ -473,7 +478,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return self;
 }
 - (instancetype) initWithObject: (id) firstObject indexAndObjectsAndIndexes: (va_list) args asInts: (BOOL) asInts {
-	NSLog( @">>>> Entering %s", __func__ );
+	//NSLog( @">>>> Entering %s", __func__ );
 	self = [super init];
 	if( self ) {
 		NSMutableArray *keys = [NSMutableArray array];
@@ -486,7 +491,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 			if( asInts )
 				idx = va_arg( args, int );
 			else	idx = va_arg( args, NSUInteger );
-			NSLog( @"- Index %lu gets '%@'", idx, obj );
+			//NSLog( @"- Index %lu gets '%@'", idx, obj );
 			[keys addObject: [NSNumber numberWithUnsignedInteger: idx]];
 			[objects addObject: obj];
 			[indexes addIndex: idx];
@@ -520,20 +525,13 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	[self setObject: object atIndex: index];
 }
 - (void) removeObjectAtIndex: (NSUInteger) index {
+	// What if index is NSNotFound-1 ???
 	[self shiftObjectsStartingAtIndex: index+1 by: -1];
 }
 - (void) removeObject: (id) anObject {
 	if( anObject ) {
-#if 1
 		NSIndexSet *indexes = [self allIndexesForObject: anObject];
 		[self removeObjectsAtIndexes: indexes];
-#else
-		NSUInteger idx;
-		while( (idx = [self indexOfObject: anObject]) != NSNotFound ) {
-			NSLog( @"Removing %lu", (unsigned long) idx );
-			[self removeObjectAtIndex: idx];
-		}
-#endif
 	} else {
 		NSMutableDictionary *newDictionary = [NSMutableDictionary dictionaryWithCapacity: self.count];
 		NSMutableIndexSet *newIndexes = [NSMutableIndexSet indexSet];

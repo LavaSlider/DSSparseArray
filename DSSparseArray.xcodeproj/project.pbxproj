@@ -32,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2453F55D192867DD009AA13F /* DSSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = DSSparseArray.md; sourceTree = "<group>"; };
+		2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; path = DSMutableSparseArray.md; sourceTree = "<group>"; };
 		2480FA72191EC961002158C9 /* DSSparseArray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DSSparseArray.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2480FA75191EC961002158C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2480FA78191EC961002158C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -124,6 +126,8 @@
 				2480FA8D191EC961002158C9 /* Images.xcassets */,
 				2480FAA9191EC9CB002158C9 /* DSSparseArray.h */,
 				2480FAAA191EC9CB002158C9 /* DSSparseArray.m */,
+				2453F55D192867DD009AA13F /* DSSparseArray.md */,
+				2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */,
 				2480FA7C191EC961002158C9 /* Supporting Files */,
 			);
 			path = DSSparseArray;
