@@ -9,13 +9,6 @@
 #import "DSSparseArray.h"
 @class DSSparseArray;
 
-// I probably need to expose this in the header file... but I would like better names first
-typedef enum : unsigned int {
-	NoThrow = 0, // No exception, non-empty entries that are shifted < 0 or > NSNotFound-1 just disappear
-	ThrowIfNonEmptyOutOfRange = 1, // Throws if non-empty entry index < 0 or > NSNotFound-1
-	ThrowIfAnyEmptyOutOfRange = 2, // Throws for shift>start or start+shift>NSNotFound-1
-} DSSparseArrayExceptionThrowMode;
-
 #pragma mark - The Sparse Array Enumerator Implementation
 @interface DSSparseArrayEnumerator : NSEnumerator
 @property (nonatomic, strong) DSSparseArray *theSparseArray;
@@ -52,7 +45,7 @@ typedef enum : unsigned int {
 @end
 
 #pragma mark - Class extensions for private storage
-static DSSparseArrayExceptionThrowMode __throwException = NoThrow;
+static DSSparseArrayExceptionThrowMode __throwException = IndexOutOfRangeNoThrowNoWarn;
 static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 @interface DSSparseArray ()
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
@@ -61,8 +54,16 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 
 #pragma mark - Core DSSparseArray methods
 @implementation DSSparseArray
-+ (void) setThrowExceptionOnOutOfRangeIndex: (unsigned int) throwMode {
++ (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode {
 	__throwException = throwMode;
+}
+- (NSMutableDictionary *) dictionary {
+	if( !_dictionary ) _dictionary = [NSMutableDictionary dictionary];
+	return _dictionary;
+}
+- (NSMutableIndexSet *) indexes {
+	if( !_indexes )	_indexes = [NSMutableIndexSet indexSet];
+	return _indexes;
 }
 - (NSUInteger) count {
 	return self.dictionary.count;
@@ -207,12 +208,12 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	NSUInteger	idx = [self.indexes firstIndex];
 	NSMutableArray	*objects = [NSMutableArray arrayWithCapacity: count];
 	for( NSUInteger i = 0; i < count; ++i ) {
-		objects[i] = [self.dictionary objectForKey: [NSNumber numberWithUnsignedInteger: idx]];
+		objects[i] = [self objectAtIndex: idx];
 		idx = [self.indexes indexGreaterThanIndex: idx];
 	}
 	return [objects copy];
 }
-- (void) getObjects: (__unsafe_unretained id *) objects andIndexes: (NSUInteger *) indexes {
+- (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes {
 	NSUInteger	count = self.dictionary.count;
 	NSUInteger	idx = [self.indexes firstIndex];
 	for( NSUInteger i = 0; i < count; ++i ) {
@@ -245,7 +246,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (BOOL) isEqual: (id) object {
 	if( object == self )
 		return YES;
-	if( !object || ![object isKindOfClass: [self class]] )
+	if( !object || ![object isKindOfClass: [DSSparseArray class]] )
 		return NO;
 	return [self isEqualToSparseArray: object];
 }
@@ -379,7 +380,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	va_end( args );
 	return sparseArray;
 }
-+ (instancetype) sparseArrayWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... {
++ (instancetype) sparseArrayWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... {
 	//NSLog( @">>>> Entering %s", __func__ );
 	va_list args;
 	va_start( args, firstObject );
@@ -388,12 +389,12 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return sparseArray;
 }
 - (instancetype) init {
-	[self _NSIndexSet_enumerateIndexesUsingBlock_isBroken];
+	//[self _NSIndexSet_enumerateIndexesUsingBlock_isBroken];
 	self = [super init];
-	if( self ) {
-		self.indexes = [[NSMutableIndexSet alloc] init];
-		self.dictionary = [[NSMutableDictionary alloc] init];
-	}
+	//if( self ) {
+	//	self.indexes = [[NSMutableIndexSet alloc] init];
+	//	self.dictionary = [[NSMutableDictionary alloc] init];
+	//}
 	return self;
 }
 - (instancetype) initWithArray: (NSArray *) array {
@@ -441,7 +442,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	}
 	return self;
 }
-- (instancetype) initWithObjects: (const id []) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count {
+- (instancetype) initWithObjects: (const id[]) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count {
 	//NSLog( @"Entering %s", __func__ );
 	self = [super init];
 	if( self ) {
@@ -469,7 +470,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	va_end( args );
 	return self;
 }
-- (instancetype) initWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... {
+- (instancetype) initWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... {
 	//NSLog( @">>>> Entering %s", __func__ );
 	va_list args;
 	va_start( args, firstObject );
@@ -491,14 +492,17 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 			if( asInts )
 				idx = va_arg( args, int );
 			else	idx = va_arg( args, NSUInteger );
-			//NSLog( @"- Index %lu gets '%@'", idx, obj );
+			//NSLog( @"- Index %lu gets '%@'", (unsigned long) idx, obj );
 			[keys addObject: [NSNumber numberWithUnsignedInteger: idx]];
+			//NSLog( @"-- Added to keys array" );
 			[objects addObject: obj];
+			//NSLog( @"-- Added to objects array" );
 			[indexes addIndex: idx];
+			//NSLog( @"-- Added to index set" );
 			obj = va_arg( args, id );
 		} while( obj != nil );
 		
-		self.indexes = [indexes mutableCopy];
+		self.indexes = indexes;
 		self.dictionary = [[NSMutableDictionary alloc] initWithObjects: objects forKeys: keys];
 	}
 	return self;
@@ -525,7 +529,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	[self setObject: object atIndex: index];
 }
 - (void) removeObjectAtIndex: (NSUInteger) index {
-	// What if index is NSNotFound-1 ???
+	// What if index is > NSNotFound-1 ???
 	[self shiftObjectsStartingAtIndex: index+1 by: -1];
 }
 - (void) removeObject: (id) anObject {
@@ -558,35 +562,38 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta {
 	//NSLog( @"Shifting objects by %ld starting at %lu", delta, startIndex );
 	if( delta == 0 || self.indexes.count == 0 ) return;
-	if( delta < 0 ) {
-		if( startIndex < -delta ) {
-			NSLog( @"**** error: magnitude of delta of %ld is too large for start index of %lu in %s",
-			      delta, startIndex, __func__ );
-			if( __throwException == ThrowIfAnyEmptyOutOfRange ) {
-				[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large for start index of %lu", delta, startIndex];
+	if( __throwException != IndexOutOfRangeNoThrowNoWarn ) {
+		if( delta < 0 ) {
+			if( startIndex < -delta ) {
+				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"**** warning: magnitude of delta of %ld is too large for start index of %lu in %s", delta, startIndex, __func__ );
+				} else if( __throwException == IndexOutOfRangeThrowIfAny ) {
+					[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large for start index of %lu", delta, startIndex];
+				}
 			}
-		}
-		// If shifting down and the amount of the shift will make a non-empty
-		// array entry be moved below zero raise and exception.
-		if( [self.indexes indexGreaterThanOrEqualToIndex: startIndex] < -delta ) {
-			NSLog( @"**** error: magnitude of delta of %ld is too large with first non-empty index of %lu in %s",
-			      delta, [self.indexes indexGreaterThanOrEqualToIndex: startIndex], __func__ );
-			if( __throwException == ThrowIfNonEmptyOutOfRange ) {
-				[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large with first non-empty index of %lu", delta, [self.indexes indexGreaterThanOrEqualToIndex: startIndex]];
+			// If shifting down and the amount of the shift will make a non-empty
+			// array entry be moved below zero raise and exception.
+			if( [self.indexes indexGreaterThanOrEqualToIndex: startIndex] < -delta ) {
+				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"**** warning: magnitude of delta of %ld is too large with first non-empty index of %lu in %s", delta, [self.indexes indexGreaterThanOrEqualToIndex: startIndex], __func__ );
+				} else if( __throwException == IndexOutOfRangeThrowIfNonEmpty ) {
+					[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large with first non-empty index of %lu", delta, [self.indexes indexGreaterThanOrEqualToIndex: startIndex]];
+				}
 			}
-		}
-	} else /* delta > 0 */ {
-		if( startIndex > (NSNotFound - delta - 1) ) {
-			NSLog( @"**** error: delta of %ld is too large for start index of %lu and maximum possible array index of %lu in %s",
-			      delta, startIndex, NSNotFound - 1, __func__ );
-			if( __throwException == ThrowIfAnyEmptyOutOfRange ) {
-				[NSException raise: NSRangeException format: @"Shift of %ld is too large for start index of %lu and maximum possible array index of %lu", delta, startIndex, NSNotFound - 1];
+		} else /* delta > 0 */ {
+			if( startIndex > (NSNotFound - delta - 1) ) {
+				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"**** warning: delta of %ld is too large for start index of %lu and maximum possible array index of %lu in %s", delta, startIndex, NSNotFound - 1, __func__ );
+				} else if( __throwException == IndexOutOfRangeThrowIfAny ) {
+					[NSException raise: NSRangeException format: @"Shift of %ld is too large for start index of %lu and maximum possible array index of %lu", delta, startIndex, NSNotFound - 1];
+				}
 			}
-		}
-		if( [self.indexes lastIndex] > NSNotFound - delta ) {
-			NSLog( @"**** error: delta of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu in %s", delta, [self.indexes lastIndex], NSNotFound - 1, __func__ );
-			if( __throwException != NoThrow ) {
-				[NSException raise: NSRangeException format: @"Shift of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu", delta, [self.indexes lastIndex], NSNotFound - 1];
+			if( [self.indexes lastIndex] > NSNotFound - delta - 1 ) {
+				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"**** warning: delta of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu in %s", delta, [self.indexes lastIndex], NSNotFound - 1, __func__ );
+				} else if( __throwException >= IndexOutOfRangeThrowIfNonEmpty ) {
+					[NSException raise: NSRangeException format: @"Shift of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu", delta, [self.indexes lastIndex], NSNotFound - 1];
+				}
 			}
 		}
 	}
@@ -598,10 +605,10 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		// Blank out the enries in the 'to be over written' portion since
 		// empty array cells will not really over write anything
 		idx = [indexes indexGreaterThanOrEqualToIndex: startIndex + delta];
-		//NSLog( @"Need to clear the entries from %ld to %lu", startIndex + delta, startIndex );
+		//NSLog( @"o Need to clear the entries from %ld to %lu", startIndex + delta, startIndex );
 		//NSLog( @"- This is actually from %lu to %lu", idx, [indexes indexLessThanIndex: startIndex] );
 		while( idx != NSNotFound && idx < startIndex && idx <= [indexes indexLessThanIndex: startIndex] ) {
-			//NSLog( @"Clearing the array entry at %lu before the move", idx );
+			//NSLog( @"o Clearing the array entry at %lu before the move", idx );
 			[self.dictionary removeObjectForKey: [NSNumber numberWithUnsignedInteger: idx]];
 			idx = [indexes indexGreaterThanIndex: idx];
 		}
@@ -609,37 +616,41 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		while( idx != NSNotFound ) {
 			oldIndex = [NSNumber numberWithUnsignedInteger: idx];
 			obj = [self.dictionary objectForKey: oldIndex];
-			//NSLog( @"Moving '%@' from index is %@ to %ld", obj, oldIndex, (idx + delta) );
+			//NSLog( @"o Moving '%@' from index is %@ to %ld", obj, oldIndex, (idx + delta) );
 			[self.dictionary removeObjectForKey: oldIndex];
 			if( idx >= -delta ) {
 				[self.dictionary setObject: obj forKey: [NSNumber numberWithInteger: (idx + delta)]];
 			} else {
-				NSLog( @"-- Negative destination index, so poofed %@", oldIndex );
+				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"-- Negative destination index, so poofed entry formerly at %@", oldIndex );
+				}
 				[self.indexes removeIndex: idx];
 			}
 			idx = [indexes indexGreaterThanIndex: idx];
 		}
-		//NSLog( @"The shifted dictionary is %@", self.dictionary );
+		//NSLog( @"o The shifted dictionary is %@", self.dictionary );
 	} else {
 		idx = [indexes lastIndex];
 		startIndex = [indexes indexGreaterThanOrEqualToIndex: startIndex];
 		while( idx != NSNotFound && idx >= startIndex ) {
 			oldIndex = [NSNumber numberWithUnsignedInteger: idx];
 			obj = [self.dictionary objectForKey: oldIndex];
-			//NSLog( @"Moving '%@' from index is %@ to %ld", obj, oldIndex, (idx + delta) );
+			//NSLog( @"o Moving '%@' from index is %@ to %ld", obj, oldIndex, (idx + delta) );
 			[self.dictionary removeObjectForKey: oldIndex];
 			if( idx < NSNotFound - delta ) {
 				[self.dictionary setObject: obj forKey: [NSNumber numberWithInteger: (idx + delta)]];
 			} else {
-				NSLog( @"-- Index > NSNotFoound - 1, so poofed %@", oldIndex );
+				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"-- Destination index > NSNotFoound - 1, so poofed entry formerly at %@", oldIndex );
+				}
 				[self.indexes removeIndex: idx];
 			}
 			idx = [indexes indexLessThanIndex: idx];
 		}
-		//NSLog( @"The shifted dictionary is %@", self.dictionary );
+		//NSLog( @"o The shifted dictionary is %@", self.dictionary );
 	}
 	[self.indexes shiftIndexesStartingAtIndex: startIndex by: delta];
-	//NSLog( @"The shifted index set is %@", self.indexes );
+	//NSLog( @"o The shifted index set is %@", self.indexes );
 }
 
 @end
@@ -737,12 +748,13 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (void) setValue: (id) value atIndex: (NSUInteger) index {
 	[self setObject: value atIndex: index];
 }
-- (void) setSparseArray: (DSMutableSparseArray *) otherSparseArray {
+- (void) setSparseArray: (DSSparseArray *) otherSparseArray {
 	self.indexes = [otherSparseArray.indexes mutableCopy];
 	self.dictionary = [otherSparseArray.dictionary mutableCopy];
 }
-- (void) addEntriesFromSparseArray: (DSMutableSparseArray *) otherSparseArray {
-	NSLog( @"%s not done yet...", __func__ );
+- (void) setEntriesFromSparseArray: (DSSparseArray *) otherSparseArray {
+	NSArray *objects = [otherSparseArray allValues];
+	[self setObjects: objects atIndexes: otherSparseArray.indexes];
 }
 
 @end

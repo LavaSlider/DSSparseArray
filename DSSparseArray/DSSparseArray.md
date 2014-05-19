@@ -15,7 +15,7 @@ DSSparseArray and its subclass DSMutableSparseArray manage ordered collections o
 + sparseArrayWithObjects:atIndexes:
 + sparseArrayWithObjects:atIndexes:count:
 + sparseArrayWithObjectsAndIndexesL
-+ sparseArrayWithObjectsAndUnsignedIntegerIndexes:
++ sparseArrayWithObjectsAndNSUIntegerIndexes:
 
 ### Initializing a Sparse Array
 - init
@@ -25,7 +25,7 @@ DSSparseArray and its subclass DSMutableSparseArray manage ordered collections o
 - initWithObjects:atIndexes:
 - initWithObjects:atIndexes:count:
 - initWithObjectsAndIndexes:
-- initWithObjectsAndUnsignedIntegerIndexes:
+- initWithObjectsAndNSUIntegerIndexes:
 
 ### Querying a Sparse Array
 - count;
@@ -104,18 +104,18 @@ DSSparseArray.h
 + (instancetype) sparseArrayWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet;
 + (instancetype) sparseArrayWithObjects: (const id[]) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count;
 + (instancetype) sparseArrayWithObjectsAndIndexes: (id) firstObj, ... NS_REQUIRES_NIL_TERMINATION;
-+ (instancetype) sparseArrayWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype) sparseArrayWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
 
-### setThrowExceptionOnOutOfRangeIndex:
+### setThrowExceptionOnIndexOutOfRange:
 Sets object functionality for objects whose indexes go out of range
-+ (void) setThrowExceptionOnOutOfRangeIndex: (unsigned int) throwMode;
++ (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode;
 #### Parameters
-##### throwMode
-0 for no exception throwing, 1 for throwing an exception if an operation causes a array entry to be pushed out of the array either at the top or bottom, 2 for throwing an exception if an operation causes even an empty array entry to be pushed out of the array.
+##### *throwMode*
+**IndexOutOfRangeNoThrowNoWarn** for no exception throwing, **IndexOutOfRangeNoThrowButLogWarning** for no exception throwing but printing a warning by NSLog, **IndexOutOfRangeThrowIfNonEmpty** for throwing an exception if an operation causes a array entry to be pushed out of the array either at the top or bottom, **IndexOutOfRangeThrowIfAny** for throwing an exception if an operation causes even an empty array entry to be pushed out of the array at the bottom or if the requested start location is shifted off the top.
 #### Return value
 None.
 #### Discussion
-Array indexes are limited to a minium of zero and a maximum value of NSNotFound - 1. Therefore if shift or insertion operations move objects to where their index would be less than zero or greater than NSNotFound - 1 something must be done. If the throwMode has been set to 0 (the default), then the entries are deleted. If the throwMode has been set to 1 then an NSRangeException is thrown if a non-empty array entry would have its index set less than zero or greater than NSNotFound - 1. Lastly, if the throwMode has been to 2 then an NSRangeException would be thrown if a empty array entry would have its index set to less than zero (e.g. shift entry at index 5 by negative 10) or if the selected start location of a shift would be shifted have an index greater than NSNotFound - 1.
+Sparse array indexes are limited to a minium of zero and a maximum value of NSNotFound - 1. Therefore if shift or insertion operations move objects to where their index would be less than zero or greater than NSNotFound - 1 something must be done. If the *throwMode* has been set to **IndexOutOfRangeNoThrowNoWarn** (the default), then the entries are deleted. If the *throwMode* has been set to **IndexOutOfRangeNoThrowButLogWarning** the entries are also deleted but a warning is placed printed by NSLog(). If the *throwMode* has been set to **IndexOutOfRangeThrowIfNonEmpty** then an NSRangeException is thrown if a non-empty array entry would have its index set less than zero or greater than NSNotFound - 1. Lastly, if the throwMode has been to **IndexOutOfRangeThrowIfAny** then an NSRangeException would be thrown if any array entry, even an empty one, would have its index set to less than zero (e.g. shift entry at index 5 by negative 10) or if the selected start location of a shift would be shifted to have an index greater than NSNotFound - 1.
 #### Availability
 #### See Also
 #### Declared In
@@ -184,6 +184,6 @@ DSSparseArray.h
 - (instancetype) initWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet;
 - (instancetype) initWithObjects: (const id []) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count;
 - (instancetype) initWithObjectsAndIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
-- (instancetype) initWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
+- (instancetype) initWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
 
 

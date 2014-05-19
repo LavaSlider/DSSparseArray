@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+// Values used to control when exceptions are generated
+typedef enum : unsigned int {
+	IndexOutOfRangeNoThrowNoWarn = 0, // No exception, non-empty entries that are shifted < 0 or > NSNotFound-1 just disappear
+	IndexOutOfRangeNoThrowButLogWarning = 1, // Like above except warnings placed by NSLog()
+	IndexOutOfRangeThrowIfNonEmpty = 2, // Throws if non-empty entry index < 0 or > NSNotFound-1
+	IndexOutOfRangeThrowIfAny = 3, // Throws for shift>start or start+shift>NSNotFound-1
+} DSSparseArrayExceptionThrowMode;
+
 /****************	Immutable Sparse Array	****************/
 
 @interface DSSparseArray : NSObject <NSCopying, NSMutableCopying, NSObject>
@@ -18,7 +26,7 @@
 - (NSUInteger) indexOfObjectIdenticalTo: (id) anObject;
 - (NSEnumerator *) objectEnumerator;
 //- (NSEnumerator *) indexEnumerator;
-+ (void) setThrowExceptionOnOutOfRangeIndex: (unsigned int) throwMode;
++ (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode;
 
 @end
 
@@ -52,7 +60,7 @@
 + (instancetype) sparseArrayWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet;
 + (instancetype) sparseArrayWithObjects: (const id[]) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count;
 + (instancetype) sparseArrayWithObjectsAndIndexes: (id) firstObj, ... NS_REQUIRES_NIL_TERMINATION;
-+ (instancetype) sparseArrayWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
++ (instancetype) sparseArrayWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
 
 - (instancetype) init;
 - (instancetype) initWithArray: (NSArray *) array;
@@ -61,7 +69,7 @@
 - (instancetype) initWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet;
 - (instancetype) initWithObjects: (const id []) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count;
 - (instancetype) initWithObjectsAndIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
-- (instancetype) initWithObjectsAndUnsignedIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
+- (instancetype) initWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
 
 @end
 
@@ -95,9 +103,9 @@
 - (void) removeAllObjects;
 
 - (void) filterUsingPredicate: (NSPredicate *) predicate;
-- (void) setSparseArray: (DSMutableSparseArray *) otherSparseArray;
+- (void) setSparseArray: (DSSparseArray *) otherSparseArray;
 
-- (void) addEntriesFromSparseArray: (DSMutableSparseArray *) otherSparseArray;  // What does this do? Append the objects? Set the objects?
+- (void) setEntriesFromSparseArray: (DSSparseArray *) otherSparseArray;
 
 // Additions to consider from NSMutableArray:
 //- (void) addObject: (id) anObject;		  // Append to the end of the array

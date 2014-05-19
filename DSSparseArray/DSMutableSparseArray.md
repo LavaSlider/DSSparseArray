@@ -99,10 +99,47 @@ This method stores the objects at the locations indicated by the indexes. If a l
 #### Declared In
 DSSparseArray.h
 
+### setValue:atIndex:
+Sets the object at index with anObject.
 - (void) setValue: (id) value atIndex: (NSUInteger) index;
+#### Parameters
+##### value
+The object to be stored in the sparse array.
+##### index
+The index within the sparse array at which to store the object.
+#### Return value
+None.
+#### Discussion
+This is the same as setObject:atIndex:
+#### Availability
+#### See Also
+- setObject:atIndex:
+#### Declared In
+DSSparseArray.h
+
+
 - (void) setSparseArray: (DSMutableSparseArray *) otherSparseArray;
 
+
+### insertObject:atIndex:
+Inserts the given object into the sparse array's contents at the given index.
 - (void) insertObject: (id) object atIndex: (NSUInteger) index;
+#### Parameters
+##### *object*
+The object to be stored in the sparse array.
+##### *index*
+The index within the sparse array at which to store the object.
+#### Return value
+None.
+#### Discussion
+If index is already occupied, the objects at index and beyond are shifted by adding 1 to their indices to make room.
+Note that unlike NSArray objects, mutable sparse arrays do not have a fixed size and objects can be inserted at any index from 0 to NSNotFound - 1. If the object to be inserted is *nil* then it just shifts the remainder of the array by one creating an empty entry.
+If an existing array element is shifted beyond the permissible index range (i.e., its index > NSNotFound - 1) it will be silently deleted or generate an NSRangeException depending on the status of setThrowExceptionOnOutOfRangeIndex:.
+#### Availability
+#### See Also
+- setObject:atIndex:
+#### Declared In
+DSSparseArray.h
 
 ### insertObjects:atIndexes:
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.
@@ -162,6 +199,5 @@ DSSparseArray.h
 - (instancetype) init;
 - (instancetype) initWithCapacity: (NSUInteger) numItems;
 
-// Huh, what about me?
-- (void) addEntriesFromSparseArray: (DSMutableSparseArray *) otherSparseArray;  // What does this do? Append the objects? Set the objects?
+- (void) setEntriesFromSparseArray: (DSMutableSparseArray *) otherSparseArray;
 

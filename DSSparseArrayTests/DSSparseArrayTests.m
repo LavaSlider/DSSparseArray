@@ -45,6 +45,7 @@
 	
 	sparseArray = [DSSparseArray sparseArray];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"An empty sparse array should have count of 0" );
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"An empty sparse array should return nil for any index" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"An empty sparse array should return nil for any index" );
@@ -52,6 +53,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithArray: @[@"hello sparse array", @"goodbye sparse array"]];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 0], @"This is the right index - it should return the string" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 1], @"This is the right index - it should return the string" );
@@ -60,6 +62,7 @@
 
 	sparseArray = [DSSparseArray sparseArrayWithArray: @[@"hello sparse array", @"goodbye sparse array", @"hello again sparse array"]];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with two objects should have a count of 2" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 0], @"This is the right index - it should return the string" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 1], @"This is the right index - it should return the string" );
@@ -69,6 +72,7 @@
 	
 	sparseArray2 = [DSSparseArray sparseArrayWithSparseArray: sparseArray];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 3, @"A sparse array with two objects should have a count of 2" );
 	XCTAssertNotNil( [sparseArray2 objectAtIndex: 0], @"This is the right index - it should return the string" );
 	XCTAssertNotNil( [sparseArray2 objectAtIndex: 1], @"This is the right index - it should return the string" );
@@ -77,6 +81,7 @@
 	XCTAssertNil( [sparseArray2 objectAtIndex: 3], @"Requesting the wrong index should return nil" );
 	sparseArray = nil;
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 3, @"A sparse array with two objects should have a count of 2" );
 	XCTAssertNotNil( [sparseArray2 objectAtIndex: 0], @"This is the right index - it should return the string" );
 	XCTAssertNotNil( [sparseArray2 objectAtIndex: 1], @"This is the right index - it should return the string" );
@@ -86,6 +91,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithObject: @"hello sparse array" atIndex: 3];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 1, @"A sparse array with one object should have a count of 1" );
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
@@ -95,6 +101,7 @@
 	objects = @[ @"hello sparse array", @"goodbye sparse array" ];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 4], @"This is the right index - it should return the string" );
@@ -113,6 +120,7 @@
 	[mutableIndexes addIndex: 10012];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 5], @"This is the right index - it should return the string" );
@@ -125,6 +133,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello sparse array", 3, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 1, @"A sparse array with one object should have a count of 1" );
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
@@ -132,6 +141,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello sparse array", 3, @"goodbye sparse array", 5, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with one object should have a count of 1" );
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
@@ -139,6 +149,7 @@
 	XCTAssertNotNil( [sparseArray objectAtIndex: 5], @"This is the right index - it should return the string" );
 	indexes = sparseArray.allIndexes;
 	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( indexes.count == 2, @"There should be two indexes for a sparse array with two entries" );
 	XCTAssertTrue( [indexes firstIndex] == 3, @"The first index should be 3" );
 	XCTAssertTrue( [indexes lastIndex] == 5, @"The last index should be five" );
@@ -169,6 +180,7 @@
 		          @"what sparse array", 9,
 				nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three object should have a count of 3" );
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
@@ -183,6 +195,7 @@
 		       @"some other string", 97,
 		       nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4" );
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
@@ -213,6 +226,7 @@
 	[mutableIndexes addIndex: 97835745];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
 	idx = [sparseArray indexOfObject: obj];
 	XCTAssertTrue( idx == 57, @"The 'obj' was put at index 57 not %lu", idx );
@@ -227,6 +241,7 @@
 
 	sparseArray = [DSSparseArray sparseArrayWithArray: objects];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
 	idx = [sparseArray indexOfObject: obj];
 	XCTAssertTrue( idx == 1, @"The 'obj' was put at index 1 not %lu", idx );
@@ -260,6 +275,7 @@
 	[mutableIndexes addIndex: 97835745];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
 	idx = [sparseArray indexOfObjectIdenticalTo: two];
 	XCTAssertTrue( idx == 57, @"The 'two' was put at index 57 not %lu", idx );
@@ -274,6 +290,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithArray: objects];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
 	idx = [sparseArray indexOfObjectIdenticalTo: two];
 	XCTAssertTrue( idx == 1, @"The 'obj' was put at index 1 not %lu", idx );
@@ -298,10 +315,13 @@
 	[mutableIndexes addIndex: 876];
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray.count );
 	indexes = sparseArray.allIndexes;
 	XCTAssertNotNil( indexes, @"allIndexes should not be nil" );
 	XCTAssertTrue( [indexes isEqualToIndexSet: mutableIndexes], @"The index sets should match" );
+	
+	// Test it after clearing, removing, etc., things...
 	
 	//XCTFail( @"Testing of allIndexes needs to be completed" );
 }
@@ -310,6 +330,7 @@
 
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
 	NSIndexSet *indexesForOne = [sparseArray allIndexesForObject: @"one"];
 	XCTAssertTrue( indexesForOne.count, @"There should be two entries for object 'one' not %lu", (unsigned long) indexesForOne.count );
@@ -328,6 +349,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
 	NSArray *allValues = [sparseArray allValues];
 	XCTAssertNotNil( allValues, @"All values should not be nil" );
@@ -342,18 +364,41 @@
 	//XCTFail( @"Testing of allIndexes needs to be completed" );
 }
 - (void) test_DSSparseArray_getObjectsAndIndexes {
+	// From Stackoverfow http://stackoverflow.com/questions/2894093/example-of-nsdictionary-getobjectsandkeys
+	//NSDictionary *myDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"A", @"2", @"B", nil];
+	//
+	//NSInteger count = [myDictionary count];
+	//id __unsafe_unretained objects[count];
+	//id __unsafe_unretained keys[count];
+	//[myDictionary getObjects: objects andKeys: keys];
+	//
+	//for (int i = 0; i < count; i++) {
+	//	id obj = objects[i];
+	//	id key = keys[i];
+	//	NSLog(@"%@ -> %@", obj, key);
+	//}
+
 	DSSparseArray *sparseArray;
-	//id objects[4];
-	//NSUInteger indexes[4];
-	
-	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"one", 986, @"two", 876, @"two", 1029, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
-	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
-	//[sparseArray getObjects: objects andIndexes: indexes];
-	
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 4, @"The sparse array count should be 4 not %lu", (unsigned long) sparseArray.count );
+	NSUInteger count = sparseArray.count;
+	id __unsafe_unretained objects[count];
+	NSUInteger indexes[count];
+	[sparseArray getObjects: objects andIndexes: indexes];
+	XCTAssertTrue( [objects[0] isEqualToString: @"one"], @"The first object should be 'one' not '%@'", objects[0] );
+	XCTAssertTrue( [objects[1] isEqualToString: @"two"], @"The first object should be 'two' not '%@'", objects[1] );
+	XCTAssertTrue( [objects[2] isEqualToString: @"one"], @"The first object should be 'one' not '%@'", objects[2] );
+	XCTAssertTrue( [objects[3] isEqualToString: @"two"], @"The first object should be 'two' not '%@'", objects[3] );
+	XCTAssertTrue( indexes[0] == 456, @"The first index should be 456 not %lu", (unsigned long) indexes[0] );
+	XCTAssertTrue( indexes[1] == 876, @"The first index should be 876 not %lu", (unsigned long) indexes[1] );
+	XCTAssertTrue( indexes[2] == 986, @"The first index should be 986 not %lu", (unsigned long) indexes[2] );
+	XCTAssertTrue( indexes[3] == 1029, @"The first index should be 1029 not %lu", (unsigned long) indexes[3] );
+
 	// Put test if when the sparse array is empty
 	
-	//XCTFail( @"Testing of getObjectsAndIndexes needs to be completed" );
+//	XCTFail( @"Testing of getObjectsAndIndexes needs to be completed" );
 }
 - (void) test_DSSparseArray_isEqualToSparseArray {
 	DSSparseArray *sparseArray1;
@@ -373,6 +418,7 @@
 	[mutableIndexes addIndex: 97835745];
 	sparseArray1 = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray1, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray1.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray1.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray1.count );
 	idx = [sparseArray1 indexOfObject: obj];
 	XCTAssertTrue( idx == 57, @"The 'obj' was put at index 57 not %lu", idx );
@@ -387,6 +433,7 @@
 	
 	sparseArray2 = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.count );
 	idx = [sparseArray2 indexOfObject: obj];
 	XCTAssertTrue( idx == 57, @"The 'obj' was put at index 57 not %lu", idx );
@@ -412,6 +459,7 @@
 	[indexSet2 removeIndex: 274];
 	sparseArray2 = [DSSparseArray sparseArrayWithObjects: objects2 atIndexes: indexSet2];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray2.count );
 	idx = [sparseArray2 indexOfObject: obj];
 	XCTAssertTrue( idx == 57, @"The 'obj' was put at index 57 not %lu", idx );
@@ -434,6 +482,7 @@
 
 	sparseArray2 = [sparseArray1 copy];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.count );
 	idx = [sparseArray2 indexOfObject: obj];
 	XCTAssertTrue( idx == 57, @"The 'obj' was put at index 57 not %lu", idx );
@@ -472,6 +521,7 @@
 	[mutableIndexes addIndex: 19];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( sparseArray.allIndexes.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.allIndexes.count );
 	XCTAssertTrue( [@"one" isEqualToString: [sparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [sparseArray objectAtIndex: 3] );
@@ -481,6 +531,7 @@
 	XCTAssertTrue( [@"five" isEqualToString: [sparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [sparseArray objectAtIndex: 19] );
 	derivedSparseArray = [sparseArray filteredSparseArrayUsingPredicate: [NSPredicate predicateWithFormat: @"length = 3"]];
 	XCTAssertNotNil( derivedSparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( derivedSparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( derivedSparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.count );
 	XCTAssertTrue( derivedSparseArray.allIndexes.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.allIndexes.count );
 	XCTAssertTrue( [@"one" isEqualToString: [derivedSparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [derivedSparseArray objectAtIndex: 3] );
@@ -490,6 +541,7 @@
 	//XCTAssertTrue( [@"five" isEqualToString: [derivedSparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [derivedSparseArray objectAtIndex: 19] );
 	derivedSparseArray = [sparseArray filteredSparseArrayUsingPredicate: [NSPredicate predicateWithFormat: @"length = 4"]];
 	XCTAssertNotNil( derivedSparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( derivedSparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( derivedSparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.count );
 	XCTAssertTrue( derivedSparseArray.allIndexes.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", derivedSparseArray.allIndexes.count );
 	//XCTAssertTrue( [@"one" isEqualToString: [derivedSparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [derivedSparseArray objectAtIndex: 3] );
@@ -499,6 +551,7 @@
 	XCTAssertTrue( [@"five" isEqualToString: [derivedSparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [derivedSparseArray objectAtIndex: 19] );
 	derivedSparseArray = [sparseArray filteredSparseArrayUsingPredicate: nil];
 	XCTAssertNotNil( derivedSparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( derivedSparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( derivedSparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", derivedSparseArray.count );
 	XCTAssertTrue( derivedSparseArray.allIndexes.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", derivedSparseArray.allIndexes.count );
 }
@@ -517,6 +570,7 @@
 	[mutableIndexes addIndex: 19];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 3] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 3] class]) );
@@ -575,6 +629,7 @@
 
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 300] isEqualToString: @"one"], @"Should be one" );
@@ -710,6 +765,7 @@
 	//}];
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: highIndexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
 	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 6] isEqualToString: @"one"], @"Should be one" );
@@ -757,6 +813,7 @@
 	
 	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 300] isEqualToString: @"one"], @"Should be one" );
@@ -798,6 +855,7 @@
 	
 	sparseArray1 = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray1, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray1.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray1.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray1.count );
 	XCTAssertTrue( [sparseArray1.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray1.allIndexes count] );
 	XCTAssertTrue( [[sparseArray1 objectAtIndex: 300] isEqualToString: @"one"], @"Should be one" );
@@ -808,6 +866,7 @@
 	XCTAssertTrue( [[sparseArray1 objectAtIndex: 305] isEqualToString: @"six"], @"Should be six" );
 	sparseArray2 = [sparseArray1 copy];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray2.count );
 	XCTAssertTrue( [sparseArray2.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray2.allIndexes count] );
 	XCTAssertTrue( [[sparseArray2 objectAtIndex: 300] isEqualToString: @"one"], @"Should be one" );
@@ -826,6 +885,7 @@
 
 	sparseArray1 = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray1, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray1.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray1.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray1.count );
 	XCTAssertTrue( [sparseArray1.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray1.allIndexes count] );
 	XCTAssertTrue( [[sparseArray1 objectAtIndex: 300] isEqualToString: @"one"], @"Should be one" );
@@ -836,6 +896,7 @@
 	XCTAssertTrue( [[sparseArray1 objectAtIndex: 305] isEqualToString: @"six"], @"Should be six" );
 	sparseArray2 = [sparseArray1 mutableCopy];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray2.count );
 	XCTAssertTrue( [sparseArray2.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray2.allIndexes count] );
 	XCTAssertTrue( [[sparseArray2 objectAtIndex: 300] isEqualToString: @"one"], @"Should be one" );
@@ -851,6 +912,7 @@
 	
 	sparseArray = [DSMutableSparseArray sparseArray];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", sparseArray.count );
 	[sparseArray setObject: @"one" atIndex: 3];
 	XCTAssertTrue( sparseArray.count == 1, @"A sparse array with one object should have a count of 1 not %lu", sparseArray.count );
@@ -874,6 +936,7 @@
 	
 	sparseArray = [DSMutableSparseArray sparseArray];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", sparseArray.count );
 	
 	[sparseArray setObjects: objects atIndexes: indexes];
@@ -896,6 +959,102 @@
 	XCTAssertTrue( [[sparseArray objectAtIndex: 304] isEqualToString: @"five"], @"Should be five" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 305] isEqualToString: @"six"], @"Should be six" );
 
+}
+- (void) test_DSMutableSparseArray_setSparseArray {
+	NSLog( @"==== Entering %s", __func__ );
+	DSSparseArray *sparseArray1;
+	DSMutableSparseArray *sparseArray2;
+	
+	sparseArray1 = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 23, @"two", 54, @"three", 93, nil];
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 95, @"twelve", 983, nil];
+	XCTAssertFalse( [sparseArray1 isEqual: sparseArray2], @"The sparse arrays are not equal so this should be false" );
+	XCTAssertFalse( [sparseArray2 isEqual: sparseArray1], @"The sparse arrays are not equal so this should be false" );
+	XCTAssertFalse( [sparseArray1 isEqualToSparseArray: sparseArray2], @"The sparse arrays are not equal so this should be false" );
+	XCTAssertFalse( [sparseArray2 isEqualToSparseArray: sparseArray1], @"The sparse arrays are not equal so this should be false" );
+	[sparseArray2 setSparseArray: sparseArray1];
+	XCTAssertTrue( [sparseArray1 isEqual: sparseArray2], @"The sparse arrays are equal so this should be true" );
+	XCTAssertTrue( [sparseArray2 isEqual: sparseArray1], @"The sparse arrays are equal so this should be true" );
+	XCTAssertTrue( [sparseArray1 isEqualToSparseArray: sparseArray2], @"The sparse arrays are equal so this should be true" );
+	XCTAssertTrue( [sparseArray2 isEqualToSparseArray: sparseArray1], @"The sparse arrays are equal so this should be true" );
+	[sparseArray2 setSparseArray: nil];
+	XCTAssertNotNil( sparseArray2, @"Setting its sparse array to nil should not make it nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"Setting its sparse array to nil should not make the indexes nil" );
+	XCTAssertTrue( sparseArray2.count == 0 , @"It should have a count of zero not %lu", (unsigned long) sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 0, @"It's indexes count should be zero not %lu", (unsigned long) sparseArray2.allIndexes.count );
+	XCTAssertFalse( [sparseArray1 isEqual: sparseArray2], @"The sparse arrays are not equal so this should be false" );
+	XCTAssertFalse( [sparseArray2 isEqual: sparseArray1], @"The sparse arrays are not equal so this should be false" );
+	XCTAssertFalse( [sparseArray1 isEqualToSparseArray: sparseArray2], @"The sparse arrays are not equal so this should be false" );
+	XCTAssertFalse( [sparseArray2 isEqualToSparseArray: sparseArray1], @"The sparse arrays are not equal so this should be false" );
+	[sparseArray2 setObject: @"Hey!" atIndex: 481];
+	XCTAssertNotNil( sparseArray2, @"Setting one of its entries should not make it nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"Setting its sparse array to nil should not make the indexes nil" );
+	XCTAssertTrue( sparseArray2.count == 1 , @"It should have a count of one not %lu", (unsigned long) sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 1, @"It's indexes count should be one not %lu", (unsigned long) sparseArray2.allIndexes.count );
+	
+}
+- (void) test_DSMutableSparseArray_setEntriesFromSparseArray {
+	NSLog( @"==== Entering %s", __func__ );
+	DSSparseArray *sparseArray1;
+	DSMutableSparseArray *sparseArray2;
+	
+	sparseArray1 = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 23, @"two", 54, @"three", 93, nil];
+	XCTAssertNotNil( sparseArray1, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray1.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray1.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray1.count );
+	XCTAssertTrue( sparseArray1.allIndexes.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray1.allIndexes.count );
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 15, @"twelve", 983, nil];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 2, @"A sparse array with two objects should have a count of 3 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 2, @"A sparse array with two objects should have a count of 3 not %lu", sparseArray2.allIndexes.count );
+
+	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 3 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 5, @"A sparse array with five objects should have a count of 3 not %lu", sparseArray2.allIndexes.count );
+	
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 45, @"twelve", 983, nil];
+	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.allIndexes.count );
+	
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 15, @"twelve", 48, nil];
+	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.allIndexes.count );
+	
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 23, @"twelve", 48, nil];
+	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray2.allIndexes.count );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 23] isEqualToString: @"one"], @"The 'eight' should have been replaced by 'one' not '%@'", [sparseArray2 objectAtIndex: 23] );
+	
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 23, @"twelve", 93, nil];
+	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray2.allIndexes.count );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 23] isEqualToString: @"one"], @"The 'eight' should have been replaced by 'one' not '%@'", [sparseArray2 objectAtIndex: 23] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 93] isEqualToString: @"three"], @"The 'twelve' should have been replaced by 'three' not '%@'", [sparseArray2 objectAtIndex: 93] );
+	
+	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 23, @"twelve", 93, nil];
+	[sparseArray2 setEntriesFromSparseArray: nil];
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray2.count );
+	XCTAssertTrue( sparseArray2.allIndexes.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray2.allIndexes.count );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 23] isEqualToString: @"eight"], @"The 'eight' should not have been replaced, shoult not be '%@'", [sparseArray2 objectAtIndex: 23] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 93] isEqualToString: @"twelve"], @"The 'twelve' should have been replaced, should not be '%@'", [sparseArray2 objectAtIndex: 93] );
+
+	//XCTFail( @"Testing of setEntriesFromSparseArray needs to be completed" );
 }
 - (void) test_DSMutableSparseArray_insertObjectAtIndex {
 	NSLog( @"==== Entering %s", __func__ );
@@ -960,6 +1119,58 @@
 	XCTAssertTrue( [[sparseArray objectAtIndex: 306] isEqualToString: @"four"], @"Should be four" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 307] isEqualToString: @"five"], @"Should be five" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 308] isEqualToString: @"six"], @"Should be six" );
+	
+	// Need to test exception throwing / not-throwing if an insert is done that pushes an entry beyond the end of the array
+	indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 6, 6 )];
+	DSSparseArray *testSparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
+	sparseArray = [testSparseArray mutableCopy];
+	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 6] isEqualToString: @"one"], @"Should be one" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 5] isEqualToString: @"two"], @"Should be two" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 4] isEqualToString: @"three"], @"Should be three" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 3] isEqualToString: @"four"], @"Should be four" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 2] isEqualToString: @"five"], @"Should be five" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 1] isEqualToString: @"six"], @"Should be six" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"No throw, no warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"No throw, but warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
+	XCTAssertThrowsSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
+	XCTAssertThrowsSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	
+	// Need to test exception throwing / not-throwing if an insert is done that pushes an entry beyond the end of the array
+	indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 8, 6 )];
+	testSparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
+	sparseArray = [testSparseArray mutableCopy];
+	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 8] isEqualToString: @"one"], @"Should be one" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 7] isEqualToString: @"two"], @"Should be two" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 6] isEqualToString: @"three"], @"Should be three" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 5] isEqualToString: @"four"], @"Should be four" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 4] isEqualToString: @"five"], @"Should be five" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 3] isEqualToString: @"six"], @"Should be six" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"No throw, no warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"No throw, but warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObject: nil atIndex: 0], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+
+	//XCTFail( @"Add additional testing here" );
 }
 
 - (void) test_DSMutableSparseArray_insertObjectsAtIndexes {
@@ -971,6 +1182,7 @@
 	sparseArray = [DSMutableSparseArray sparseArray];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
 	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", sparseArray.count );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	
 	[sparseArray insertObjects: objects atIndexes: indexes];
 	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
@@ -1007,6 +1219,7 @@
 	
 	sparseArray = [DSMutableSparseArray sparseArrayWithArray: array];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 4, @"The index set should have a count of 4 not %lu", [sparseArray.allIndexes count] );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 0] isEqualToString: @"one"], @"Should be one" );
@@ -1015,6 +1228,7 @@
 	XCTAssertTrue( [[sparseArray objectAtIndex: 3] isEqualToString: @"four"], @"Should be four" );
 	[sparseArray insertObjects: newAdditions atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 4 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 0] isEqualToString: @"one"], @"Should be one" );
@@ -1025,33 +1239,115 @@
 	XCTAssertTrue( [[sparseArray objectAtIndex: 5] isEqualToString: @"four"], @"Should be four" );
 
 	// The example from my documentation -- make sure it works!!
-	DSMutableSparseArray *array2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"two", 1, @"three", 2, @"four", 3, @"ten", 9, nil];
+	DSMutableSparseArray *sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"two", 1, @"three", 2, @"four", 3, @"ten", 9, nil];
 	NSArray *newAdditions2 = [NSArray arrayWithObjects: @"a", @"b", @"j", nil];
 	NSMutableIndexSet *indexes2 = [NSMutableIndexSet indexSetWithIndex: 1];
 	[indexes2 addIndex: 3];
 	[indexes2 addIndex: 11];
-	[array2 insertObjects: newAdditions2 atIndexes: indexes2];
-	NSLog(@"sparse array: %@", array2);
+	[sparseArray2 insertObjects: newAdditions2 atIndexes: indexes2];
+	NSLog(@"sparse array: %@", sparseArray2);
 	// Output: array: ( 0: one, 1: a, 2: two, 3: b, 4: three, 5: four, 11: j, 12: ten )
-	XCTAssertNotNil( array2, @"An allocated sparse array should not be nil" );
-	XCTAssertTrue( array2.count == 8, @"A sparse array with six objects should have a count of 4 not %lu", array2.count );
-	XCTAssertTrue( [array2.allIndexes count] == 8, @"The index set should have a count of 6 not %lu", [array2.allIndexes count] );
-	XCTAssertTrue( [[array2 objectAtIndex: 0] isEqualToString: @"one"], @"Should be one not %@", [array2 objectAtIndex: 0] );
-	XCTAssertTrue( [[array2 objectAtIndex: 1] isEqualToString: @"a"], @"Should be a not %@", [array2 objectAtIndex: 1] );
-	XCTAssertTrue( [[array2 objectAtIndex: 2] isEqualToString: @"two"], @"Should be two not %@", [array2 objectAtIndex: 2] );
-	XCTAssertTrue( [[array2 objectAtIndex: 3] isEqualToString: @"b"], @"Should be b not %@", [array2 objectAtIndex: 3] );
-	XCTAssertTrue( [[array2 objectAtIndex: 4] isEqualToString: @"three"], @"Should be three not %@", [array2 objectAtIndex: 4] );
-	XCTAssertTrue( [[array2 objectAtIndex: 5] isEqualToString: @"four"], @"Should be four not %@", [array2 objectAtIndex: 5] );
-	XCTAssertTrue( [[array2 objectAtIndex: 11] isEqualToString: @"j"], @"Should be j not %@", [array2 objectAtIndex: 11] );
-	XCTAssertTrue( [[array2 objectAtIndex: 12] isEqualToString: @"ten"], @"Should be ten not %@", [array2 objectAtIndex: 12] );
+	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray2.count == 8, @"A sparse array with six objects should have a count of 4 not %lu", sparseArray2.count );
+	XCTAssertTrue( [sparseArray2.allIndexes count] == 8, @"The index set should have a count of 6 not %lu", [sparseArray2.allIndexes count] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 0] isEqualToString: @"one"], @"Should be one not %@", [sparseArray2 objectAtIndex: 0] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 1] isEqualToString: @"a"], @"Should be a not %@", [sparseArray2 objectAtIndex: 1] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 2] isEqualToString: @"two"], @"Should be two not %@", [sparseArray2 objectAtIndex: 2] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 3] isEqualToString: @"b"], @"Should be b not %@", [sparseArray2 objectAtIndex: 3] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 4] isEqualToString: @"three"], @"Should be three not %@", [sparseArray2 objectAtIndex: 4] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 5] isEqualToString: @"four"], @"Should be four not %@", [sparseArray2 objectAtIndex: 5] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 11] isEqualToString: @"j"], @"Should be j not %@", [sparseArray2 objectAtIndex: 11] );
+	XCTAssertTrue( [[sparseArray2 objectAtIndex: 12] isEqualToString: @"ten"], @"Should be ten not %@", [sparseArray2 objectAtIndex: 12] );
 
 	// Check the null or empty argument cases...
-	[array2 insertObjects: @[] atIndexes: [NSIndexSet indexSet]];
-	[array2 insertObjects: nil atIndexes: [NSIndexSet indexSet]];
-	[array2 insertObjects: @[] atIndexes: nil];
+	[sparseArray2 insertObjects: @[] atIndexes: [NSIndexSet indexSet]];
+	[sparseArray2 insertObjects: nil atIndexes: [NSIndexSet indexSet]];
+	[sparseArray2 insertObjects: @[] atIndexes: nil];
 	
 	// Need to test exception throwing / not-throwing if an insert is done that pushes an entry beyond the end of the array
-	XCTFail( @"Add additional testing here" );
+	newAdditions2 = [NSArray arrayWithObjects: @"a", @"b", nil];
+	indexes2 = [NSMutableIndexSet indexSetWithIndex: 12];
+	[indexes2 addIndex: 597];
+	indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 6, 6 )];
+	DSSparseArray *testSparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
+	sparseArray = [testSparseArray mutableCopy];
+	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 6] isEqualToString: @"one"], @"Should be one" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 5] isEqualToString: @"two"], @"Should be two" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 4] isEqualToString: @"three"], @"Should be three" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 3] isEqualToString: @"four"], @"Should be four" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 2] isEqualToString: @"five"], @"Should be five" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 1] isEqualToString: @"six"], @"Should be six" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"No throw, no warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"No throw, but warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
+	XCTAssertThrowsSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
+	XCTAssertThrowsSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	
+	// Need to test exception throwing / not-throwing if an insert is done that pushes an entry beyond the end of the array
+	indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 8, 6 )];
+	testSparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
+	sparseArray = [testSparseArray mutableCopy];
+	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 8] isEqualToString: @"one"], @"Should be one" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 7] isEqualToString: @"two"], @"Should be two" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 6] isEqualToString: @"three"], @"Should be three" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 5] isEqualToString: @"four"], @"Should be four" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 4] isEqualToString: @"five"], @"Should be five" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 3] isEqualToString: @"six"], @"Should be six" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"No throw, no warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"No throw, but warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"Exception should not be thrown since a non-empty cell is only being pushed to the end" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"Exception should not be thrown since a non-empty cell is only being pushed to the end" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	
+	// Need to test exception throwing / not-throwing if an insert is done that pushes an entry beyond the end of the array
+	indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 8, 6 )];
+	testSparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
+	sparseArray = [testSparseArray mutableCopy];
+	XCTAssertTrue( sparseArray.count == 6, @"A sparse array with six objects should have a count of 6 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 6, @"The index set should have a count of 6 not %lu", [sparseArray.allIndexes count] );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 8] isEqualToString: @"one"], @"Should be one" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 7] isEqualToString: @"two"], @"Should be two" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 6] isEqualToString: @"three"], @"Should be three" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 5] isEqualToString: @"four"], @"Should be four" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 4] isEqualToString: @"five"], @"Should be five" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: NSNotFound - 3] isEqualToString: @"six"], @"Should be six" );
+	newAdditions2 = [NSArray arrayWithObjects: @"a", @"b", @"c", nil];
+	indexes2 = [NSMutableIndexSet indexSetWithIndex: 12];
+	[indexes2 addIndex: 597];
+	[indexes2 addIndex: 1492];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"No throw, no warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	XCTAssertNoThrowSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"No throw, but warn - no exception" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
+	XCTAssertThrowsSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	sparseArray = [testSparseArray mutableCopy];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
+	XCTAssertThrowsSpecificNamed( [sparseArray insertObjects: newAdditions2 atIndexes: indexes2], NSException, NSRangeException, @"Exception should be thrown since a non-empty cell is being pushed off the end" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+
+	//XCTFail( @"Add additional testing here" );
 }
 - (void) test_DSMutableSparseArray_removeObjectAtIndex {
 	NSLog( @"==== Entering %s", __func__ );
@@ -1079,6 +1375,41 @@
 	XCTAssertNil( [sparseArray objectAtIndex: 13], @"Entry 3 was removed, this should have been shifted from 13 to 12" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 51], @"Enty 52 should be at 51" );
 	XCTAssertNil( [sparseArray objectAtIndex: 52], @"Entry 12 was removed, this should have been shifted from 52 to 51" );
+
+	// What should these do... probably nothing?
+//	NSMutableIndexSet *testIndexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 3,  3)];
+//	NSLog( @"---------------------------------------------------------" );
+//	NSLog( @"testIndexes: %@", testIndexes );
+//	[testIndexes removeIndex: NSNotFound - 2];
+//	NSLog( @"testIndexes: %@", testIndexes );
+//	NSLog( @"---------------------------------------------------------" );
+//	[testIndexes removeIndex: NSNotFound + 5];
+//	NSLog( @"testIndexes: %@", testIndexes );
+//	NSLog( @"---------------------------------------------------------" );
+	[sparseArray removeObjectAtIndex: NSNotFound + 5];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound - 1];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+
+
+	sparseArray = [DSMutableSparseArray sparseArrayWithObjectsAndNSUIntegerIndexes: @"one", NSNotFound - 3, @"two", NSNotFound - 2, @"three", NSNotFound - 1, nil];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound + 5];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound - 1];
+	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 2, @"The index set should have a count of 2 not %lu", [sparseArray.allIndexes count] );
+
 }
 - (void) test_DSMutableSparseArray_removeObject {
 	NSLog( @"==== Entering %s", __func__ );
@@ -1349,10 +1680,12 @@
 	
 	sparseArray = [DSMutableSparseArray sparseArray];
 	XCTAssertNotNil( sparseArray, @"Allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 0, @"The index set should have a count of 0 not %lu", [sparseArray.allIndexes count] );
 	[sparseArray removeLastObject];
 	XCTAssertNotNil( sparseArray, @"Allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 0, @"The index set should have a count of 0 not %lu", [sparseArray.allIndexes count] );
 	
@@ -1368,11 +1701,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 0 (doest nothing)
 	[sparseArray shiftObjectsStartingAtIndex: 301 by: 0];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 300, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 304, @"The last index should be 304 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1387,11 +1722,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (inserting)
 	[sparseArray shiftObjectsStartingAtIndex: 0 by: 1];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 301, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 305, @"The last index should be 305 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1406,11 +1743,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (inserting) in middle
 	[sparseArray shiftObjectsStartingAtIndex: 303 by: 1];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 300, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 305, @"The last index should be 305 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1426,11 +1765,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (inserting) after (does nothing)
 	[sparseArray shiftObjectsStartingAtIndex: 308 by: 1];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 300, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 304, @"The last index should be 304 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1445,11 +1786,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (deleting)
 	[sparseArray shiftObjectsStartingAtIndex: 50 by: -1];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 299, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 303, @"The last index should be 305 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1464,11 +1807,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (deleting) in middle
 	[sparseArray shiftObjectsStartingAtIndex: 303 by: -1];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 300, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 303, @"The last index should be 305 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1483,11 +1828,13 @@
 	// Allocation a fresh test array
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (deleting) after (does nothing)
 	[sparseArray shiftObjectsStartingAtIndex: 308 by: -1];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 300, @"The first index should be 301 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 304, @"The last index should be 304 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1509,6 +1856,7 @@
 	[indexes addIndex: 198];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try shifting down by 130 (deleting)
 	[sparseArray shiftObjectsStartingAtIndex: 0 by: -130];
@@ -1524,22 +1872,28 @@
 	// Need to test with empty sparse array
 	sparseArray = [DSMutableSparseArray sparseArray];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"The sparse array should have a count of 0 not %lu", sparseArray.count );
 	// Try shifting it around
 	[sparseArray shiftObjectsStartingAtIndex: 23 by: 12];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"The sparse array should have a count of 0 not %lu", sparseArray.count );
 	[sparseArray shiftObjectsStartingAtIndex: 0 by: 12];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"The sparse array should have a count of 0 not %lu", sparseArray.count );
 	[sparseArray shiftObjectsStartingAtIndex: 1000 by: -132];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"The sparse array should have a count of 0 not %lu", sparseArray.count );
 	[sparseArray shiftObjectsStartingAtIndex: 12 by: -23];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"The sparse array should have a count of 0 not %lu", sparseArray.count );
 	[sparseArray shiftObjectsStartingAtIndex: (NSNotFound - 10) by: 30];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"The sparse array should have a count of 0 not %lu", sparseArray.count );
 	
 	// Allocation a fresh test array with adjusted indexes
@@ -1551,11 +1905,13 @@
 	[indexes addIndex: 198];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting down by 100 (deleting)
 	[sparseArray shiftObjectsStartingAtIndex: 199 by: -100];
 	XCTAssertNotNil( sparseArray, @"The shifted sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 2, @"The shifted sparse array should have a count of 2 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 99, @"The first index should be 99 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 101, @"The last index should be 101 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1576,11 +1932,13 @@
 	[indexes addIndex: 201];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (deleting) after (does nothing)
 	[sparseArray shiftObjectsStartingAtIndex: 100 by: 100];
 	XCTAssertNotNil( sparseArray, @"The shifted sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The shifted sparse array should have a count of 5 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == 200, @"The first index should be 99 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == 301, @"The last index should be 101 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1602,11 +1960,13 @@
 	[indexes addIndex: idx + 51];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	
 	// Try shifting up by 1 (deleting) after (does nothing)
 	[sparseArray shiftObjectsStartingAtIndex: idx by: 50];
 	XCTAssertNotNil( sparseArray, @"The shifted sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 3, @"The shifted sparse array should have a count of 3 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes firstIndex] == idx + 50, @"The first index should be 99 not %lu", [sparseArray.allIndexes firstIndex] );
 	XCTAssertTrue( [sparseArray.allIndexes lastIndex] == idx + 49 + 50, @"The last index should be 101 not %lu", [sparseArray.allIndexes lastIndex] );
@@ -1628,36 +1988,42 @@
 	[indexes addIndex: 198];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try shifting down by 130 (deleting)
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: 10 by: -10], NSException, @"This should have tried to move objects below zero" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 1];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: 10 by: -10], NSException, @"This should have tried to move objects below zero" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 2];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: 10 by: -10], NSException, @"This should have tried to move objects below zero" );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 0];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try shifting down by 130 (deleting)
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: 0 by: -130], NSException, @"This should have tried to move objects below zero" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 1];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: 0 by: -130], NSException, @"This should have tried to move objects below zero" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 2];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: 0 by: -130], NSException, @"This should have tried to move objects below zero" );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 0];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	
 	// Need to test borderline cases (when the resulting indexes will be out of range)
 	// Allocation a fresh test array with adjusted indexes
@@ -1669,20 +2035,23 @@
 	[indexes addIndex: 198];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try shifting down by 130 (deleting)
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: 0 by: -30], NSException, @"This should have tried to shift the move start point below zero" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 1];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: 0 by: -30], NSException, @"This should have tried to shift the move start point below zero" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 2];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: 0 by: -30], NSException, @"This should have tried to shift the move start point below zero" );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 0];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	
 	// Allocation a fresh test array with adjusted indexes
 	indexes = [NSMutableIndexSet indexSet];
@@ -1694,36 +2063,42 @@
 	[indexes addIndex: idx + 51];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try a shift that exceeds index range
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: idx by: 5], NSException, @"This should have tried to move objects beyond the end of the possible array size" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 1]; // Throw if non-empty go out of range
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty]; // Throw if non-empty go out of range
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: idx by: 5], NSException, @"This should have tried to move objects beyond the end of the possible array size" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 2]; // Throw if any go out of range
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny]; // Throw if any go out of range
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: idx by: 5], NSException, @"This should have tried to move objects beyond the end of the possible array size" );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 0];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try a shift that exceeds index range
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: idx by: 50], NSException, @"This should have tried to move objects beyond the end of the possible array size" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 1]; // Throw if non-empty go out of range
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty]; // Throw if non-empty go out of range
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: idx by: 50], NSException, @"This should have tried to move objects beyond the end of the possible array size" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 2]; // Throw if any go out of range
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny]; // Throw if any go out of range
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: idx by: 50], NSException, @"This should have tried to move objects beyond the end of the possible array size" );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 0];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	
 	// Allocation a fresh test array with adjusted indexes
 	indexes = [NSMutableIndexSet indexSet];
@@ -1735,20 +2110,23 @@
 	[indexes addIndex: idx + 51];
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
 	// Try shifting up by 50 (inserting blanks) after everything but going beyond NSNotFount - 1
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: (NSNotFound - 30) by: 50], NSException, @"This should have tried to move the start point beyond the end of the possible array size" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 1];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
 	XCTAssertNoThrowSpecific( [sparseArray shiftObjectsStartingAtIndex: (NSNotFound - 30) by: 50], NSException, @"This should have tried to move the start point beyond the end of the possible array size" );
 	sparseArray = [DSMutableSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
 	XCTAssertNotNil( sparseArray, @"The allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 5, @"The sparse array should have a count of 5 not %lu", sparseArray.count );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 2];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: (NSNotFound - 30) by: 50], NSException, @"This should have tried to move the start point beyond the end of the possible array size" );
-	[DSSparseArray setThrowExceptionOnOutOfRangeIndex: 0];
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 
 	//XCTFail( @"Just something to fail" );
 }
