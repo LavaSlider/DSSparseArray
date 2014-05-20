@@ -222,7 +222,21 @@ Available in OS X v10.0 and later.
 #### Declared In
 DSSparseArray.h
 
+
+### allIndexesForObject:
+Returns the indexes of objects in the sparse array that are equal to a given object.
 - (NSIndexSet *) allIndexesForObject: (id) anObject
+#### Return value
+The indexes whose corresponding values in the sparse array are equal to *anObject*. If no objects in the sparse array are equal, returns an empty index set. If *anObject* is *nil* the indexes of the empty entries in the sparse array are returned.
+#### Discussion
+Starting at the lowest index, each element of the sparse array is sent an isEqual: message and if equal its index is added to the index set that will be returned. This method passes the *anObject* parameter to each isEqual: message. Objects are considered equal if isEqual: (declared in the NSObject protocol) returns YES.
+#### Availability
+Available in OS X v10.0 and later.
+#### See Also
+#### Declared In
+DSSparseArray.h
+
+
 - (NSArray *) allValues; // Should this be 'allObjects'?
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;

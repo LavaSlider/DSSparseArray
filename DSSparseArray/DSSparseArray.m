@@ -119,16 +119,17 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 #endif
 	return __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 }
-#pragma mark - NSMutableCopy protocol methods
-//// - copy
+
+#pragma mark - NSMutableCopying protocol methods
 - (id) mutableCopyWithZone: (NSZone *) zone {
 	return [DSMutableSparseArray sparseArrayWithSparseArray: self];
 }
-#pragma mark - NSCopy protocol methods
+
+#pragma mark - NSCopying protocol methods
 - (id) copyWithZone: (NSZone *) zone {
 	return [DSSparseArray sparseArrayWithSparseArray: self];
 }
-//// - copy
+
 @end
 
 #pragma mark - Extensions to DSSparseArray methods
@@ -137,37 +138,33 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return [self.indexes copy];
 }
 - (NSIndexSet *) allIndexesForObject: (id) anObject {
-#if 1
-	NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-	if( self.count > 0 ) {
-		NSUInteger idx = [self.indexes firstIndex];
-		while( idx != NSNotFound ) {
-			if( [anObject isEqual: [self objectAtIndex: idx]] ) {
+	NSMutableIndexSet *indexes;
+	if( !anObject ) {
+		// This has hard coded the maximum index for an index set so will be broken if Apple changes this
+		indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, NSNotFound )];
+		NSLog( @"NSNotFound - 1 is %lu, all indexes is %@", NSNotFound - 1, indexes );
+		[indexes removeIndexes: self.indexes];
+		NSLog( @"The blank entry indexes are %@", indexes );
+	} else {
+		indexes = [NSMutableIndexSet indexSet];
+#if NS_BLOCKS_AVAILABLE
+		[self enumerateIndexesAndObjectsUsingBlock: ^( id obj, NSUInteger idx, BOOL *stop ) {
+			if( [anObject isEqual: obj] ) {
 				[indexes addIndex: idx];
 			}
-			idx = [self.indexes indexGreaterThanIndex: idx];
+		}];
+#else
+		if( self.count > 0 ) {
+			NSUInteger idx = [self.indexes firstIndex];
+			while( idx != NSNotFound ) {
+				if( [anObject isEqual: [self objectAtIndex: idx]] ) {
+					[indexes addIndex: idx];
+				}
+				idx = [self.indexes indexGreaterThanIndex: idx];
+			}
 		}
-	}
-#else
-	//NSLog( @"***** Entering %s", __func__ );
-	//NSLog( @"- The dictionary is: %@", self.dictionary );
-	NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
-	//NSLog( @"- Allocated an index set" );
-	NSArray *keys = [self.dictionary allKeysForObject: anObject];
-	//NSLog( @"- Got %lu keys from the dictionary for the object", keys.count );
-	// --- What if no blocks...
-#if NS_BLOCKS_AVAILABLE
-	[keys enumerateObjectsUsingBlock: ^( NSNumber *key, NSUInteger idx, BOOL *stop ) {
-		//NSLog( @"- Adding index %@ to index set", key );
-		[indexes addIndex: [key unsignedIntegerValue]];
-	}];
-#else
-	for( NSNumber *key in keys ) {
-		//NSLog( @"- Adding index %@ to index set", key );
-		[indexes addIndex: [key unsignedIntegerValue]];
-	}
 #endif
-#endif
+	}
 	return [indexes copy];
 }
 - (NSArray *) allValues {

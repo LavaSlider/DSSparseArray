@@ -138,41 +138,6 @@
 	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
 	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
 	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
-	
-	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello sparse array", 3, @"goodbye sparse array", 5, nil];
-	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
-	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
-	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with one object should have a count of 1" );
-	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
-	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
-	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
-	XCTAssertNotNil( [sparseArray objectAtIndex: 5], @"This is the right index - it should return the string" );
-	indexes = sparseArray.allIndexes;
-	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
-	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
-	XCTAssertTrue( indexes.count == 2, @"There should be two indexes for a sparse array with two entries" );
-	XCTAssertTrue( [indexes firstIndex] == 3, @"The first index should be 3" );
-	XCTAssertTrue( [indexes lastIndex] == 5, @"The last index should be five" );
-	indexes = [sparseArray allIndexesForObject: @"hello sparse array"];
-	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
-	XCTAssertTrue( indexes.count == 1, @"There should be one index for a sparse array with one copy of the string" );
-	XCTAssertTrue( [indexes firstIndex] == 3, @"The first index should be 3" );
-	XCTAssertTrue( [indexes lastIndex] == 3, @"The last index should also be 3" );
-	indexes = [sparseArray allIndexesForObject: @"not in array"];
-	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
-	XCTAssertTrue( indexes.count == 0, @"There should be nothing in the index set since it did not match" );
-	XCTAssertTrue( [indexes firstIndex] == NSNotFound, @"The first index should be NSNotFound" );
-	XCTAssertTrue( [indexes lastIndex] == NSNotFound, @"The last index should also be NSNotFound" );
-	indexes = [sparseArray allIndexesForObject: @"goodbye sparse array"];
-	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
-	XCTAssertTrue( indexes.count == 1, @"There should be one index for a sparse array with one copy of the string" );
-	XCTAssertTrue( [indexes firstIndex] == 5, @"The first index should be 5" );
-	XCTAssertTrue( [indexes lastIndex] == 5, @"The last index should also be 5" );
-	indexes = [sparseArray allIndexesForObject: nil];
-	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
-	XCTAssertTrue( indexes.count == 0, @"There should be nothing in the index set since it did not match" );
-	XCTAssertTrue( [indexes firstIndex] == NSNotFound, @"The first index should be NSNotFound" );
-	XCTAssertTrue( [indexes lastIndex] == NSNotFound, @"The last index should also be NSNotFound" );
 
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes:
 		         @"hello sparse array", 3,
@@ -327,20 +292,76 @@
 }
 - (void) test_DSSparseArray_allIndexesForObject {
 	DSSparseArray *sparseArray;
+	NSIndexSet *indexes;
 
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
 	NSIndexSet *indexesForOne = [sparseArray allIndexesForObject: @"one"];
-	XCTAssertTrue( indexesForOne.count, @"There should be two entries for object 'one' not %lu", (unsigned long) indexesForOne.count );
+	XCTAssertTrue( indexesForOne.count == 2, @"There should be two entries for object 'one' not %lu", (unsigned long) indexesForOne.count );
 	NSIndexSet *indexesForTwo = [sparseArray allIndexesForObject: @"two"];
-	XCTAssertTrue( indexesForTwo.count, @"There should be two entries for object 'two' not %lu", (unsigned long) indexesForTwo.count );
+	XCTAssertTrue( indexesForTwo.count == 2, @"There should be two entries for object 'two' not %lu", (unsigned long) indexesForTwo.count );
 	NSIndexSet *indexesForNoMatch = [sparseArray allIndexesForObject: @"three"];
 	XCTAssertTrue( indexesForNoMatch.count == 0, @"There should be no entries for object 'three' not %lu", (unsigned long) indexesForNoMatch.count );
 	XCTAssertNotNil( indexesForNoMatch, @"The index set should not be nil, just empty" );
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello sparse array", 3, @"goodbye sparse array", 5, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2" );
+	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
+	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 5], @"This is the right index - it should return the string" );
+	indexes = sparseArray.allIndexes;
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == 2, @"There should be two indexes for a sparse array with two entries" );
+	XCTAssertTrue( [indexes firstIndex] == 3, @"The first index should be 3" );
+	XCTAssertTrue( [indexes lastIndex] == 5, @"The last index should be five" );
+	indexes = [sparseArray allIndexesForObject: @"hello sparse array"];
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == 1, @"There should be one index for a sparse array with one copy of the string" );
+	XCTAssertTrue( [indexes firstIndex] == 3, @"The first index should be 3" );
+	XCTAssertTrue( [indexes lastIndex] == 3, @"The last index should also be 3" );
+	indexes = [sparseArray allIndexesForObject: @"not in array"];
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == 0, @"There should be nothing in the index set since it did not match" );
+	XCTAssertTrue( [indexes firstIndex] == NSNotFound, @"The first index should be NSNotFound" );
+	XCTAssertTrue( [indexes lastIndex] == NSNotFound, @"The last index should also be NSNotFound" );
+	indexes = [sparseArray allIndexesForObject: @"goodbye sparse array"];
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == 1, @"There should be one index for a sparse array with one copy of the string" );
+	XCTAssertTrue( [indexes firstIndex] == 5, @"The first index should be 5" );
+	XCTAssertTrue( [indexes lastIndex] == 5, @"The last index should also be 5" );
+	indexes = [sparseArray allIndexesForObject: nil];
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == NSNotFound - 2, @"There are two entries in the array so the rest should be nil, this is %lu not %lu", (unsigned long) NSNotFound - 2, (unsigned long) indexes.count );
+	XCTAssertTrue( [indexes firstIndex] == 0, @"The first index should be 0 not %lu", (unsigned long) [indexes lastIndex] );
+	XCTAssertTrue( [indexes lastIndex] == NSNotFound - 1, @"The last index should also be NSNotFound - 1 (%lu) not %lu", (unsigned long) NSNotFound - 1, (unsigned long) [indexes lastIndex] );
 
 	// Put test if when the sparse array is empty
+	sparseArray = [DSSparseArray sparseArray];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with zero objects should have a count of 0" );
+	XCTAssertNil( [sparseArray objectAtIndex: 0], @"Requesting the wrong index should return nil" );
+	XCTAssertNil( [sparseArray objectAtIndex: 300], @"Requesting the wrong index should return nil" );
+	indexes = sparseArray.allIndexes;
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == 0, @"There should be no indexes for a sparse array with no entries" );
+	XCTAssertTrue( [indexes firstIndex] == NSNotFound, @"The first index should be NSNotFound" );
+	XCTAssertTrue( [indexes lastIndex] == NSNotFound, @"The last index should also be NSNotFound" );
+	indexes = [sparseArray allIndexesForObject: @"hello sparse array"];
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == 0, @"There should be no indexes for a sparse array with no entries" );
+	XCTAssertTrue( [indexes firstIndex] == NSNotFound, @"The first index should be NSNotFound" );
+	XCTAssertTrue( [indexes lastIndex] == NSNotFound, @"The last index should also be NSNotFound" );
+	indexes = [sparseArray allIndexesForObject: nil];
+	XCTAssertNotNil( indexes, @"The indexes should not be nil" );
+	XCTAssertTrue( indexes.count == NSNotFound, @"There are no entries in the array so the rest should be nil, this is %lu not %lu", (unsigned long) NSNotFound, (unsigned long) indexes.count );
+	XCTAssertTrue( [indexes firstIndex] == 0, @"The first index should be 0 not %lu", (unsigned long) [indexes lastIndex] );
+	XCTAssertTrue( [indexes lastIndex] == NSNotFound - 1, @"The last index should also be NSNotFound - 1 (%lu) not %lu", (unsigned long) NSNotFound - 1, (unsigned long) [indexes lastIndex] );
 	
 	//XCTFail( @"Testing of allIndexesForObject needs to be completed" );
 }
