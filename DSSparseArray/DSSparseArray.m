@@ -7,42 +7,6 @@
 //
 
 #import "DSSparseArray.h"
-@class DSSparseArray;
-
-#pragma mark - The Sparse Array Enumerator Implementation
-@interface DSSparseArrayEnumerator : NSEnumerator
-@property (nonatomic, strong) DSSparseArray *theSparseArray;
-@property (nonatomic, assign) NSUInteger currentIndex;
-@end
-
-@implementation DSSparseArrayEnumerator
-+ (instancetype) enumeratorForSparseArray: (DSSparseArray *) sparseArray {
-	DSSparseArrayEnumerator *enumerator = [[[self class] alloc] init];
-	enumerator.theSparseArray = sparseArray;
-	enumerator.currentIndex = [[sparseArray allIndexes] firstIndex];
-	return enumerator;
-}
-- (id) nextObject {
-	id obj = nil;
-	if( self.currentIndex != NSNotFound ) {
-		obj = [self.theSparseArray objectAtIndex: self.currentIndex];
-		self.currentIndex = [[self.theSparseArray allIndexes] indexGreaterThanIndex: self.currentIndex];
-	}
-	return obj;
-}
-- (NSArray *) allObjects {
-	if( self.currentIndex != NSNotFound ) {
-		NSMutableArray *all = [NSMutableArray arrayWithCapacity: [self.theSparseArray count]];
-		id obj;
-		while( (obj = [self nextObject]) != nil ) {
-			[all addObject: obj];
-		}
-		// Return the rest of the objects
-		return [all copy];
-	}
-	return nil;
-}
-@end
 
 #pragma mark - Class extensions for private storage
 static DSSparseArrayExceptionThrowMode __throwException = IndexOutOfRangeNoThrowNoWarn;
@@ -127,8 +91,11 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (NSUInteger) indexOfObjectIdenticalTo: (id) anObject {
 	return [self _indexOfObject: anObject identicle: YES];
 }
-- (NSEnumerator *) objectEnumerator {
-	return [DSSparseArrayEnumerator enumeratorForSparseArray: self];
+- (DSSparseArrayEnumerator *) objectEnumerator {
+	return [DSSparseArrayEnumerator enumeratorForSparseArray: self withOptions: 0];
+}
+- (DSSparseArrayEnumerator *) reverseObjectEnumerator {
+	return [DSSparseArrayEnumerator enumeratorForSparseArray: self withOptions: NSEnumerationReverse];
 }
 - (BOOL) _NSIndexSet_enumerateIndexesUsingBlock_isBroken {
 #if NS_BLOCKS_AVAILABLE

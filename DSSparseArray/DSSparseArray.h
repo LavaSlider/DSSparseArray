@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DSSparseArrayEnumerator.h"
 
 // Values used to control when exceptions are generated
 typedef enum : unsigned int {
@@ -24,8 +25,9 @@ typedef enum : unsigned int {
 - (id) objectAtIndex: (NSUInteger) index;
 - (NSUInteger) indexOfObject: (id) anObject;
 - (NSUInteger) indexOfObjectIdenticalTo: (id) anObject;
-- (NSEnumerator *) objectEnumerator;
-//- (NSEnumerator *) indexEnumerator;
+- (DSSparseArrayEnumerator *) objectEnumerator;
+- (DSSparseArrayEnumerator *) reverseObjectEnumerator;
+
 + (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode;
 
 @end

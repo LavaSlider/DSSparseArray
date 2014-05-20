@@ -397,6 +397,19 @@
 	XCTAssertTrue( indexes[3] == 1029, @"The first index should be 1029 not %lu", (unsigned long) indexes[3] );
 
 	// Put test if when the sparse array is empty
+	sparseArray = [DSSparseArray sparseArray];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 0, @"The sparse array count should be 0 not %lu", (unsigned long) sparseArray.count );
+	for( int i = 0; i < count; ++i ) {
+		objects[i] = nil;
+		indexes[i] = NSNotFound;
+	}
+	[sparseArray getObjects: objects andIndexes: indexes];
+	for( int i = 0; i < count; ++i ) {
+		XCTAssertNil( objects[i], @"Empty sparse array object %d should be nil not %@", i, objects[i] );
+		XCTAssertTrue( indexes[i] == NSNotFound, @"%d should be NSNptFound", i );
+	}
 	
 //	XCTFail( @"Testing of getObjectsAndIndexes needs to be completed" );
 }
@@ -560,7 +573,7 @@
 	NSMutableIndexSet *mutableIndexes;
 	NSArray *objects;
 	id obj;
-
+	
 	objects = [NSArray arrayWithObjects: @"one", @"two", @"three", @"four", @"five", nil];
 	mutableIndexes = [NSMutableIndexSet indexSet];
 	[mutableIndexes addIndex: 3];
@@ -587,38 +600,182 @@
 	XCTAssertNotNil( [sparseArray objectAtIndex: 19], @"This is the right index - it should return the string" );
 	XCTAssertTrue( [[sparseArray objectAtIndex: 19] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 19] class]) );
 	XCTAssertTrue( [@"five" isEqualToString: [sparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [sparseArray objectAtIndex: 19] );
-
+	
 	NSEnumerator *sae = [sparseArray objectEnumerator];
 	XCTAssertNotNil( sae, @"The object enumerator should not be nil" );
 	obj = sae.nextObject;
 	XCTAssertNotNil( obj, @"The object should not be nil" );
 	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
 	XCTAssertTrue( [@"one" isEqualToString: obj], @"The entry should be 'one' not '%@'", obj );
-
+	
 	obj = sae.nextObject;
 	XCTAssertNotNil( obj, @"The object should not be nil" );
 	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
 	XCTAssertTrue( [@"two" isEqualToString: obj], @"The entry should be 'two' not '%@'", obj );
-
+	
 	obj = sae.nextObject;
 	XCTAssertNotNil( obj, @"The object should not be nil" );
 	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
 	XCTAssertTrue( [@"three" isEqualToString: obj], @"The entry should be 'three' not '%@'", obj );
-
+	
 	obj = sae.nextObject;
 	XCTAssertNotNil( obj, @"The object should not be nil" );
 	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
 	XCTAssertTrue( [@"four" isEqualToString: obj], @"The entry should be 'four' not '%@'", obj );
-
+	
 	obj = sae.nextObject;
 	XCTAssertNotNil( obj, @"The object should not be nil" );
 	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
 	XCTAssertTrue( [@"five" isEqualToString: obj], @"The entry should be 'five' not '%@'", obj );
-
+	
 	obj = sae.nextObject;
 	XCTAssertNil( obj, @"We've reached the end" );
 	obj = sae.nextObject;
 	XCTAssertNil( obj, @"Still at the end" );
+	
+	// Test the code from the documentation...
+	{
+		DSSparseArray *mySparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello", 2, @"good", 4, @"looking", 6, nil];
+		NSEnumerator *enumerator = [mySparseArray objectEnumerator];
+		id anObject;
+		int count = 0;
+	
+		while( (anObject = [enumerator nextObject]) ) {
+			/* code to act on each element as it is returned */
+			XCTAssertTrue( [anObject isKindOfClass: [NSString class]], @"All the entries should be strings no %@", NSStringFromClass([anObject class]) );
+			XCTAssertTrue( (count == 0 && [anObject isEqual: @"hello"]) ||
+				       (count == 1 && [anObject isEqual: @"good"]) ||
+				       (count == 2 && [anObject isEqual: @"looking"]), @"The object should be 'hello', 'good', 'looking' for count %d not '%@'", count, anObject );
+			++count;
+		}
+		XCTAssertTrue( count == 3, @"There should be three entries in the sparse array not %d", count );
+	}
+	
+	// Test second code example from the documentation...
+	{
+		DSSparseArray *mySparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello", 2, @"good", 4, @"looking", 6, nil];
+		DSSparseArrayEnumerator *enumerator = [mySparseArray objectEnumerator];
+		NSUInteger idx;
+		id anObject;
+		int count = 0;
+
+		while( (idx = [enumerator indexOfNextObject]) != NSNotFound ) {
+			anObject = [enumerator nextObject];
+			//NSLog( @"%lu: %@", (unsigned long) idx, anObject );
+			XCTAssertTrue( [anObject isKindOfClass: [NSString class]], @"All the entries should be strings no %@", NSStringFromClass([anObject class]) );
+			XCTAssertTrue( (count == 0 && [anObject isEqual: @"hello"]) ||
+				       (count == 1 && [anObject isEqual: @"good"]) ||
+				       (count == 2 && [anObject isEqual: @"looking"]), @"The object should be 'hello', 'good', 'looking' for count %d not '%@'", count, anObject );
+			XCTAssertTrue( (count == 0 && idx == 2) || (count == 1 && idx == 4) || (count == 2 && idx == 6), @"The index should be 2, 4, or 6 not %lu", (unsigned long) idx );
+			++count;
+		}
+		XCTAssertTrue( count == 3, @"There should be three entries in the sparse array not %d", count );
+	}
+	
+}
+- (void) test_DSSparseArray_reverseObjectEnumerator {
+	DSSparseArray *sparseArray;
+	NSMutableIndexSet *mutableIndexes;
+	NSArray *objects;
+	id obj;
+	
+	objects = [NSArray arrayWithObjects: @"one", @"two", @"three", @"four", @"five", nil];
+	mutableIndexes = [NSMutableIndexSet indexSet];
+	[mutableIndexes addIndex: 3];
+	[mutableIndexes addIndex: 6];
+	[mutableIndexes addIndex: 9];
+	[mutableIndexes addIndex: 15];
+	[mutableIndexes addIndex: 19];
+	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 3], @"This is the right index - it should return the string" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 3] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 3] class]) );
+	XCTAssertTrue( [@"one" isEqualToString: [sparseArray objectAtIndex: 3]], @"The 3rd entry should be 'one' not '%@'", [sparseArray objectAtIndex: 3] );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 6], @"This is the right index - it should return the string" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 6] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 6] class]) );
+	XCTAssertTrue( [@"two" isEqualToString: [sparseArray objectAtIndex: 6]], @"The 6th entry should be 'two' not '%@'", [sparseArray objectAtIndex: 6] );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 9], @"This is the right index - it should return the string" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 9] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 9] class]) );
+	XCTAssertTrue( [@"three" isEqualToString: [sparseArray objectAtIndex: 9]], @"The 9th entry should be 'three' not '%@'", [sparseArray objectAtIndex: 9] );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 15], @"This is the right index - it should return the string" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 15] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 15] class]) );
+	XCTAssertTrue( [@"four" isEqualToString: [sparseArray objectAtIndex: 15]], @"The 15th entry should be 'four' not '%@'", [sparseArray objectAtIndex: 15] );
+	XCTAssertNotNil( [sparseArray objectAtIndex: 19], @"This is the right index - it should return the string" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 19] isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([[sparseArray objectAtIndex: 19] class]) );
+	XCTAssertTrue( [@"five" isEqualToString: [sparseArray objectAtIndex: 19]], @"The 19th entry should be 'five' not '%@'", [sparseArray objectAtIndex: 19] );
+	
+	NSEnumerator *sare = [sparseArray reverseObjectEnumerator];
+	XCTAssertNotNil( sare, @"The object enumerator should not be nil" );
+	obj = sare.nextObject;
+	XCTAssertNotNil( obj, @"The object should not be nil" );
+	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
+	XCTAssertTrue( [@"five" isEqualToString: obj], @"The entry should be 'five' not '%@'", obj );
+	
+	obj = sare.nextObject;
+	XCTAssertNotNil( obj, @"The object should not be nil" );
+	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
+	XCTAssertTrue( [@"four" isEqualToString: obj], @"The entry should be 'four' not '%@'", obj );
+	
+	obj = sare.nextObject;
+	XCTAssertNotNil( obj, @"The object should not be nil" );
+	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
+	XCTAssertTrue( [@"three" isEqualToString: obj], @"The entry should be 'three' not '%@'", obj );
+	
+	obj = sare.nextObject;
+	XCTAssertNotNil( obj, @"The object should not be nil" );
+	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
+	XCTAssertTrue( [@"two" isEqualToString: obj], @"The entry should be 'two' not '%@'", obj );
+	
+	obj = sare.nextObject;
+	XCTAssertNotNil( obj, @"The object should not be nil" );
+	XCTAssertTrue( [obj isKindOfClass: [NSString class]], @"It should be a string not a '%@'", NSStringFromClass([obj class]) );
+	XCTAssertTrue( [@"one" isEqualToString: obj], @"The entry should be 'one' not '%@'", obj );
+	
+	obj = sare.nextObject;
+	XCTAssertNil( obj, @"We've reached the beginning" );
+	obj = sare.nextObject;
+	XCTAssertNil( obj, @"Still at the beginning" );
+	
+	// Test the code from the documentation...
+	{
+		DSSparseArray *mySparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello", 2, @"good", 4, @"looking", 6, nil];
+		NSEnumerator *enumerator = [mySparseArray reverseObjectEnumerator];
+		id anObject;
+		int count = 0;
+		
+		while( (anObject = [enumerator nextObject]) ) {
+			/* code to act on each element as it is returned */
+			XCTAssertTrue( [anObject isKindOfClass: [NSString class]], @"All the entries should be strings no %@", NSStringFromClass([anObject class]) );
+			XCTAssertTrue( (count == 2 && [anObject isEqual: @"hello"]) ||
+				       (count == 1 && [anObject isEqual: @"good"]) ||
+				       (count == 0 && [anObject isEqual: @"looking"]), @"The object should be 'hello', 'good', 'looking' for count %d not '%@'", count, anObject );
+			++count;
+		}
+		XCTAssertTrue( count == 3, @"There should be three entries in the sparse array not %d", count );
+	}
+	
+	// Test second code example from the documentation...
+	{
+		DSSparseArray *mySparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"hello", 2, @"good", 4, @"looking", 6, nil];
+		DSSparseArrayEnumerator *enumerator = [mySparseArray reverseObjectEnumerator];
+		NSUInteger idx;
+		id anObject;
+		int count = 0;
+		
+		while( (idx = [enumerator indexOfNextObject]) != NSNotFound ) {
+			anObject = [enumerator nextObject];
+			//NSLog( @"%lu: %@", (unsigned long) idx, anObject );
+			XCTAssertTrue( [anObject isKindOfClass: [NSString class]], @"All the entries should be strings no %@", NSStringFromClass([anObject class]) );
+			XCTAssertTrue( (count == 2 && [anObject isEqual: @"hello"]) ||
+				       (count == 1 && [anObject isEqual: @"good"]) ||
+				       (count == 0 && [anObject isEqual: @"looking"]), @"The object should be 'hello', 'good', 'looking' for count %d not '%@'", count, anObject );
+			XCTAssertTrue( (count == 2 && idx == 2) || (count == 1 && idx == 4) || (count == 0 && idx == 6), @"The index should be 2, 4, or 6 not %lu", (unsigned long) idx );
+			++count;
+		}
+		XCTAssertTrue( count == 3, @"There should be three entries in the sparse array not %d", count );
+	}
 }
 
 - (void) test_DSSparseArray_enumerateIndexesAndObjectsUsingBlock {

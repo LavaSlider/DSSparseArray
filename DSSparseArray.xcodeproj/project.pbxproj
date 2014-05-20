@@ -19,6 +19,7 @@
 		2480FA9E191EC961002158C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2480FA9C191EC961002158C9 /* InfoPlist.strings */; };
 		2480FAA0191EC961002158C9 /* DSSparseArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480FA9F191EC961002158C9 /* DSSparseArrayTests.m */; };
 		2480FAAB191EC9CB002158C9 /* DSSparseArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 2480FAAA191EC9CB002158C9 /* DSSparseArray.m */; };
+		24B2218E192B66F800AC6826 /* DSSparseArrayEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B2218D192B66F800AC6826 /* DSSparseArrayEnumerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		2480FA9F191EC961002158C9 /* DSSparseArrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSSparseArrayTests.m; sourceTree = "<group>"; };
 		2480FAA9191EC9CB002158C9 /* DSSparseArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSparseArray.h; sourceTree = "<group>"; };
 		2480FAAA191EC9CB002158C9 /* DSSparseArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSparseArray.m; sourceTree = "<group>"; };
+		24B2218C192B66F800AC6826 /* DSSparseArrayEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSparseArrayEnumerator.h; sourceTree = "<group>"; };
+		24B2218D192B66F800AC6826 /* DSSparseArrayEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSparseArrayEnumerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 				2480FA8D191EC961002158C9 /* Images.xcassets */,
 				2480FAA9191EC9CB002158C9 /* DSSparseArray.h */,
 				2480FAAA191EC9CB002158C9 /* DSSparseArray.m */,
+				24B2218C192B66F800AC6826 /* DSSparseArrayEnumerator.h */,
+				24B2218D192B66F800AC6826 /* DSSparseArrayEnumerator.m */,
 				2453F55D192867DD009AA13F /* DSSparseArray.md */,
 				2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */,
 				2480FA7C191EC961002158C9 /* Supporting Files */,
@@ -263,6 +268,7 @@
 			files = (
 				2480FA89191EC961002158C9 /* AppDelegate.m in Sources */,
 				2480FAAB191EC9CB002158C9 /* DSSparseArray.m in Sources */,
+				24B2218E192B66F800AC6826 /* DSSparseArrayEnumerator.m in Sources */,
 				2480FA82191EC961002158C9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

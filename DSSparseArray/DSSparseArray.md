@@ -68,7 +68,7 @@ DSSparseArray.h
 
 ### sparseArrayWithArray:
 Creates and returns a sparse array containing the objects in the given array.
-+ (instancetype) sparseArrayWithArray: (NSArray *) anArray;
++ (instancetype) sparseArrayWithArray: (NSArray *) anArray
 #### Parameters
 ##### anArray
 The array to get the elements from.
@@ -85,7 +85,7 @@ DSSparseArray.h
 
 ### sparseArrayWithSparseArray:
 Creates and returns a sparse array containing the objects in the given sparse array.
-+ (instancetype) sparseArrayWithSparseArray: (DSSparseArray *) otherSparseArray;
++ (instancetype) sparseArrayWithSparseArray: (DSSparseArray *) otherSparseArray
 #### Parameters
 ##### otherSparseArray
 The sparse array to get the elements from.
@@ -108,7 +108,7 @@ DSSparseArray.h
 
 ### setThrowExceptionOnIndexOutOfRange:
 Sets object functionality for objects whose indexes go out of range
-+ (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode;
++ (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode
 #### Parameters
 ##### *throwMode*
 **IndexOutOfRangeNoThrowNoWarn** for no exception throwing, **IndexOutOfRangeNoThrowButLogWarning** for no exception throwing but printing a warning by NSLog, **IndexOutOfRangeThrowIfNonEmpty** for throwing an exception if an operation causes a array entry to be pushed out of the array either at the top or bottom, **IndexOutOfRangeThrowIfAny** for throwing an exception if an operation causes even an empty array entry to be pushed out of the array at the bottom or if the requested start location is shifted off the top.
@@ -125,7 +125,7 @@ DSSparseArray.h
 
 ### count
 Returns the number of objects currently in the sparse array
-- (NSUInteger) count;
+- (NSUInteger) count
 #### Return value
 The number of objects currently in the sparse array.
 #### Discussion
@@ -138,11 +138,11 @@ DSSparseArray.h
 
 ### objectAtIndex:
 Returns the object located at the specified index.
-- (id) objectAtIndex: (NSUInteger) index;
+- (id) objectAtIndex: (NSUInteger) index
 #### Return value
 The object located at index which, since this is a sparse array, could be nil.
 #### Discussion
-Any value of index is permissible from 0 NSNotFound - 1 but will return nil for any entry that has not been set.
+Any value of index is permissible from 0 to NSNotFound - 1 but will return *nil* for any entry that has not been set.
 #### Availability
 #### See Also
 - count
@@ -163,10 +163,66 @@ This can be used for finding the first, last, or other entries in the sparse arr
 #### Declared In
 DSSparseArray.h
 
-- (NSUInteger) indexOfObject: (id) anObject;
-- (NSUInteger) indexOfObjectIdenticalTo: (id) anObject;
-- (NSEnumerator *) objectEnumerator;
-- (NSIndexSet *) allIndexesForObject: (id) anObject;
+- (NSUInteger) indexOfObject: (id) anObject
+- (NSUInteger) indexOfObjectIdenticalTo: (id) anObject
+
+### reverseObjectEnumerator
+Returns an enumerator object that lets you access each object in the sparse array.
+- (DSSparseArrayEnumerator *) objectEnumerator
+#### Return value
+An enumerator object that lets you access each object in the array, in order, from the element at the lowest index upwards to the element at the highest index skipping empty entries. Returns *nil* when there are not more entries.
+
+#### Discussion
+Returns an enumerator object that lets you access each object in the array, in order, starting with the element at the lowest index, as in:
+
+    NSEnumerator *enumerator = [mySparseArray objectEnumerator];
+    id anObject;
+
+    while( (anObject = [enumerator nextObject]) ) {
+        /* code to act on each element as it is returned */
+    }
+
+The DSSparseArrayEnumerator is a subclass of NSEnumerator that adds the `- (NSUInteger) indexOfNextObject` that will return the index in the sparse array of the object that will be returned with the next call to `-(id) nextObject`.
+
+    DSSparseArrayEnumerator *enumerator = [mySparseArray objectEnumerator];
+    NSUInteger idx;
+    id anObject;
+
+    while( (idx = [enumerator indexOfNextObject]) != NSNotFound ) {
+        anObject = [enumerator nextObject];
+	NSLog( @"%lu: %@", (unsigned long) idx, anObject );
+    }
+
+#### Special Considerations
+When you use this method with mutable subclasses of DSSparseArray, you must not modify the array during enumeration.
+#### Availability
+Available in OS X v10.0 and later.
+#### See Also
+- reverseObjectEnumerator
+- enumerateIndexesAndObjectsUsingBlock:
+- enumerateIndexesAndObjectsWithOptions:usingBlock:
+#### Declared In
+DSSparseArray.h
+
+### reverseObjectEnumerator
+Returns an enumerator object that lets you access each object in the sparse array, in reverse order.
+- (DSSparseArrayEnumerator *) reverseObjectEnumerator
+#### Return value
+An enumerator object that lets you access each object in the array, in order, from the element at the highest index down to the element at the lowest index skipping empty entries. Returns *nil* when there are no more entries
+#### Discussion
+The DSSparseArrayEnumerator is a subclass of NSEnumerator that adds the `- (NSUInteger) indexOfNextObject` that will return the index in the sparse array of the object that will be returned with the next call to `-(id) nextObject`.
+#### Special Considerations
+When you use this method with mutable subclasses of DSSparseArray, you must not modify the array during enumeration.
+#### Availability
+Available in OS X v10.0 and later.
+#### See Also
+- objectEnumerator
+- enumerateIndexesAndObjectsUsingBlock:
+- enumerateIndexesAndObjectsWithOptions:usingBlock:
+#### Declared In
+DSSparseArray.h
+
+- (NSIndexSet *) allIndexesForObject: (id) anObject
 - (NSArray *) allValues; // Should this be 'allObjects'?
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
