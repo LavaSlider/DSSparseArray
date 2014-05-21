@@ -40,7 +40,7 @@ typedef enum : unsigned int {
 - (NSArray *) allValues; // Should this be 'allObjects'?
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
-- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject;
+- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObjectOrNil;
 - (id) valueAtIndex: (NSUInteger) index;
 - (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate;
 
@@ -97,6 +97,7 @@ typedef enum : unsigned int {
 
 - (void) setValue: (id) value atIndex: (NSUInteger) index;
 - (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
+- (void) setObjectsFromSparseArray: (DSSparseArray *) otherSparseArray;
 - (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
 - (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet;
 - (void) removeObjectsInRange: (NSRange) aRange;
@@ -107,7 +108,6 @@ typedef enum : unsigned int {
 - (void) filterUsingPredicate: (NSPredicate *) predicate;
 - (void) setSparseArray: (DSSparseArray *) otherSparseArray;
 
-- (void) setEntriesFromSparseArray: (DSSparseArray *) otherSparseArray;
 
 // Additions to consider from NSMutableArray:
 //- (void) addObject: (id) anObject;		  // Append to the end of the array

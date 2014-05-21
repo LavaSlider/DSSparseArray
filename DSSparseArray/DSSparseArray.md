@@ -233,6 +233,21 @@ Starting at the lowest index, each element of the sparse array is sent an isEqua
 #### Availability
 Available in OS X v10.0 and later.
 #### See Also
+- indexOfObject:
+#### Declared In
+DSSparseArray.h
+
+
+### valueAtIndex:
+Returns the object located at the specified index.
+- (id) valueAtIndex: (NSUInteger) index;
+#### Return value
+The object located at index which, since this is a sparse array, could be nil.
+#### Discussion
+This is a synonym for `objectAtIndex:`. Any value of index is permissible from 0 to NSNotFound - 1 but will return *nil* for any entry that has not been set.
+#### Availability
+#### See Also
+- obcjectAtIndex
 #### Declared In
 DSSparseArray.h
 
@@ -241,7 +256,6 @@ DSSparseArray.h
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
 - (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject;
-- (id) valueAtIndex: (NSUInteger) index;
 - (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate;
 - (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block;
 - (void) enumerateIndexesAndObjectsWithOptions: (NSEnumerationOptions) opts usingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block;

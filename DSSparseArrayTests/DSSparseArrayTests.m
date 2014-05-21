@@ -1024,6 +1024,28 @@
 	XCTAssertTrue( [selectedIndexes containsIndex: 301], @"It should contain 301" );
 	XCTAssertTrue( [selectedIndexes containsIndex: 303], @"It should contain 303" );
 }
+- (void) test_DSSparsArray_sparseArrayWithObjectsAndIndexes {
+	DSSparseArray *sparseArray;
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( sparseArray.count == 0, @"The first object was nill, empty object is right" );
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( sparseArray.count == 1, @"The first object was one, count should be 1 not %lu", (unsigned long) sparseArray.count );
+	// This is missing the index, so the nil will be zero, then off into the stack...
+	//sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", nil];
+	//XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	
+	//NSLog( @"---------------------------------------------------------------" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 4, @"two", NSNotFound+2, @"three", 9, nil];
+	NSLog( @"The sparse array is %@", sparseArray );
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndNSUIntegerIndexes: @"one", 4, @"two", NSNotFound + 5, @"three", 9, nil];
+	NSLog( @"The sparse array is %@", sparseArray );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	//NSLog( @"---------------------------------------------------------------" );
+}
 - (void) test_DSSparsArray_copy {
 	NSLog( @"==== Entering %s", __func__ );
 	DSSparseArray *sparseArray1;
@@ -1186,28 +1208,28 @@
 	XCTAssertTrue( sparseArray2.count == 2, @"A sparse array with two objects should have a count of 3 not %lu", sparseArray2.count );
 	XCTAssertTrue( sparseArray2.allIndexes.count == 2, @"A sparse array with two objects should have a count of 3 not %lu", sparseArray2.allIndexes.count );
 
-	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	[sparseArray2 setObjectsFromSparseArray: sparseArray1];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 3 not %lu", sparseArray2.count );
 	XCTAssertTrue( sparseArray2.allIndexes.count == 5, @"A sparse array with five objects should have a count of 3 not %lu", sparseArray2.allIndexes.count );
 	
 	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 45, @"twelve", 983, nil];
-	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	[sparseArray2 setObjectsFromSparseArray: sparseArray1];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.count );
 	XCTAssertTrue( sparseArray2.allIndexes.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.allIndexes.count );
 	
 	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 15, @"twelve", 48, nil];
-	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	[sparseArray2 setObjectsFromSparseArray: sparseArray1];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.count );
 	XCTAssertTrue( sparseArray2.allIndexes.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray2.allIndexes.count );
 	
 	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 23, @"twelve", 48, nil];
-	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	[sparseArray2 setObjectsFromSparseArray: sparseArray1];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray2.count );
@@ -1215,7 +1237,7 @@
 	XCTAssertTrue( [[sparseArray2 objectAtIndex: 23] isEqualToString: @"one"], @"The 'eight' should have been replaced by 'one' not '%@'", [sparseArray2 objectAtIndex: 23] );
 	
 	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 23, @"twelve", 93, nil];
-	[sparseArray2 setEntriesFromSparseArray: sparseArray1];
+	[sparseArray2 setObjectsFromSparseArray: sparseArray1];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray2.count );
@@ -1224,7 +1246,7 @@
 	XCTAssertTrue( [[sparseArray2 objectAtIndex: 93] isEqualToString: @"three"], @"The 'twelve' should have been replaced by 'three' not '%@'", [sparseArray2 objectAtIndex: 93] );
 	
 	sparseArray2 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"eight", 23, @"twelve", 93, nil];
-	[sparseArray2 setEntriesFromSparseArray: nil];
+	[sparseArray2 setObjectsFromSparseArray: nil];
 	XCTAssertNotNil( sparseArray2, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray2.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray2.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray2.count );
@@ -1584,6 +1606,18 @@
 	[sparseArray removeObjectAtIndex: NSNotFound];
 	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound + 5];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound + 1];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound];
+	XCTAssertTrue( sparseArray.count == 3, @"A sparse array with three objects should have a count of 3 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 3, @"The index set should have a count of 3 not %lu", [sparseArray.allIndexes count] );
+	[sparseArray removeObjectAtIndex: NSNotFound - 1];
+	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray.allIndexes count] == 2, @"The index set should have a count of 2 not %lu", [sparseArray.allIndexes count] );
 	[sparseArray removeObjectAtIndex: NSNotFound - 1];
 	XCTAssertTrue( sparseArray.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 2, @"The index set should have a count of 2 not %lu", [sparseArray.allIndexes count] );

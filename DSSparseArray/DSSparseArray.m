@@ -165,7 +165,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		}
 #endif
 	}
-	return [indexes copy];
+	return indexes;
 }
 - (NSArray *) allValues {
 	NSUInteger	count = self.dictionary.count;
@@ -175,7 +175,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		objects[i] = [self objectAtIndex: idx];
 		idx = [self.indexes indexGreaterThanIndex: idx];
 	}
-	return [objects copy];
+	return objects;
 }
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes {
 	NSUInteger	count = self.dictionary.count;
@@ -240,7 +240,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate {
 	DSMutableSparseArray *mutableCopy = [self mutableCopy];
 	[mutableCopy filterUsingPredicate: predicate];
-	return [mutableCopy copy];
+	return mutableCopy;
 }
 
 #if NS_BLOCKS_AVAILABLE
@@ -353,12 +353,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return sparseArray;
 }
 - (instancetype) init {
-	//[self _NSIndexSet_enumerateIndexesUsingBlock_isBroken];
 	self = [super init];
-	//if( self ) {
-	//	self.indexes = [[NSMutableIndexSet alloc] init];
-	//	self.dictionary = [[NSMutableDictionary alloc] init];
-	//}
 	return self;
 }
 - (instancetype) initWithArray: (NSArray *) array {
@@ -376,7 +371,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	}
 	return self;
 }
-- (NSArray *) keysFromIndexSet: (NSIndexSet *) indexSet {
+- (NSArray *) _keysFromIndexSet: (NSIndexSet *) indexSet {
 	NSMutableArray *keys = [NSMutableArray arrayWithCapacity: indexSet.count];
 	if( [self _NSIndexSet_enumerateIndexesUsingBlock_isBroken] ) {
 		if( indexSet.count > 0 ) {
@@ -401,7 +396,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	self = [super init];
 	if( self ) {
 		self.indexes = [indexSet mutableCopy];
-		NSArray *keys = [self keysFromIndexSet: indexSet];
+		NSArray *keys = [self _keysFromIndexSet: indexSet];
 		self.dictionary = [[NSMutableDictionary alloc] initWithObjects: objects forKeys: keys];
 	}
 	return self;
@@ -445,7 +440,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (instancetype) initWithObject: (id) firstObject indexAndObjectsAndIndexes: (va_list) args asInts: (BOOL) asInts {
 	//NSLog( @">>>> Entering %s", __func__ );
 	self = [super init];
-	if( self ) {
+	if( self && firstObject ) {
 		NSMutableArray *keys = [NSMutableArray array];
 		NSMutableArray *objects = [NSMutableArray array];
 		NSMutableIndexSet *indexes = [NSMutableIndexSet indexSet];
@@ -457,12 +452,20 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 				idx = va_arg( args, int );
 			else	idx = va_arg( args, NSUInteger );
 			//NSLog( @"- Index %lu gets '%@'", (unsigned long) idx, obj );
+			// Test idx here for value > NSNotFound - 1...
+			if( idx > NSNotFound - 1 ) {
+				self = nil;
+				if( __throwException == IndexOutOfRangeThrowIfNonEmpty ||
+				    __throwException == IndexOutOfRangeThrowIfAny ) {
+					[NSException raise: NSRangeException format: @"Sparse array initialization index %lu is greater than NSNotFound - 1 (%lu)", (unsigned long) idx, (unsigned long) NSNotFound - 1];
+				} else if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+					NSLog( @"**** error: sparse array initialization index %lu is greater than NSNotFound - 1 (%lu)", (unsigned long) idx, (unsigned long) NSNotFound - 1 );
+				}
+				return self;
+			}
 			[keys addObject: [NSNumber numberWithUnsignedInteger: idx]];
-			//NSLog( @"-- Added to keys array" );
 			[objects addObject: obj];
-			//NSLog( @"-- Added to objects array" );
 			[indexes addIndex: idx];
-			//NSLog( @"-- Added to index set" );
 			obj = va_arg( args, id );
 		} while( obj != nil );
 		
@@ -716,7 +719,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	self.indexes = [otherSparseArray.indexes mutableCopy];
 	self.dictionary = [otherSparseArray.dictionary mutableCopy];
 }
-- (void) setEntriesFromSparseArray: (DSSparseArray *) otherSparseArray {
+- (void) setObjectsFromSparseArray: (DSSparseArray *) otherSparseArray {
 	NSArray *objects = [otherSparseArray allValues];
 	[self setObjects: objects atIndexes: otherSparseArray.indexes];
 }

@@ -80,6 +80,7 @@ This method stores the object at the location indicated by the index. If the loc
 #### Declared In
 DSSparseArray.h
 
+
 ### setObjects:atIndexes:
 Sets the sparse array entries as specified by contents of the array of objects and indexes
 - (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
@@ -99,13 +100,14 @@ This method stores the objects at the locations indicated by the indexes. If a l
 #### Declared In
 DSSparseArray.h
 
+
 ### setValue:atIndex:
 Sets the object at index with anObject.
 - (void) setValue: (id) value atIndex: (NSUInteger) index;
 #### Parameters
-##### value
+##### *value*
 The object to be stored in the sparse array.
-##### index
+##### *index*
 The index within the sparse array at which to store the object.
 #### Return value
 None.
@@ -113,6 +115,30 @@ None.
 This is the same as setObject:atIndex:
 #### Availability
 #### See Also
+- setObject:atIndex:
+#### Declared In
+DSSparseArray.h
+
+
+### setObjectsFromSparseArray:
+Sets the sparse array entries as specified by contents of the other sparse array
+- (void) setObjectsFromSparseArray: (DSMutableSparseArray *) otherSparseArray
+#### Parameters
+##### *otherSparseArray*
+A sparse array containing the objects and indexes to be stored in the sparse array.
+#### Return value
+None.
+#### Discussion
+This method stores the objects from the *otherSparseArray* at the locations that they are at in *otherSparseArray*. If a location already has an object stored at it, that object is replaced. There is no shifting up or down of other entries. Unlike `setObject:atIndex:`, this method will not clear existing entries. In other words, empty entries from *otherSparseArray* are not transfered.
+
+    sparseArray1 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"b", 1, @"c", 2, @"m", 13, nil];
+    sparseArray2 = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"d", 3, @"n", 13, nil];
+    [sparseArray1 setEntriesFromSparseArray: sparseArray2];
+    // Resulting sparse array: ( 1: @"b", 2: @"c", 3: @"d", 13: @"n" )
+
+#### Availability
+#### See Also
+- setObjects:atIndexes:
 - setObject:atIndex:
 #### Declared In
 DSSparseArray.h
@@ -185,7 +211,33 @@ If an existing array element is shifted beyond the permissible index range (i.e.
 #### Declared In
 DSSparseArray.h
 
-- (void) removeObjectAtIndex: (NSUInteger) index;
+
+### removeObjectAtIndex:
+Removes the object at *index*.
+- (void) removeObjectAtIndex: (NSUInteger) index
+#### Parameters
+##### *index*
+The location or index at which to remove the object in the array.
+#### Return value
+None.
+#### Discussion
+Similar to an NSArray, to fill the gap, all elements beyond index are moved by subtracting 1 from their index. This happens whether the entry being removed is occupied or empty. Unlike an NSArray any index value is legal.
+
+    DSMutableSparseArray *sparseArray = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 3, @"two", 13, @"three", 53, @"four", 2, nil];
+    // Sparse array is: ( 2: @"four", 3: @"one", 13: @"two", 53: @"three" )
+    [sparseArray removeObjectAtIndex: 0];
+    // Resulting sparse array is: ( 1: @"four", 2: @"one", 12: @"two", 52: @"three" )
+    [sparseArray removeObjectAtIndex: 12];
+    // Resulting sparse array is: ( 1: @"four", 2: @"one", 51: @"three" )
+
+#### Availability
+#### See Also
+- insertObject:atIndex:
+- removeObjectsAtIndexes:
+#### Declared In
+DSSparseArray.h
+
+
 - (void) removeObject: (id) anObject;
 - (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet;
 - (void) removeObjectsInRange: (NSRange) aRange;
@@ -199,5 +251,4 @@ DSSparseArray.h
 - (instancetype) init;
 - (instancetype) initWithCapacity: (NSUInteger) numItems;
 
-- (void) setEntriesFromSparseArray: (DSMutableSparseArray *) otherSparseArray;
 
