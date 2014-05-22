@@ -42,7 +42,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ### sparseArrayWithCapacity:
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.
-+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems;
++ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems
 #### Parameters
 ##### numItems
 The initial capacity of the new array.
@@ -63,7 +63,7 @@ DSSparseArray.h
 
 ### setObject:atIndex:
 Sets the object at index with anObject.
-- (void) setObject: (id) anObject atIndex: (NSUInteger) index;
+- (void) setObject: (id) anObject atIndex: (NSUInteger) index
 #### Parameters
 ##### anObject
 The object to be stored in the sparse array.
@@ -81,9 +81,10 @@ This method stores the object at the location indicated by the index. If the loc
 DSSparseArray.h
 
 
+
 ### setObjects:atIndexes:
 Sets the sparse array entries as specified by contents of the array of objects and indexes
-- (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
+- (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes
 #### Parameters
 ##### objects
 An NSArray containing the objects to be stored in the sparse array.
@@ -101,9 +102,10 @@ This method stores the objects at the locations indicated by the indexes. If a l
 DSSparseArray.h
 
 
+
 ### setValue:atIndex:
 Sets the object at index with anObject.
-- (void) setValue: (id) value atIndex: (NSUInteger) index;
+- (void) setValue: (id) value atIndex: (NSUInteger) index
 #### Parameters
 ##### *value*
 The object to be stored in the sparse array.
@@ -118,6 +120,7 @@ This is the same as setObject:atIndex:
 - setObject:atIndex:
 #### Declared In
 DSSparseArray.h
+
 
 
 ### setObjectsFromSparseArray:
@@ -167,6 +170,8 @@ If an existing array element is shifted beyond the permissible index range (i.e.
 #### Declared In
 DSSparseArray.h
 
+
+
 ### insertObjects:atIndexes:
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.
 - (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
@@ -212,6 +217,7 @@ If an existing array element is shifted beyond the permissible index range (i.e.
 DSSparseArray.h
 
 
+
 ### removeObjectAtIndex:
 Removes the object at *index*.
 - (void) removeObjectAtIndex: (NSUInteger) index
@@ -238,12 +244,129 @@ Similar to an NSArray, to fill the gap, all elements beyond index are moved by s
 DSSparseArray.h
 
 
-- (void) removeObject: (id) anObject;
-- (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet;
-- (void) removeObjectsInRange: (NSRange) aRange;
-- (void) removeObjectsInArray: (NSArray *) array;
-- (void) removeLastObject;
-- (void) removeAllObjects;
+
+### removeObject:
+Removes all occurrences in the sparse array of a given object.
+- (void) removeObject: (id) anObject
+#### Parameters
+##### *anObject*
+The object to remove from the sparse array.
+##### *index*
+The index within the sparse array at which to store the object.
+#### Return value
+None.
+#### Discussion
+If the *anObject* parameter is not *nil* this method uses `allIndexesForObject:` to get all the indexes then `removeObjectsAtIndexes:` to remove them from the sparse array. If the *anObject* parameter is *nil* this method removes all the empty sparse array entries, thus compacting all the occupied entries in locations zero to count - 1.
+#### Availability
+#### See Also
+- allIndexesForObject:
+- removeObject:atIndex:
+- removeObjects:atIndexes:
+#### Declared In
+DSSparseArray.h
+
+
+
+### removeObjectsAtIndexes:
+Removes the objects at the specified indexes from the sparse array.
+- (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet
+#### Parameters
+##### *indexSet*
+The object to remove from the sparse array.
+##### *indexSet*
+The indexes in the sparse array to remove.
+#### Return value
+None.
+#### Discussion
+This method is similar to `removeObjectAtIndex:`, but allows you to efficiently remove multiple objects with a single operation. *indexes* specifies the locations of objects to be removed given the state of the array when the method is invoked, as illustrated in the following example. Both empty entries and entries containing objects can be removed with similar effects.
+
+    DSMutableSparseArray *sparseArray = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"a", 1, @"two", 2, @"b", 3, @"three", 4, @"four", 5, @"j", 11, @"ten", 12, nil];
+    NSMutableIndexSet *indexes = [NSMutableIndexSet indexSetWithIndex: 1];
+    [indexes addIndex: 3];
+    [indexes addIndex: 11];
+    [sparseArray removeObjectsAtIndexes: indexes];
+    NSLog(@"sparse array: %@", array);
+ 
+    // Output: sparse array: ( 0: one, 1: two, 2: three, 3: four, 9: ten )
+#### Availability
+#### See Also
+- allIndexesForObject:
+- removeObject:atIndex:
+#### Declared In
+DSSparseArray.h
+
+
+
+### removeAllObjects
+Empties the sparse array of all its elements.
+- (void) removeAllObjects
+#### Return value
+None.
+#### Availability
+#### See Also
+- removeObject:
+- removeObject:atIndex:
+- removeObjects:atIndexes:
+#### Declared In
+DSSparseArray.h
+
+
+
+### removeObjectsInRange:
+Removes from the sparse array each of the objects within a given range.
+- (void) removeObjectsInRange: (NSRange) aRange
+#### Parameters
+##### *aRange*
+The range of the objects to remove from the array.
+#### Return value
+None.
+#### Discussion
+The objects are removed by using `shiftObjectsStartingAtIndex:by:`.
+#### Availability
+#### See Also
+- removeObject:atIndex:
+- removeObjects:atIndexes:
+#### Declared In
+DSSparseArray.h
+
+
+
+### removeObjectsInArray:
+Removes from the receiving sparse array the objects in the given array.
+- (void) removeObjectsInArray: (NSArray *) array
+#### Parameters
+##### *array*
+An array containing the objects to be removed from the receiving array.
+#### Return value
+None.
+#### Discussion
+The objects are removed by using `shiftObjectsStartingAtIndex:by:`.
+#### Availability
+#### See Also
+- removeObject:atIndex:
+- removeObjects:atIndexes:
+#### Declared In
+DSSparseArray.h
+
+
+
+### removeLastObject
+Removes the object with the highest-valued index in the array
+- (void) removeLastObject
+#### Return value
+None.
+#### Discussion
+If there are no objects in the sparse array `removeLastObject` either nothing will happen, a warning will be written with NSLog() or an NSRangeException will be raised depending on the status of `setThrowExceptionOnOutOfRangeIndex:`.
+#### Availability
+#### See Also
+- removeAllObjects
+- removeObject:
+- removeObject:atIndex:
+#### Declared In
+DSSparseArray.h
+
+
+
 - (void) filterUsingPredicate: (NSPredicate *) predicate;
 
 - (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta;

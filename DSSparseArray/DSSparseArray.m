@@ -710,6 +710,10 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	NSUInteger lastIndex = [self.indexes lastIndex];
 	if( lastIndex != NSNotFound ) {
 		[self removeObjectAtIndex: lastIndex];
+	} else if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
+		NSLog( @"**** warning: removeLastObject invoked on empty %@ in %s", NSStringFromClass([self class]), __func__ );
+	} else if( __throwException > IndexOutOfRangeNoThrowButLogWarning ) {
+		[NSException raise: NSRangeException format: @"removeLastObject invoked on empty %@", NSStringFromClass([self class])];
 	}
 }
 - (void) setValue: (id) value atIndex: (NSUInteger) index {

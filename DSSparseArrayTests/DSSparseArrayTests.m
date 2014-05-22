@@ -1900,6 +1900,13 @@
 	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", sparseArray.count );
 	XCTAssertTrue( [sparseArray.allIndexes count] == 0, @"The index set should have a count of 0 not %lu", [sparseArray.allIndexes count] );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowButLogWarning];
+	XCTAssertNoThrow( [sparseArray removeLastObject], @"A warning should be logged" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfNonEmpty];
+	XCTAssertThrowsSpecificNamed( [sparseArray removeLastObject], NSException, NSRangeException, @"Removing last object from an empty sparse array should cause an exception" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
+	XCTAssertThrowsSpecificNamed( [sparseArray removeLastObject], NSException, NSRangeException, @"Removing last object from an empty sparse array should cause an exception" );
+	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	
 	//XCTFail( @"Testing of test_DSMutableSparseArray_removeObjectsInRange needs to be completed" );
 }
