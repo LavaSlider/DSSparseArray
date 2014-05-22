@@ -2346,6 +2346,31 @@
 	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeThrowIfAny];
 	XCTAssertThrowsSpecific( [sparseArray shiftObjectsStartingAtIndex: (NSNotFound - 30) by: 50], NSException, @"This should have tried to move the start point beyond the end of the possible array size" );
 	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
+	
+	// Testing what is in the documentation
+	DSMutableSparseArray *array = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"two", 1, @"three", 2, @"four", 3, @"ten", 9, nil];
+	XCTAssertTrue( [[array objectAtIndex: 0] isEqualToString: @"one"], @"Should be 'one' not '%@'", [array objectAtIndex: 0] );
+	XCTAssertTrue( [[array objectAtIndex: 1] isEqualToString: @"two"], @"Should be 'two' not '%@'", [array objectAtIndex: 1] );
+	XCTAssertTrue( [[array objectAtIndex: 2] isEqualToString: @"three"], @"Should be 'three' not '%@'", [array objectAtIndex: 2] );
+	XCTAssertTrue( [[array objectAtIndex: 3] isEqualToString: @"four"], @"Should be 'four' not '%@'", [array objectAtIndex: 3] );
+	XCTAssertTrue( [[array objectAtIndex: 9] isEqualToString: @"ten"], @"Should be 'ten' not '%@'", [array objectAtIndex: 9] );
+	NSLog( @"-----Documentation Validation----------------------------------" );
+	NSLog(@"array: %@", array);
+	[array shiftObjectsStartingAtIndex: 1 by: 1];
+	XCTAssertTrue( [[array objectAtIndex: 0] isEqualToString: @"one"], @"Should be 'one' not '%@'", [array objectAtIndex: 0] );
+	XCTAssertTrue( [[array objectAtIndex: 2] isEqualToString: @"two"], @"Should be 'two' not '%@'", [array objectAtIndex: 2] );
+	XCTAssertTrue( [[array objectAtIndex: 3] isEqualToString: @"three"], @"Should be 'three' not '%@'", [array objectAtIndex: 3] );
+	XCTAssertTrue( [[array objectAtIndex: 4] isEqualToString: @"four"], @"Should be 'four' not '%@'", [array objectAtIndex: 4] );
+	XCTAssertTrue( [[array objectAtIndex: 10] isEqualToString: @"ten"], @"Should be 'ten' not '%@'", [array objectAtIndex: 10] );
+	NSLog(@"sparse array: %@", array);
+	[array shiftObjectsStartingAtIndex: 9 by: -5];
+	XCTAssertTrue( [[array objectAtIndex: 0] isEqualToString: @"one"], @"Should be 'one' not '%@'", [array objectAtIndex: 0] );
+	XCTAssertTrue( [[array objectAtIndex: 2] isEqualToString: @"two"], @"Should be 'two' not '%@'", [array objectAtIndex: 2] );
+	XCTAssertTrue( [[array objectAtIndex: 3] isEqualToString: @"three"], @"Should be 'three' not '%@'", [array objectAtIndex: 3] );
+	//XCTAssertTrue( [[array objectAtIndex: 4] isEqualToString: @"four"], @"Should be 'four' not '%@'", [array objectAtIndex: 4] );
+	XCTAssertTrue( [[array objectAtIndex: 5] isEqualToString: @"ten"], @"Should be 'ten' not '%@'", [array objectAtIndex: 5] );
+	NSLog(@"sparse array: %@", array);
+	NSLog( @"---------------------------------------------------------------" );
 
 	//XCTFail( @"Just something to fail" );
 }

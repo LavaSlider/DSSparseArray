@@ -176,9 +176,9 @@ DSSparseArray.h
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.
 - (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
 #### Parameters
-##### objects
+##### *objects*
 An NSArray containing the objects to be inserted into the sparse array.
-##### indexes
+##### *indexes*
 An NSIndexSet containing the indexes at which the objects in objects should be inserted. The count of locations in indexes must equal the count of objects.
 #### Return value
 None.
@@ -321,7 +321,7 @@ The range of the objects to remove from the array.
 #### Return value
 None.
 #### Discussion
-The objects are removed by using `shiftObjectsStartingAtIndex:by:`.
+The objects are removed by using `shiftObjectsStartingAtIndex:by:` with the *startIndex* one higher than the range (range.loc + range.length) and the *delta* equal to the length of the range (range.length).
 #### Availability
 #### See Also
 - removeObject:atIndex:
@@ -332,7 +332,7 @@ DSSparseArray.h
 
 
 ### removeObjectsInArray:
-Removes from the receiving sparse array the objects in the given array.
+Removes the objects in the given array from the receiving sparse array.
 - (void) removeObjectsInArray: (NSArray *) array
 #### Parameters
 ##### *array*
@@ -340,9 +340,10 @@ An array containing the objects to be removed from the receiving array.
 #### Return value
 None.
 #### Discussion
-The objects are removed by using `shiftObjectsStartingAtIndex:by:`.
+This method is similar to `removeObject:`, but allows you to efficiently remove large sets of objects with a single operation. It thus removes all occurances in the receiver sparse array of all objects in the *array*. If the receiving sparse array does not contain objects in *array*, the method has no effect (although it does incur the overhead of searching the contents).
 #### Availability
 #### See Also
+- removeObject:
 - removeObject:atIndex:
 - removeObjects:atIndexes:
 #### Declared In
@@ -367,11 +368,77 @@ DSSparseArray.h
 
 
 
+### shiftObjectsStartingAtIndex:by:
+Shifts a group of sparse array entries up or down within the receiver.
+- (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta
+#### Parameters
+##### *startIndex*
+The location in the sparse array to begin the shifting operation.
+##### *delta*
+Amount and direction of the shift. Positive integers shift the objects to have higher indexes. Negative integers shift the objects to have lower indexes.
+#### Return value
+None.
+#### Discussion
+The group of array entries shifted is made up by *startIndex* and all the entries follow it in the sparse array. A negative shift deletes the entries in a range the length of the shift preceding *startIndex* from he sparse array. A positive shift inserts *delta* empty spaces in the sparseArray beginning with *startIndex*.
+
+    DSMutableSparseArray *array = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"two", 1, @"three", 2, @"four", 3, @"ten", 9, nil];
+    NSLog(@"array: %@", array);
+    [array shiftObjectsStartingAtIndex: 1 by: 1];
+    NSLog(@"sparse array: %@", array);
+    [array shiftObjectsStartingAtIndex: 9 by: -5];
+    NSLog(@"sparse array: %@", array);
+
+    // Output:
+    //   sparse array: ( 0: one, 1: two, 2: three, 3: four, 9: ten )
+    //   sparse array: ( 0: one, 2: two, 3: three, 4: four, 10: ten )
+    //   sparse array: ( 0: one, 2: two, 3: three, 5: ten )
+
+The indexes of the resulting sparse array must all be in the range of 0 to NSNotFound - 1. If an existing array element is shifted beyond the permissible index range (i.e., its index < 0 or index > NSNotFound - 1) it will be silently deleted or generate an NSRangeException depending on the status of `setThrowExceptionOnOutOfRangeIndex:`.
+#### Availability
+#### See Also
+- insertObject:atIndex:
+- removeObject:atIndex:
+#### Declared In
+DSSparseArray.h
+
+
+
 - (void) filterUsingPredicate: (NSPredicate *) predicate;
 
-- (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta;
 
-- (instancetype) init;
-- (instancetype) initWithCapacity: (NSUInteger) numItems;
+
+### init
+Initializes a newly allocated sparse array.
+- (instancetype) init
+#### Return value
+An empty mutable sparse array.
+#### Discussion
+This method is a designated initializer.
+#### Availability
+#### See Also
+- initWithCapacity:
+#### Declared In
+DSSparseArray.h
+
+
+
+### initWithCapacity:
+Returns a mutable sparse array, initialized with enough memory to initially hold a given number of objects.
+- (instancetype) initWithCapacity: (NSUInteger) numItems
+#### Parameters
+##### *numItems*
+The initial capacity of the new mutable sparse array.
+#### Return value
+A mutable sparse array initialized with enough memory to hold *numItems* objects. The returned object might be different than the original receiver.
+#### Discussion
+Mutable sparse arrays expand as needed; *numItems* simply establishes the object’s initial capacity to potentially save the need to reallocate internal storage.
+
+This method is a designated initializer.
+#### Availability
+#### See Also
++ sparseArrayWithCapacity:
+- init
+#### Declared In
+DSSparseArray.h
 
 
