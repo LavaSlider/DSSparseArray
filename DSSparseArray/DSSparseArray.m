@@ -11,6 +11,7 @@
 #pragma mark - Class extensions for private storage
 static DSSparseArrayExceptionThrowMode __throwException = IndexOutOfRangeNoThrowNoWarn;
 static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
+
 @interface DSSparseArray ()
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
 @property (nonatomic, strong) NSMutableIndexSet *indexes;
@@ -130,6 +131,23 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return [DSSparseArray sparseArrayWithSparseArray: self];
 }
 
+#pragma mark - NSSecureCoding protocol methods
+- (void) encodeWithCoder: (NSCoder *) encoder {
+	[encoder encodeObject: self.indexes forKey: @"indexes"];
+	[encoder encodeObject: self.dictionary forKey: @"dictionary"];
+}
+
+- (id) initWithCoder: (NSCoder *) decoder {
+	self = [super init];
+	if( self ) {
+		self.indexes = [decoder decodeObjectOfClass: [NSMutableIndexSet class] forKey: @"indexes"];
+		self.dictionary = [decoder decodeObjectOfClass: [NSMutableDictionary class] forKey: @"dictionary"];
+	}
+	return self;
+}
++ (BOOL) supportsSecureCoding {
+	return YES;
+}
 @end
 
 #pragma mark - Extensions to DSSparseArray methods

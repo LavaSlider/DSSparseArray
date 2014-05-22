@@ -1106,6 +1106,40 @@
 	XCTAssertTrue( [[sparseArray2 objectAtIndex: 304] isEqualToString: @"five"], @"Should be five" );
 	XCTAssertTrue( [[sparseArray2 objectAtIndex: 305] isEqualToString: @"six"], @"Should be six" );
 }
+- (void) test_DSSparseArray_coding {
+	NSLog( @"==== Entering %s", __func__ );
+	DSSparseArray *sparseArray1;
+	DSMutableSparseArray *sparseArray2;
+	DSSparseArray *sparseArray3;
+	
+	
+	NSArray *objects = @[ @"one", @"two", @"three", @"four", @"five", @"six" ];
+	NSIndexSet *indexes = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 300, 6 )];
+	sparseArray1 = [DSSparseArray sparseArrayWithObjects: objects atIndexes: indexes];
+	
+	NSData *sparseArray1Data = [NSKeyedArchiver archivedDataWithRootObject: sparseArray1];
+	
+	id obj1 = [NSKeyedUnarchiver unarchiveObjectWithData: sparseArray1Data];
+	XCTAssertTrue( [obj1 isKindOfClass: [DSSparseArray class]], @"The archived object was DSSparseArray so should the unarchived object" );
+	XCTAssertTrue( [sparseArray1 isEqual: obj1], @"The archived and unarchived sparse array should equal its source" );
+	
+	sparseArray2 = [sparseArray1 mutableCopy];
+	NSData *sparseArray2Data = [NSKeyedArchiver archivedDataWithRootObject: sparseArray2];
+	
+	id obj2 = [NSKeyedUnarchiver unarchiveObjectWithData: sparseArray2Data];
+	XCTAssertTrue( [obj2 isKindOfClass: [DSMutableSparseArray class]], @"The archived object was DSMutableSparseArray so should the unarchived object" );
+	XCTAssertTrue( [sparseArray2 isEqual: obj2], @"The archived and unarchived sparse array should equal its source" );
+
+	// Make sure it is OK for any empty array...
+	sparseArray3 = [DSSparseArray sparseArray];
+	
+	NSData *sparseArray3Data = [NSKeyedArchiver archivedDataWithRootObject: sparseArray3];
+	
+	id obj3 = [NSKeyedUnarchiver unarchiveObjectWithData: sparseArray3Data];
+	XCTAssertTrue( [obj3 isKindOfClass: [DSSparseArray class]], @"The archived object was DSSparseArray so should the unarchived object" );
+	XCTAssertTrue( [sparseArray3 isEqual: obj3], @"The archived and unarchived sparse array should equal its source" );
+
+}
 - (void) test_DSMutableSparseArray_setObjectAtIndex {
 	NSLog( @"==== Entering %s", __func__ );
 	DSMutableSparseArray *sparseArray;

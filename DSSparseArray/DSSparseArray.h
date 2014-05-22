@@ -19,7 +19,7 @@ typedef enum : unsigned int {
 
 /****************	Immutable Sparse Array	****************/
 
-@interface DSSparseArray : NSObject <NSCopying, NSMutableCopying, NSObject>
+@interface DSSparseArray : NSObject <NSObject, NSCopying, NSMutableCopying, NSSecureCoding>
 
 - (NSUInteger) count;
 - (id) objectAtIndex: (NSUInteger) index;
