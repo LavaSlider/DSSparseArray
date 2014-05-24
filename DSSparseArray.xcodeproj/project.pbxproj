@@ -33,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		24191A7D1931134400F389CB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		2453F55D192867DD009AA13F /* DSSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = DSSparseArray.md; sourceTree = "<group>"; };
 		2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; path = DSMutableSparseArray.md; sourceTree = "<group>"; };
 		2480FA72191EC961002158C9 /* DSSparseArray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DSSparseArray.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +132,7 @@
 				2480FAAA191EC9CB002158C9 /* DSSparseArray.m */,
 				24B2218C192B66F800AC6826 /* DSSparseArrayEnumerator.h */,
 				24B2218D192B66F800AC6826 /* DSSparseArrayEnumerator.m */,
+				24191A7D1931134400F389CB /* README.md */,
 				2453F55D192867DD009AA13F /* DSSparseArray.md */,
 				2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */,
 				2480FA7C191EC961002158C9 /* Supporting Files */,
