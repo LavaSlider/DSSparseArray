@@ -1,60 +1,60 @@
 # DSSparseArray
 
-*Inherits from:* [NSObject](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject)  
-*Conforms to:* NSObject, NSCopying, NSMutableCopying, NSSecureCoding
+**Inherits from:** [NSObject][NSObject]  
+**Conforms to:** [NSObject] [NSObject Protocol], [NSCopying] [NSCopying Protocol], [NSMutableCopying] [NSMutableCopying Protocol], [NSSecureCoding] [NSSecureCoding Protocol]
 
 ## Overview
 DSSparseArray and its subclass DSMutableSparseArray manage ordered collections of objects called sparse arrays, which are similar to regular arrays but can have *nil* entries. DSSparseArray creates static sparse arrays, and DSMutableSparseArray creates dynamic sparse arrays. You can use sparse arrays when you need an ordered collection of objects that may have non-contiguous indexes.
 
 ## Tasks
 ### Creating a Sparse Array
-+ sparseArray
-+ sparseArrayWithArray:
-+ sparseArrayWithSparseArray:
-+ sparseArrayWithObject:atIndex:
-+ sparseArrayWithObjects:atIndexes:
-+ sparseArrayWithObjects:atIndexes:count:
-+ sparseArrayWithObjectsAndIndexes:
-+ sparseArrayWithObjectsAndNSUIntegerIndexes:
+\+ sparseArray  
+\+ sparseArrayWithArray:  
+\+ sparseArrayWithSparseArray:  
+\+ sparseArrayWithObject:atIndex:  
+\+ sparseArrayWithObjects:atIndexes:  
+\+ sparseArrayWithObjects:atIndexes:count:  
+\+ sparseArrayWithObjectsAndIndexes:  
+\+ sparseArrayWithObjectsAndNSUIntegerIndexes:  
 
 ### Initializing a Sparse Array
-- init
-- initWithArray:
-- initWithSparseArray:
-- initWithSparseArray:copyItems:
-- initWithObjects:atIndexes:
-- initWithObjects:atIndexes:count:
-- initWithObjectsAndIndexes:
-- initWithObjectsAndNSUIntegerIndexes:
+\- init  
+\- initWithArray:  
+\- initWithSparseArray:  
+\- initWithSparseArray:copyItems:  
+\- initWithObjects:atIndexes:  
+\- initWithObjects:atIndexes:count:  
+\- initWithObjectsAndIndexes:  
+\- initWithObjectsAndNSUIntegerIndexes:  
 
 ### Querying a Sparse Array
-- count;
-- allIndexes
-- objectAtIndex:
-- valueAtIndex:
-- objectEnumerator
-- enumerateIndexesAndObjectsUsingBlock:
-- enumerateIndexesAndObjectsWithOptions:usingBlock:
-- indexesOfEntriesPassingTest:
-- indexesOfEntriesWithOptions:passingTest:
+\- count  
+\- allIndexes  
+\- objectAtIndex:  
+\- valueAtIndex:  
+\- objectEnumerator  
+\- enumerateIndexesAndObjectsUsingBlock:  
+\- enumerateIndexesAndObjectsWithOptions:usingBlock:  
+\- indexesOfEntriesPassingTest:  
+\- indexesOfEntriesWithOptions:passingTest:  
 
 ### Finding Objects in a Sparse Array
-- indexOfObject:
-- allIndexesForObject:
-- indexOfObjectIdenticalTo:
+\- indexOfObject:  
+\- allIndexesForObject:  
+\- indexOfObjectIdenticalTo:  
 
 ### Deriving New Sparse Arrays
-- filteredSparseArrayUsingPredicate:
+\- filteredSparseArrayUsingPredicate:  
 
 ### Comparing Sparse Arrays
-- isEqualToSparseArray:
+\- isEqualToSparseArray:  
 
 
 ## Class Methods
 
-### sparseArray
-Creates and returns an empty sparse array.
-+ (instancetype) sparseArray
+### sparseArray  
+Creates and returns an empty sparse array.  
+\+ (instancetype) sparseArray
 #### Return value
 An empty sparse array.
 #### Discussion
@@ -842,4 +842,8 @@ DSSparseArray.h
 
 
 
-
+[NSObject]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject
+[NSObject Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intf/NSObject
+[NSCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSCopying
+[NSMutableCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSMutableCopying
+[NSSecureCoding Protocol]: https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSSecureCoding_Protocol_Ref/content/NSSecureCoding.html#//apple_ref/occ/intf/NSSecureCoding

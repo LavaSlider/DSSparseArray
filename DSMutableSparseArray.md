@@ -1,60 +1,65 @@
 # DSMutableSparseArray
 
-*Inherits from:* [DSSparseArray](DSSparseArray.md) : [NSObject](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject)    
-*Conforms to:* NSObject, NSCopying, NSMutableCopying, NSSecureCoding
+**Inherits from:** [DSSparseArray](DSSparseArray.md) : [NSObject][]    
+**Conforms to:** [NSObject] [NSObject Protocol], [NSCopying] [NSCopying Protocol], [NSMutableCopying] [NSMutableCopying Protocol], [NSSecureCoding] [NSSecureCoding Protocol]
 
 ## Overview
 The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic array-handling behavior inherited from DSSparseArray.
 
 ## Tasks
 ### Creating aand Initializing a Mutable Sparse Array
-\+ sparseArrayWithCapacity:
-\- init
-\- initWithCapacity:
+\+ sparseArrayWithCapacity:  
+\- init  
+\- initWithCapacity:  
 
 ### Setting and/or Replacing Objects
-\- setObject:atIndex:
-\- setObjects:atIndexes:
-\- setValue:atIndex:
-\- setSparseArray:
+\- setObject:atIndex:  
+\- setObjects:atIndexes:  
+\- setValue:atIndex:  
+\- setSparseArray:  
 
 ### Adding Objects
-\- insertObject:atIndex:
-\- insertObjects:atIndexes:
+\- insertObject:atIndex:  
+\- insertObjects:atIndexes:  
 
 ### Removing Objects
-\- removeObjectAtIndex:
-\- removeObjectsAtIndexes:
-\- removeObjectsInRange:
-\- removeObject:
-\- removeObjectsInArray:
-\- removeLastObject
-\- removeAllObjects
+\- removeObjectAtIndex:  
+\- removeObjectsAtIndexes:  
+\- removeObjectsInRange:  
+\- removeObject:  
+\- removeObjectsInArray:  
+\- removeLastObject  
+\- removeAllObjects  
 
 ### Filtering Content
-\- filterUsingPredicate:
+\- filterUsingPredicate:  
 
 ### Rearranging Content
-\- shiftObjectsStartingAtIndex:by:
+\- shiftObjectsStartingAtIndex:by:  
 
 
 ## Class Methods
 
 ### sparseArrayWithCapacity:  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
-+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems
++ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 
 #### Parameters
 ##### numItems
 The initial capacity of the new array.
+
 #### Return value
 A DSMutableSparseArray object with enough allocated memory to initially hold numItems objects.
+
 #### Discussion
 Mutable sparse arrays expand as needed; numItems simply establishes the object’s initial capacity.
+
 #### Availability
+
 #### See Also
-+ sparseArray
++ sparseArray  
 - initWithCapacity
+
 #### Declared In
 DSSparseArray.h
 
@@ -475,3 +480,8 @@ This method is a designated initializer.
 DSSparseArray.h
 
 
+[NSObject]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject
+[NSObject Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intf/NSObject
+[NSCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSCopying
+[NSMutableCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSMutableCopying
+[NSSecureCoding Protocol]: https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSSecureCoding_Protocol_Ref/content/NSSecureCoding.html#//apple_ref/occ/intf/NSSecureCoding
