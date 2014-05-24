@@ -1,48 +1,49 @@
 # DSMutableSparseArray
 
-Inherits from: DSSparseArray
-Conforms to: NSObject, NSCopying, NSMutableCopying, NSSecureCoding
+*Inherits from:* [DSSparseArray](DSSparseArray.md) : [NSObject](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject)    
+*Conforms to:* NSObject, NSCopying, NSMutableCopying, NSSecureCoding
 
 ## Overview
 The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic array-handling behavior inherited from DSSparseArray.
 
 ## Tasks
 ### Creating aand Initializing a Mutable Sparse Array
-+ sparseArrayWithCapacity:
-- init
-- initWithCapacity:
+\+ sparseArrayWithCapacity:
+\- init
+\- initWithCapacity:
 
 ### Setting and/or Replacing Objects
-- setObject:atIndex:
-- setObjects:atIndexes:
-- setValue:atIndex:
-- setSparseArray:
+\- setObject:atIndex:
+\- setObjects:atIndexes:
+\- setValue:atIndex:
+\- setSparseArray:
 
 ### Adding Objects
-- insertObject:atIndex:
-- insertObjects:atIndexes:
+\- insertObject:atIndex:
+\- insertObjects:atIndexes:
 
 ### Removing Objects
-- removeObjectAtIndex:
-- removeObjectsAtIndexes:
-- removeObjectsInRange:
-- removeObject:
-- removeObjectsInArray:
-- removeLastObject
-- removeAllObjects
+\- removeObjectAtIndex:
+\- removeObjectsAtIndexes:
+\- removeObjectsInRange:
+\- removeObject:
+\- removeObjectsInArray:
+\- removeLastObject
+\- removeAllObjects
 
 ### Filtering Content
-- filterUsingPredicate:
+\- filterUsingPredicate:
 
 ### Rearranging Content
-- shiftObjectsStartingAtIndex:by:
+\- shiftObjectsStartingAtIndex:by:
 
 
 ## Class Methods
 
-### sparseArrayWithCapacity:
-Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.
+### sparseArrayWithCapacity:  
+Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
 + (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems
+
 #### Parameters
 ##### numItems
 The initial capacity of the new array.
