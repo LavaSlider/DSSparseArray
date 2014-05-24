@@ -8,9 +8,9 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ## Tasks
 ### Creating aand Initializing a Mutable Sparse Array
-\[+ sparseArrayWithCapacity:](#sparseArrayWithCapacity:)  
-\[- init](#init)  
-\[- initWithCapacity:](#initWithCapacity:)  
+[+ sparseArrayWithCapacity:](#sparseArrayWithCapacity:)  
+[- init](#init)  
+[- initWithCapacity:](#initWithCapacity:)  
 
 ### Setting and/or Replacing Objects
 \- setObject:atIndex:  
