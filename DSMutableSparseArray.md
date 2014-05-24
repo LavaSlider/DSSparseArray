@@ -8,15 +8,15 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ## Tasks
 ### Creating aand Initializing a Mutable Sparse Array
-[+ sparseArrayWithCapacity:](#sparseArrayWithCapacity:)  
+[+ sparseArrayWithCapacity:](#sparseArrayWithCapacity)  
 [- init](#init)  
-[- initWithCapacity:](#initWithCapacity:)  
+[- initWithCapacity:](#initWithCapacity)  
 
 ### Setting and/or Replacing Objects
-\- setObject:atIndex:  
-\- setObjects:atIndexes:  
-\- setValue:atIndex:  
-\- setSparseArray:  
+[- setObject:atIndex:](#setObject:atIndex:)  
+[- setObjects:atIndexes:](#setObjects:atIndexes:)  
+[- setValue:atIndex:](#setValue:atIndex:)  
+[- setSparseArray:](#setSparseArray:)  
 
 ### Adding Objects
 \- insertObject:atIndex:  
@@ -27,9 +27,9 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 \- removeObjectsAtIndexes:  
 \- removeObjectsInRange:  
 \- removeObject:  
-\- removeObjectsInArray:  
-\- removeLastObject  
-\- removeAllObjects  
+[- removeObjectsInArray:](#removeObjectsInArray:)  
+[- removeLastObject](#removeLastObject)  
+[- removeAllObjects](#removeAllObjects)  
 
 ### Filtering Content
 \- filterUsingPredicate:  
@@ -40,7 +40,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ## Class Methods
 
-### sparseArrayWithCapacity: <a name="sparseArrayWithCapacity:"/>  
+### sparseArrayWithCapacity: <a name="sparseArrayWithCapacity"/>  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
 \+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 #### Parameters
@@ -454,7 +454,7 @@ DSSparseArray.h
 
 
 
-### initWithCapacity:
+### initWithCapacity: <a name="initWithCapacity"\>  
 Returns a mutable sparse array, initialized with enough memory to initially hold a given number of objects.
 - (instancetype) initWithCapacity: (NSUInteger) numItems
 #### Parameters
