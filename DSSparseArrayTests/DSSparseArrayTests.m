@@ -416,6 +416,23 @@
 	XCTAssertTrue( indexes[1] == 876, @"The first index should be 876 not %lu", (unsigned long) indexes[1] );
 	XCTAssertTrue( indexes[2] == 986, @"The first index should be 986 not %lu", (unsigned long) indexes[2] );
 	XCTAssertTrue( indexes[3] == 1029, @"The first index should be 1029 not %lu", (unsigned long) indexes[3] );
+	
+	id __unsafe_unretained *objectArray;
+	NSUInteger *indexArray;
+	objectArray = (__unsafe_unretained id *) malloc( count * sizeof(id) );
+	indexArray = (NSUInteger *) malloc( count * sizeof(NSUInteger) );
+	[sparseArray getObjects: objectArray andIndexes: indexArray];
+	XCTAssertTrue( [objectArray[0] isEqualToString: @"one"], @"The first object should be 'one' not '%@'", objectArray[0] );
+	XCTAssertTrue( [objectArray[1] isEqualToString: @"two"], @"The first object should be 'two' not '%@'", objectArray[1] );
+	XCTAssertTrue( [objectArray[2] isEqualToString: @"one"], @"The first object should be 'one' not '%@'", objectArray[2] );
+	XCTAssertTrue( [objectArray[3] isEqualToString: @"two"], @"The first object should be 'two' not '%@'", objectArray[3] );
+	XCTAssertTrue( indexArray[0] == 456, @"The first index should be 456 not %lu", (unsigned long) indexArray[0] );
+	XCTAssertTrue( indexArray[1] == 876, @"The first index should be 876 not %lu", (unsigned long) indexArray[1] );
+	XCTAssertTrue( indexArray[2] == 986, @"The first index should be 986 not %lu", (unsigned long) indexArray[2] );
+	XCTAssertTrue( indexArray[3] == 1029, @"The first index should be 1029 not %lu", (unsigned long) indexArray[3] );
+	free( objectArray );
+	free( indexArray );
+
 
 	// Put test if when the sparse array is empty
 	sparseArray = [DSSparseArray sparseArray];
