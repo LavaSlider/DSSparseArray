@@ -1,16 +1,16 @@
 # DSMutableSparseArray
 
-**Inherits from:** [DSSparseArray](DSSparseArray.md) : [NSObject][]    
+**Inherits from:** [DSSparseArray][] : [NSObject][]    
 **Conforms to:** [NSObject] [NSObject Protocol], [NSCopying] [NSCopying Protocol], [NSMutableCopying] [NSMutableCopying Protocol], [NSSecureCoding] [NSSecureCoding Protocol]
 
 ## Overview
-The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic array-handling behavior inherited from DSSparseArray.
+The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic array-handling behavior inherited from [DSSparseArray][].
 
 ## Tasks
 ### Creating aand Initializing a Mutable Sparse Array
-\+ sparseArrayWithCapacity:  
-\- init  
-\- initWithCapacity:  
+\[+ sparseArrayWithCapacity:](#sparseArrayWithCapacity:)  
+\[- init](#init)  
+\[- initWithCapacity:](#initWithCapacity:)  
 
 ### Setting and/or Replacing Objects
 \- setObject:atIndex:  
@@ -40,7 +40,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ## Class Methods
 
-### sparseArrayWithCapacity:  
+### sparseArrayWithCapacity: <a name="sparseArrayWithCapacity:"/>  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
 \+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 #### Parameters
@@ -473,7 +473,7 @@ This method is a designated initializer.
 #### Declared In
 DSSparseArray.h
 
-
+[DSSparseArray]: DSSparseArray.md
 [NSObject]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject
 [NSObject Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intf/NSObject
 [NSCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSCopying
