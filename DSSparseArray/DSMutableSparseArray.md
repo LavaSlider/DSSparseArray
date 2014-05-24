@@ -143,11 +143,27 @@ This method stores the objects from the *otherSparseArray* at the locations that
 #### See Also
 - setObjects:atIndexes:
 - setObject:atIndex:
+- setSparseArray:
 #### Declared In
 DSSparseArray.h
 
 
-- (void) setSparseArray: (DSMutableSparseArray *) otherSparseArray;
+### setSparseArray:
+Sets the receiving sparse array’s entries to those in another given sparse array.
+- (void) setSparseArray: (DSSparseArray *) otherSparseArray
+#### Parameters
+##### *otherSparseArray*
+The sparse array of objects with which to replace the receiving sparse array's content.
+#### Return value
+None.
+#### Discussion
+This method empties the reveiving sparse array's content then stores the objects from the *otherSparseArray* in the locations that they are at in *otherSparseArray*. #### Availability
+#### See Also
+- setObjects:atIndexes:
+- setObject:atIndex:
+- setObjectsFromSparseArray:
+#### Declared In
+DSSparseArray.h
 
 
 ### insertObject:atIndex:
@@ -403,7 +419,23 @@ DSSparseArray.h
 
 
 
-- (void) filterUsingPredicate: (NSPredicate *) predicate;
+### filterUsingPredicate:
+Evaluates a given predicate against the sparse array’s content and leaves only objects that match
+- (void) filterUsingPredicate: (NSPredicate *) predicate
+#### Parameters
+##### *predicate*
+The predicate to evaluate against the array's elements.
+#### Return value
+None.
+#### Discussion
+This method will not shift any entry indexes but will just clear entries that do not match the *prediate*.
+#### Availability
+#### See Also
+- removeObject:
+- removeObject:atIndex:
+- removeObjects:atIndexes:
+#### Declared In
+DSSparseArray.h
 
 
 
