@@ -42,24 +42,18 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ### sparseArrayWithCapacity:  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
-+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
-
+\+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 #### Parameters
 ##### numItems
-The initial capacity of the new array.
-
+>The initial capacity of the new array.
 #### Return value
 A DSMutableSparseArray object with enough allocated memory to initially hold numItems objects.
-
 #### Discussion
 Mutable sparse arrays expand as needed; numItems simply establishes the object’s initial capacity.
-
 #### Availability
-
 #### See Also
-+ sparseArray  
-- initWithCapacity
-
+\+ sparseArray  
+\- initWithCapacity  
 #### Declared In
 DSSparseArray.h
 
