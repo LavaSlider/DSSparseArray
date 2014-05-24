@@ -45,7 +45,7 @@ Creates and returns a DSMutableSparseArray object with enough allocated memory t
 \+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 #### Parameters
 ##### numItems
->The initial capacity of the new array.
+The initial capacity of the new array.
 #### Return value
 A DSMutableSparseArray object with enough allocated memory to initially hold numItems objects.
 #### Discussion
