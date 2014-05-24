@@ -2,9 +2,9 @@
 
 These classes provide sparse array functionality for objective-c. They should be able to be used anyplace an NSArray or NSMutableArray is used but, unless the arrays have empty entries, are less efficient.
 
-[DSSparseArray][DSSparseArray.md] provides immutible array functionality that can contain empty or *nil* entries.
+[DSSparseArray](DSSparseArray.md) provides immutible array functionality that can contain empty or *nil* entries.
 
-[DSMutableSparseArray][DSMutableSparseArray.md] provides mutable array functionality that can contain empty or *nil* entries.
+[DSMutableSparseArray](DSMutableSparseArray.md) provides mutable array functionality that can contain empty or *nil* entries.
 
 These classes are implemented using an NSIndexSet internal to keep track of what entries of the array have objects in them and an NDDictionary to keep the objects themselves.
 
