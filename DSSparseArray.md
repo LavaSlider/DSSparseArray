@@ -1,7 +1,7 @@
 # DSSparseArray
 
 Inherits from: NSObject
-Conforms to: NSObject, NSCopying, NSMutableCopying
+Conforms to: NSObject, NSCopying, NSMutableCopying, NSSecureCoding
 
 ## Overview
 DSSparseArray and its subclass DSMutableSparseArray manage ordered collections of objects called sparse arrays, which are similar to regular arrays but can have *nil* entries. DSSparseArray creates static sparse arrays, and DSMutableSparseArray creates dynamic sparse arrays. You can use sparse arrays when you need an ordered collection of objects that may have non-contiguous indexes.

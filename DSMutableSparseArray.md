@@ -1,7 +1,7 @@
 # DSMutableSparseArray
 
 Inherits from: DSSparseArray
-Conforms to: NSObject, NSCopying, NSMutableCopying
+Conforms to: NSObject, NSCopying, NSMutableCopying, NSSecureCoding
 
 ## Overview
 The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic array-handling behavior inherited from DSSparseArray.

@@ -1,6 +1,7 @@
 //
 //  DSSparseArray.h
-//  DSSparseArray
+//  DSSparseArray and DSMutableSparseArray are replacements for NSArray and
+//  NSMutableArray that allow sparse arrays (i.e., arrays with empty entries)
 //
 //  Created by David W. Stockton on 5/10/14.
 //  Copyright (c) 2014 Syntonicity. All rights reserved.
@@ -36,7 +37,6 @@ typedef enum : unsigned int {
 
 - (NSIndexSet *) allIndexes;
 - (NSIndexSet *) allIndexesForObject: (id) anObject;
-//- (NSIndexSet *) allIndexesForObjectsIdenticalTo: (id) anObject;
 - (NSArray *) allValues; // Should this be 'allObjects'?
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
@@ -79,7 +79,7 @@ typedef enum : unsigned int {
 //
 //  Things to understand:
 //    Insertion shifts the indexes higher of everything at and beyond the insert point
-//    Setting over-writes or create the entry, no shifting
+//    Setting over-writes or creates the entry, no shifting
 //	(can be set to nil since this is a sparse array)
 //    Remove shifts the indexes lower of everything after the remove point
 
@@ -107,12 +107,6 @@ typedef enum : unsigned int {
 
 - (void) filterUsingPredicate: (NSPredicate *) predicate;
 - (void) setSparseArray: (DSSparseArray *) otherSparseArray;
-
-
-// Additions to consider from NSMutableArray:
-//- (void) addObject: (id) anObject;		  // Append to the end of the array
-//- (void) addObjectsFromArray: (NSArray *) otherArray;  // Append multiple entries to the end of the array
-//- (void) removeObject:(id)anObject inRange:(NSRange)aRange
 
 @end
 
