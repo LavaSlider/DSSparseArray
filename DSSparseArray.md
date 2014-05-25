@@ -58,7 +58,7 @@ Creates and returns an empty sparse array.
 #### Return value
 An empty sparse array.  
 #### Discussion
-This method is more usefull for by mutable subclasses DSSparseArray.  
+This method is more usefull for by mutable subclasses of DSSparseArray.  
 #### Availability
 #### See Also
 [+ sparseArrayWithObject:atIndex:](#sparsearraywithobjectatindex)  
@@ -210,7 +210,7 @@ Creates and returns a sparse array containing the objects at the indexes in the 
 ##### *firstObj, firstIndex, ...*
 A comma-separated list of object and NSUInteger index pairs ending with **nil**.  
 #### Discussion
-This method is the same as `sparseArrayWithObjectsAndIndexes:` except the indexes are type NSUInteger. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result `sparseArrayWithObjectsAndIndexes:` will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an *int* or a *long*. This method requires that all the index values be of the NSUInteger size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
+This method is the same as [sparseArrayWithObjectsAndIndexes:](#sparsearrayWithobjectsandindexes) except the indexes are type NSUInteger. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result [sparseArrayWithObjectsAndIndexes:](#sparsearrayWithobjectsandindexes) will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an *int* or a *long*. This method requires that all the index values be of the NSUInteger size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
 
     DSSparseArray *myArray;
     NSDate *aDate = [NSDate distantFuture];
@@ -345,7 +345,7 @@ Returns an enumerator object that lets you access each object in the array, in o
         /* code to act on each element as it is returned */
     }
 
-The [DSSparseArrayEnumerator][] is a subclass of NSEnumerator that adds the `- (NSUInteger) indexOfNextObject` that will return the index in the sparse array of the object that will be returned with the next call to `-(id) nextObject`.
+The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- (NSUInteger) indexOfNextObject](#indexofnextobject) that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](#nextobject).
 
     [DSSparseArrayEnumerator][] *enumerator = [mySparseArray objectEnumerator];
     NSUInteger idx;
@@ -414,7 +414,7 @@ The index to get the value for.
 #### Return value
 The object located at *index* which, since this is a sparse array, could be nil.
 #### Discussion
-This is a synonym for `objectAtIndex:`. Any value of index is permissible from 0 to NSNotFound - 1 but will return **nil** for any entry that has not been set.
+This is a synonym for [objectAtIndex:](#objectatindex). Any value of index is permissible from 0 to NSNotFound - 1 but will return **nil** for any entry that has not been set.
 #### Availability
 #### See Also
 [- obcjectAtIndex](#obcjectatindex)  
@@ -711,7 +711,7 @@ A comma-separated list of object and index pairs ending with **nil**.
 #### Return value
 A sparse array containing the objects at the indexes from the argument list.
 #### Discussion
-This method is used to initialize a sparse array containing the objects at the indexes liseted. This is similar to `initWithObjects:atIndexes:` except for how the index-object pairs are specified. This code example creates a sparse array containing three different types of element:
+This method is used to initialize a sparse array containing the objects at the indexes liseted. This is similar to [initWithObjects:atIndexes:](#initwithobjectsatindexes) except for how the index-object pairs are specified. This code example creates a sparse array containing three different types of element:
 
     DSSparseArray *myArray;
     NSDate *aDate = [NSDate distantFuture];
@@ -736,7 +736,7 @@ Initializes and returns a newly allocated sparse array containing the objects at
 ##### *firstObj, firstIndex, ...*
 A comma-separated list of object and NSUInteger index pairs ending with **nil**.
 #### Discussion
-This method is the same as `initWithObjectsAndIndexes:` except the indexes are type NSUInteger. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result `sparseArrayWithObjectsAndIndexes:` will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an *int* or a *long*. This method requires that all the index values be of the NSUInteger size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
+This method is the same as [initWithObjectsAndIndexes:](#initwithobjectsandindexes) except the indexes are type NSUInteger. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result [sparseArrayWithObjectsAndIndexes:](#sparsearraywithobjectsandindexes) will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an **int** or a **long**. This method requires that all the index values be of the NSUInteger size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
 
     DSSparseArray *myArray;
     NSDate *aDate = [NSDate distantFuture];
@@ -782,14 +782,14 @@ Initializes a newly allocated sparse array by placing in it the objects containe
 ##### *otherSparseArray*
 A sparse array containing the objects with which to initialize the new array.
 ##### *flag*
-If YES, each object in *otherSparseArray* receives a `copyWithZone:` message to create a copy of the object—objects must conform to the NSCopying protocol. In a managed memory environment, this is instead of the retain message the object would otherwise receive. The object copy is then added to the returned sparse array at its same index value.
+If YES, each object in *otherSparseArray* receives a [copyWithZone:][] message to create a copy of the object—objects must conform to the NSCopying protocol. In a managed memory environment, this is instead of the retain message the object would otherwise receive. The object copy is then added to the returned sparse array at its same index value.
 If NO, then in a managed memory environment each object in *otherSparseArray* simply receives a retain message when it is added to the returned sparse array.
 #### Return value
 A sparse array initialized to contain the objects—or if flag is YES, copies of the objects—in *otherSparseArray*. The returned object might be different than the original receiver.
 #### Discussion
 After an immutable sparse array has been initialized in this way, it cannot be modified.
 
-The `copyWithZone:` method performs a shallow copy. If you have a collection of arbitrary depth, passing YES for the flag parameter will perform an immutable copy of the first level below the surface. If you pass NO the mutability of the first level is unaffected. In either case, the mutability of all deeper levels is unaffected.
+The [copyWithZone:][] method performs a shallow copy. If you have a collection of arbitrary depth, passing YES for the flag parameter will perform an immutable copy of the first level below the surface. If you pass NO the mutability of the first level is unaffected. In either case, the mutability of all deeper levels is unaffected.
 #### Availability
 #### See Also
 [- init](#init)  
@@ -809,7 +809,7 @@ A sparse array.
 #### Return value
 YES if the contents of *otherSparseArray* are equal to the contents of the receiving sparse array, otherwise NO.
 #### Discussion
-Two arrays have equal contents if they each hold the same number of objects and objects at a given index in each array satisfy the `isEqual:` test.
+Two arrays have equal contents if they each hold the same number of objects and objects at a given index in each array satisfy the [isEqual:][] test.
 #### Availability
 Available in OS X v10.0 and later.
 #### See Also
@@ -852,5 +852,7 @@ DSSparseArray.h
 [NSEnumerationOptions]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/doc/c_ref/NSEnumerationOptions
 [NSEnumerationReverse]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/doc/c_ref/NSEnumerationReverse
 [NSRangeException]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/doc/c_ref/NSEnumerationConcurrent
+[copyWithZone:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/clm/NSObject/copyWithZone:
+[isEqual:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intfm/NSObject/isEqual:
 [DSSparseArrayEnumerator]: DSSparseArrayEnumerator.md
 
