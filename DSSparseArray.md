@@ -28,7 +28,7 @@ DSSparseArray and its subclass DSMutableSparseArray manage ordered collections o
 [- initWithObjectsAndNSUIntegerIndexes:](#initwithobjectsandnsuintegerindexes)  
 
 ### Querying a Sparse Array
-[- count](#count)  
+[- count](#countMethod)  
 [- allIndexes](#allindexes)  
 [- objectAtIndex:](#objectatindex)  
 [- valueAtIndex:](#valueatindex)  
@@ -245,7 +245,7 @@ DSSparseArray.h
 
 ## Instance Methods
 
-### count
+### <a name="countMethod"/>count
 Returns the number of objects currently in the sparse array  
 \- (NSUInteger) count  
 #### Return value
@@ -271,7 +271,7 @@ The object located at index which, since this is a sparse array, it could be **n
 Any value of index is permissible from 0 to NSNotFound - 1 but will return **nil** for any entry that has not been set.  
 #### Availability
 #### See Also
-[- count](#count)  
+[- count](#countMethod)  
 [- allIndexes](#allindexes)  
 #### Declared In
 DSSparseArray.h  
@@ -286,7 +286,7 @@ An NSIndexSet containing the indexes of all the non-empty entries in the sparse 
 This can be used for finding the first, last, or other entries in the sparse array.  
 #### Availability
 #### See Also
-[- count](#count)  
+[- count](#countMethod)  
 [- allValues](#allvalues)  
 #### Declared In
 DSSparseArray.h  
