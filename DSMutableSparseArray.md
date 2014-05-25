@@ -42,7 +42,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ### sparseArrayWithCapacity:  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
-\+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
+\+ (instancetype) sparseArrayWithCapacity: ([NSUInteger][]) numItems  
 #### Parameters
 ##### numItems
 The initial capacity of the new array.
@@ -63,7 +63,7 @@ DSSparseArray.h
 
 ### setObject:atIndex:
 Sets the object at index with anObject.  
-\- (void) setObject: (id) anObject atIndex: (NSUInteger) index  
+\- (void) setObject: (id) anObject atIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### anObject
 The object to be stored in the sparse array.  
@@ -105,7 +105,7 @@ DSSparseArray.h
 
 ### setValue:atIndex:
 Sets the object at index with anObject.  
-\- (void) setValue: (id) value atIndex: (NSUInteger) index  
+\- (void) setValue: (id) value atIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### *value*
 The object to be stored in the sparse array.  
@@ -169,7 +169,7 @@ DSSparseArray.h
 
 ### insertObject:atIndex:
 Inserts the given object into the sparse array's contents at the given index.  
-\- (void) insertObject: (id) object atIndex: (NSUInteger) index  
+\- (void) insertObject: (id) object atIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### *object*
 The object to be stored in the sparse array.  
@@ -240,7 +240,7 @@ DSSparseArray.h
 
 ### removeObjectAtIndex:
 Removes the object at *index*.  
-\- (void) removeObjectAtIndex: (NSUInteger) index  
+\- (void) removeObjectAtIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### *index*
 The location or index at which to remove the object in the array.  
@@ -390,7 +390,7 @@ DSSparseArray.h
 
 ### shiftObjectsStartingAtIndex:by:
 Shifts a group of sparse array entries up or down within the receiver.  
-\- (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta  
+\- (void) shiftObjectsStartingAtIndex: ([NSUInteger][]) startIndex by: (NSInteger) delta  
 #### Parameters
 ##### *startIndex*
 The location in the sparse array to begin the shifting operation.  
@@ -460,7 +460,7 @@ DSSparseArray.h
 
 ### initWithCapacity:   
 Returns a mutable sparse array, initialized with enough memory to initially hold a given number of objects.  
-\- (instancetype) initWithCapacity: (NSUInteger) numItems  
+\- (instancetype) initWithCapacity: ([NSUInteger][]) numItems  
 #### Parameters
 ##### *numItems*
 The initial capacity of the new mutable sparse array.  
@@ -478,8 +478,10 @@ This method is a designated initializer.
 DSSparseArray.h  
 
 [DSSparseArray]: DSSparseArray.md
+[DSMutableSparseArray]: DSMutableSparseArray.md
 [NSObject]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject
 [NSObject Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intf/NSObject
 [NSCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSCopying
 [NSMutableCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSMutableCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSMutableCopying
 [NSSecureCoding Protocol]: https://developer.apple.com/library/mac/documentation/Foundation/Reference/NSSecureCoding_Protocol_Ref/content/NSSecureCoding.html#//apple_ref/occ/intf/NSSecureCoding
+[NSUInteger]: https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSUInteger

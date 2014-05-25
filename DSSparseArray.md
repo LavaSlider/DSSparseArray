@@ -4,7 +4,7 @@
 **Conforms to:** [NSObject] [NSObject Protocol], [NSCopying] [NSCopying Protocol], [NSMutableCopying] [NSMutableCopying Protocol], [NSSecureCoding] [NSSecureCoding Protocol]  
 
 ## Overview
-DSSparseArray and its subclass DSMutableSparseArray manage ordered collections of objects called sparse arrays, which are similar to regular arrays but can have **nil** entries. DSSparseArray creates static sparse arrays, and DSMutableSparseArray creates dynamic sparse arrays. You can use sparse arrays when you need an ordered collection of objects that may have non-contiguous indexes.  
+[DSSparseArray][] and its subclass [DSMutableSparseArray][] manage ordered collections of objects called sparse arrays, which are similar to regular arrays but can have **nil** entries. [DSSparseArray][] creates static sparse arrays and [DSMutableSparseArray][] creates dynamic sparse arrays. You can use sparse arrays when you need an ordered collection of objects that may have non-contiguous indexes.  
 
 ## Tasks
 ### Creating a Sparse Array
@@ -69,7 +69,7 @@ DSSparseArray.h
 
 ### sparseArrayWithArray:
 Creates and returns a sparse array containing the objects in the given array.  
-\+ (instancetype) sparseArrayWithArray: (NSArray *) anArray
+\+ (instancetype) sparseArrayWithArray: (NSArray *) anArray  
 #### Parameters
 ##### anArray
 The array to get the elements from.  
@@ -105,7 +105,7 @@ DSSparseArray.h
 
 ### sparseArrayWithObject:atIndex:
 Creates and returns a sparse array containing a given object.  
-\+ (instancetype) sparseArrayWithObject: (id) anObject atIndex: (NSUInteger) index  
+\+ (instancetype) sparseArrayWithObject: (id) anObject atIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### *anObject*
 The object the sparse array will contain.  
@@ -145,7 +145,7 @@ DSSparseArray.h
 
 ### sparseArrayWithObjects:atIndexes:count:
 Creates and returns a sparse array that includes a given number of objects at the indexes from the given C arrays.  
-\+ (instancetype) sparseArrayWithObjects: (const id[]) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count  
+\+ (instancetype) sparseArrayWithObjects: (const id[]) objects atIndexes: (const [NSUInteger][][]) indexes count: ([NSUInteger][]) count  
 #### Parameters
 ##### *objects*
 The objects the sparse array will contain.  
@@ -205,12 +205,12 @@ DSSparseArray.h
 
 ### sparseArrayWithObjectsAndNSUIntegerIndexes:
 Creates and returns a sparse array containing the objects at the indexes in the argument list.  
-\+ (instancetype) sparseArrayWithObjectsAndNSUIntegerIndexes: (id) firstObject, (NSUInteger) firstIndex, ... nil  
+\+ (instancetype) sparseArrayWithObjectsAndNSUIntegerIndexes: (id) firstObject, ([NSUInteger][]) firstIndex, ... nil  
 #### Parameters
 ##### *firstObj, firstIndex, ...*
-A comma-separated list of object and NSUInteger index pairs ending with **nil**.  
+A comma-separated list of object and [NSUInteger][] index pairs ending with **nil**.  
 #### Discussion
-This method is the same as [sparseArrayWithObjectsAndIndexes:](#sparsearrayWithobjectsandindexes) except the indexes are type NSUInteger. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result [sparseArrayWithObjectsAndIndexes:](#sparsearrayWithobjectsandindexes) will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an *int* or a *long*. This method requires that all the index values be of the NSUInteger size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
+This method is the same as [sparseArrayWithObjectsAndIndexes:](#sparsearrayWithobjectsandindexes) except the indexes are type [NSUInteger][]. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an **int** are increased in size to an *int* when there is no prototype declaring and defining the size. As a result [sparseArrayWithObjectsAndIndexes:](#sparsearrayWithobjectsandindexes) will pass its indexes as *int* values unless they will not fit within an **int** but within the method there is no way to tell if the index value is an **int** or a **long**. This method requires that all the index values be of the [NSUInteger][] size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
 
     DSSparseArray *myArray;
     NSDate *aDate = [NSDate distantFuture];
@@ -247,7 +247,7 @@ DSSparseArray.h
 
 ### <a name="countMethod"/>count
 Returns the number of objects currently in the sparse array  
-\- (NSUInteger) count  
+\- ([NSUInteger][]) count  
 #### Return value
 The number of objects currently in the sparse array.  
 #### Discussion
@@ -261,7 +261,7 @@ DSSparseArray.h
 
 ### objectAtIndex:
 Returns the object located at the specified index.  
-\- (id) objectAtIndex: (NSUInteger) index  
+\- (id) objectAtIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### *index*
 The index of the object.  
@@ -279,7 +279,7 @@ DSSparseArray.h
 
 ### allIndexes
 Returns an NSIndexSet containing the indexes of all the non-empty entries in the sparse array.  
-\- (NSIndexSet *) allIndexes;
+\- (NSIndexSet *) allIndexes  
 #### Return value
 An NSIndexSet containing the indexes of all the non-empty entries in the sparse array.  
 #### Discussion
@@ -294,7 +294,7 @@ DSSparseArray.h
 
 ### indexOfObject:
 Returns the lowest index whose corresponding sparse array value is equal to a given object.  
-\- (NSUInteger) indexOfObject: (id) anObject  
+\- ([NSUInteger][]) indexOfObject: (id) anObject  
 #### Parameters
 ##### *anObject*
 The object to get the index of.  
@@ -313,7 +313,7 @@ DSSparseArray.h
 
 ### indexOfObjectIdenticalTo:
 Returns the lowest index whose corresponding object is identical to a given object.  
-\- (NSUInteger) indexOfObjectIdenticalTo: (id) anObject  
+\- ([NSUInteger][]) indexOfObjectIdenticalTo: (id) anObject  
 #### Parameters
 ##### *anObject*
 The object to get the index of.  
@@ -345,7 +345,7 @@ Returns an enumerator object that lets you access each object in the array, in o
         /* code to act on each element as it is returned */
     }
 
-The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- (NSUInteger) indexOfNextObject](#indexofnextobject) that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](#nextobject).
+The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- ([NSUInteger][]) indexOfNextObject](#indexofnextobject) that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](#nextobject).
 
     [DSSparseArrayEnumerator][] *enumerator = [mySparseArray objectEnumerator];
     NSUInteger idx;
@@ -374,7 +374,7 @@ Returns an enumerator object that lets you access each object in the sparse arra
 #### Return value
 An enumerator object that lets you access each object in the array, in order, from the element at the highest index down to the element at the lowest index skipping empty entries. Returns **nil** when there are no more entries  
 #### Discussion
-The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- (NSUInteger) indexOfNextObject](DSSparseArrayEnumerator.md#indexofnextobject) method that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](DSSparseArrayEnumerator.md#nextobject).
+The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- ([NSUInteger][]) indexOfNextObject](DSSparseArrayEnumerator.md#indexofnextobject) method that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](DSSparseArrayEnumerator.md#nextobject).
 #### Special Considerations
 When you use this method with mutable subclasses of [DSSparseArray][], you must not modify the array during enumeration.  
 #### Availability
@@ -407,7 +407,7 @@ DSSparseArray.h
 
 ### valueAtIndex:
 Returns the object located at the specified index.  
-\- (id) valueAtIndex: (NSUInteger) index;
+\- (id) valueAtIndex: ([NSUInteger][]) index  
 #### Parameters
 ##### *index*
 The index to get the value for.
@@ -423,8 +423,8 @@ DSSparseArray.h
 
 
 ### allValues
-Returns a new array containing the sparse array's values.
-\- (NSArray *) allValues
+Returns a new array containing the sparse array's values.  
+\- (NSArray *) allValues  
 #### Return value
 A new array containing the sparse array's values, or an empty array if the sparse array has no entries.
 #### Discussion
@@ -439,8 +439,8 @@ DSSparseArray.h
 
 
 ### getObjects:andIndexes:
-Returns by reference C arrays of the indexes and values in the sparse array.
-\- (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes
+Returns by reference C arrays of the indexes and values in the sparse array.  
+\- (void) getObjects: (__unsafe_unretained id []) objects andIndexes: ([NSUInteger][] []) indexes  
 #### Parameters
 ##### *objects*
 Upon return, contains a C array of the values or objects in the sparse array.
@@ -474,8 +474,8 @@ DSSparseArray.h
 
 
 ### enumerateIndexesAndObjectsUsingBlock:
-Executes a given block using each object in the sparse array, starting with the first object and continuing through the array to the last object.
-\- (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block
+Executes a given block using each object in the sparse array, starting with the first object and continuing through the array to the last object.  
+\- (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, [NSUInteger][] idx, BOOL *stop )) block  
 #### Parameters
 ##### *block*
 A block object to operate on entries in the sparse array.  
@@ -501,8 +501,8 @@ DSSparseArray.h
 
 
 ### enumerateIndexesAndObjectsWithOptions:usingBlock:
-Executes a given block using each object in the sparse array.
-\- (void) enumerateIndexesAndObjectsWithOptions: ([NSEnumerationOptions][]) opts usingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block;
+Executes a given block using each object in the sparse array.  
+\- (void) enumerateIndexesAndObjectsWithOptions: ([NSEnumerationOptions][]) opts usingBlock: (void (^)( id obj, [NSUInteger][] idx, BOOL *stop )) block  
 #### Parameters
 ##### *opts*
 A bit mask that specifies the options for the enumeration (whether it should be performed concurrently and/or whether it should be performed in reverse order).
@@ -531,8 +531,8 @@ DSSparseArray.h
 
 
 ### filteredSparseArrayUsingPredicate:
-Evaluates a given predicate against each object in the receiving sparse array and returns a new sparse array containing the objects for which the predicate returns true.
-\- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate
+Evaluates a given predicate against each object in the receiving sparse array and returns a new sparse array containing the objects for which the predicate returns true.  
+\- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate  
 #### Parameters
 ##### *predicate*
 The predicate against which to evaluate the receiving array’s elements.
@@ -550,8 +550,8 @@ DSSparseArray.h
 
 
 ### indexesOfEntriesPassingTest:
-Returns the indexes of objects in the sparse array that pass a test in a given Block.
-\- (NSIndexSet *) indexesOfEntriesPassingTest: (BOOL (^)( NSUInteger idx, id obj, BOOL *stop) ) predicate
+Returns the indexes of objects in the sparse array that pass a test in a given Block.  
+\- (NSIndexSet *) indexesOfEntriesPassingTest: (BOOL (^)( [NSUInteger][] idx, id obj, BOOL *stop) ) predicate  
 #### Parameters
 ##### *predicate*
 The block to apply to elements in the sparse array.
@@ -580,8 +580,8 @@ DSSparseArray.h
 
 
 ### indexesOfEntriesWithOptions:passingTest:
-Returns the indexes of objects in the array that pass a test in a given Block for a given enumeration options bitmask.
-\- (NSIndexSet *) indexesOfEntriesWithOptions: ([NSEnumerationOptions][]) opts passingTest: (BOOL (^)( NSUInteger idx, id obj, BOOL *stop )) predicate
+Returns the indexes of objects in the array that pass a test in a given Block for a given enumeration options bitmask.  
+\- (NSIndexSet *) indexesOfEntriesWithOptions: ([NSEnumerationOptions][]) opts passingTest: (BOOL (^)( [NSUInteger][] idx, id obj, BOOL *stop )) predicate  
 #### Parameters
 ##### *opts*
 A bit mask that specifies the options for the enumeration (whether it should be performed concurrently and/or whether it should be performed in reverse order).
@@ -611,8 +611,8 @@ Available in OS X v10.6 and later.
 DSSparseArray.h  
 
 ### init
-Initializes a newly allocated sparse array.
-\- (instancetype) init
+Initializes a newly allocated sparse array.  
+\- (instancetype) init  
 #### Return value
 A sparse array.
 #### Discussion
@@ -628,8 +628,8 @@ DSSparseArray.h
 
 
 ### initWithArray:array
-Initializes a newly allocated sparse array by placing in it the objects contained in a given array.
-\- (instancetype) initWithArray: (NSArray *) array
+Initializes a newly allocated sparse array by placing in it the objects contained in a given array.  
+\- (instancetype) initWithArray: (NSArray *) array  
 #### Parameters
 ##### *array*
 An array
@@ -647,8 +647,8 @@ DSSparseArray.h
 
 
 ### initWithObjects:atIndexes:
-Initializes a newly allocated sparse array by placing in it the objects contained in a given array at the indexes in the index set.
-\- (instancetype) initWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet
+Initializes a newly allocated sparse array by placing in it the objects contained in a given array at the indexes in the index set.  
+\- (instancetype) initWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet  
 #### Parameters
 ##### *objects*
 The objects the sparse array will contain.
@@ -668,8 +668,8 @@ DSSparseArray.h
 
 
 ### initWithObjects:atIndexes:count:
-Initializes a newly allocated sparse array to include a given number of objects at the specified indexes from the given C arrays.
-\- (instancetype) initWithObjects: (const id []) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count
+Initializes a newly allocated sparse array to include a given number of objects at the specified indexes from the given C arrays.  
+\- (instancetype) initWithObjects: (const id []) objects atIndexes: (const [NSUInteger][][]) indexes count: ([NSUInteger][]) count  
 #### Parameters
 ##### *objects*
 A C array of objects.
@@ -703,8 +703,8 @@ DSSparseArray.h
 
 
 ### initWithObjectsAndIndexes:
-Initializes and returns a newly allocated sparse array containing the objects at the indexes in the argument list.
-\- (instancetype) initWithObjectsAndIndexes: (id) firstObject, (int) firstIndex, ... nil
+Initializes and returns a newly allocated sparse array containing the objects at the indexes in the argument list.  
+\- (instancetype) initWithObjectsAndIndexes: (id) firstObject, (int) firstIndex, ... nil  
 #### Parameters
 ##### *firstObj, firstIndex, ...*
 A comma-separated list of object and index pairs ending with **nil**.
@@ -730,13 +730,13 @@ DSSparseArray.h
 
 
 ### initWithObjectsAndNSUIntegerIndexes:
-Initializes and returns a newly allocated sparse array containing the objects at the indexes in the argument list.
-\- (instancetype) initWithObjectsAndNSUIntegerIndexes: (id) firstObject, (NSUInteger) firstIndex, ..., nil
+Initializes and returns a newly allocated sparse array containing the objects at the indexes in the argument list.  
+\- (instancetype) initWithObjectsAndNSUIntegerIndexes: (id) firstObject, ([NSUInteger][]) firstIndex, ..., nil  
 #### Parameters
 ##### *firstObj, firstIndex, ...*
-A comma-separated list of object and NSUInteger index pairs ending with **nil**.
+A comma-separated list of object and [NSUInteger][] index pairs ending with **nil**.
 #### Discussion
-This method is the same as [initWithObjectsAndIndexes:](#initwithobjectsandindexes) except the indexes are type NSUInteger. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result [sparseArrayWithObjectsAndIndexes:](#sparsearraywithobjectsandindexes) will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an **int** or a **long**. This method requires that all the index values be of the NSUInteger size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
+This method is the same as [initWithObjectsAndIndexes:](#initwithobjectsandindexes) except the indexes are type [NSUInteger][]. This is added because of default argument promotion for variadic functions in C. What this means is numeric arguments that are smaller than an *int* are increased in size to an *int* when there is no prototype declaring and defining the size. As a result [sparseArrayWithObjectsAndIndexes:](#sparsearraywithobjectsandindexes) will pass its indexes as *int* values unless they will not fit within an *int* but within the method there is no way to tell if the index value is an **int** or a **long**. This method requires that all the index values be of the [NSUInteger][] size (which could be 32 bits or 64 bits depending on the machine architecture, OS version, etc.). This code example creates a sparse array portably with very large index values:
 
     DSSparseArray *myArray;
     NSDate *aDate = [NSDate distantFuture];
@@ -756,8 +756,8 @@ DSSparseArray.h
 
 
 ### initWithSparseArray:
-Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.
-\- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray
+Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
+\- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array containing the objects with which to initialize the new array.
@@ -776,8 +776,8 @@ DSSparseArray.h
 
 
 ### initWithSparseArray:copyItems:
-Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.
-\- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray copyItems: (BOOL) flag
+Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
+\- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray copyItems: (BOOL) flag  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array containing the objects with which to initialize the new array.
@@ -801,8 +801,8 @@ DSSparseArray.h
 
 
 ### isEqualToSparseArray:
-Compares the receiving sparse array to another sparse array.
-\- (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray
+Compares the receiving sparse array to another sparse array.  
+\- (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array.
@@ -821,8 +821,8 @@ DSSparseArray.h
 
 
 ### objectsForIndexes:notFoundMarker:
-Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.
-\- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject
+Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
+\- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject  
 #### Parameters
 ##### *indexes*
 An index set.
@@ -842,7 +842,7 @@ Available in OS X v10.0 and later.
 DSSparseArray.h  
 
 
-
+[NSUInteger]: https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSUInteger
 [NSObject]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/cl/NSObject
 [NSObject Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intf/NSObject
 [NSCopying Protocol]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSCopying_Protocol/Reference/Reference.html#//apple_ref/occ/intf/NSCopying
@@ -851,9 +851,10 @@ DSSparseArray.h
 [NSEnumerator]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSEnumerator_Class/Reference/Reference.html#//apple_ref/doc/c_ref/NSEnumerator
 [NSEnumerationOptions]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/doc/c_ref/NSEnumerationOptions
 [NSEnumerationReverse]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/doc/c_ref/NSEnumerationReverse
-[NSRangeException]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/doc/c_ref/NSEnumerationConcurrent
+[NSRangeException]: https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/c/data/NSRangeException
 [copyWithZone:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/clm/NSObject/copyWithZone:
 [isEqual:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intfm/NSObject/isEqual:
 [DSSparseArrayEnumerator]: DSSparseArrayEnumerator.md
 [DSSparseArray]: DSSparseArray.md
+[DSMutableSparseArray]: DSMutableSparseArray.md
 
