@@ -301,7 +301,7 @@ The object to get the index of.
 #### Return value
 The lowest index whose corresponding sparse array value is equal to *anObject*. If none of the objects in the sparse array is equal to *anObject*, returns NSNotFound.  
 #### Discussion
-If *anObject* is not **nil**, starting at index 0, each element of the sparse array is sent an isEqual: message until a match is found or the end of the sparse array is reached. This method passes the *anObject* parameter to each isEqual: message. Objects are considered equal if isEqual: (declared in the NSObject protocol) returns YES.  
+If *anObject* is not **nil**, starting at index 0, each element of the sparse array is sent an [isEqual:][] message until a match is found or the end of the sparse array is reached. This method passes the *anObject* parameter to each [isEqual:][] message. Objects are considered equal if [isEqual:][] (declared in the [NSObject protocol][NSObject Protocol) returns YES.  
 If *anObject* is **nil** the index of the first empty sparse array location is returned or NSNotFound if completely full.
 #### Availability
 #### See Also
@@ -357,7 +357,7 @@ The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the 
     }
 
 #### Special Considerations
-When you use this method with mutable subclasses of DSSparseArray, you must not modify the array during enumeration.  
+When you use this method with mutable subclasses of [DSSparseArray][], you must not modify the array during enumeration.  
 #### Availability
 Available in OS X v10.0 and later.  
 #### See Also
@@ -396,7 +396,7 @@ The object to get the indexes for.
 #### Return value
 The indexes whose corresponding values in the sparse array are equal to *anObject*. If no objects in the sparse array are equal, returns an empty index set. If *anObject* is **nil** the indexes of the empty entries in the sparse array are returned.  
 #### Discussion
-Starting at the lowest index, each element of the sparse array is sent an isEqual: message and if equal its index is added to the index set that will be returned. This method passes the *anObject* parameter to each isEqual: message. Objects are considered equal if isEqual: (declared in the NSObject protocol) returns YES.  
+Starting at the lowest index, each element of the sparse array is sent an [isEqual:][] message and if equal its index is added to the index set that will be returned. This method passes the *anObject* parameter to each [isEqual:][] message. Objects are considered equal if [isEqual:][] (declared in the [NSObject protocol][NSObject Protcol]) returns YES.  
 #### Availability
 Available in OS X v10.0 and later.  
 #### See Also
@@ -417,7 +417,7 @@ The object located at *index* which, since this is a sparse array, could be nil.
 This is a synonym for [objectAtIndex:](#objectatindex). Any value of index is permissible from 0 to NSNotFound - 1 but will return **nil** for any entry that has not been set.
 #### Availability
 #### See Also
-[- obcjectAtIndex](#obcjectatindex)  
+[- objectAtIndex](#objectatindex)  
 #### Declared In
 DSSparseArray.h  
 
@@ -478,14 +478,14 @@ Executes a given block using each object in the sparse array, starting with the 
 \- (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block
 #### Parameters
 ##### *block*
-A block object to operate on entries in the sparse array.
-The block takes three arguments:
-*obj*
-The element in the sparse array.
-*idx*
-The index of the element in the array.
-**stop*
-A reference to a Boolean value. The block can set the value to YES to stop further processing of the sparse array. The stop argument is an out-only argument. You should only ever set this boolean to YES within the *block*.
+A block object to operate on entries in the sparse array.  
+The block takes three arguments:  
+*obj*  
+The element in the sparse array.  
+*idx*  
+The index of the element in the array.  
+*\*stop*  
+A reference to a Boolean value. The block can set the value to YES to stop further processing of the sparse array. The stop argument is an out-only argument. You should only ever set this boolean to YES within the *block*.  
 #### Return value
 None.
 #### Discussion
@@ -507,13 +507,13 @@ Executes a given block using each object in the sparse array.
 ##### *opts*
 A bit mask that specifies the options for the enumeration (whether it should be performed concurrently and/or whether it should be performed in reverse order).
 ##### *block*
-A block object to operate on entries in the sparse array.
-The block takes three arguments:
-*obj*
-The element in the sparse array.
-*idx*
-The index of the element in the array.
-**stop*
+A block object to operate on entries in the sparse array.  
+The block takes three arguments:  
+*obj*  
+The element in the sparse array.  
+*idx*  
+The index of the element in the array.  
+*\*stop*  
 A reference to a Boolean value. The block can set the value to YES to stop further processing of the sparse array. The stop argument is an out-only argument. You should only ever set this boolean to YES within the *block*.
 #### Return value
 None.
@@ -543,7 +543,7 @@ For more details, see Predicate Programming Guide.
 #### Availability
 Available in OS X v10.4 and later.
 #### See Also
-[- obcjectAtIndex](#obcjectatindex)  
+[- objectAtIndex](#objectatindex)  
 #### Declared In
 DSSparseArray.h  
 
@@ -556,12 +556,12 @@ Returns the indexes of objects in the sparse array that pass a test in a given B
 ##### *predicate*
 The block to apply to elements in the sparse array.
 
-The block takes three arguments:
-*obj*
-The element in the sparse array.
-*idx*
-The index of the element in the array.
-**stop*
+The block takes three arguments:  
+*obj*  
+The element in the sparse array.  
+*idx*  
+The index of the element in the array.  
+*\*stop*  
 A reference to a Boolean value. The block can set the value to YES to stop further processing of the sparse array. The stop argument is an out-only argument. You should only ever set this boolean to YES within the *block*.
 
 The Block returns a Boolean value that indicates whether obj passed the test.
@@ -588,13 +588,13 @@ A bit mask that specifies the options for the enumeration (whether it should be 
 ##### *predicate*
 The block to apply to elements in the sparse array.
 
-The block takes three arguments:
-*obj*
-The element in the sparse array.
-*idx*
-The index of the element in the array.
-**stop*
-A reference to a Boolean value. The block can set the value to YES to stop further processing of the sparse array. The stop argument is an out-only argument. You should only ever set this boolean to YES within the *block*.
+The block takes three arguments:  
+*obj*  
+The element in the sparse array.  
+*idx*  
+The index of the element in the array.  
+*\*stop*  
+A reference to a Boolean value. The block can set the value to YES to stop further processing of the sparse array. The stop argument is an out-only argument. You should only ever set this boolean to YES within the *block*.  
 
 The Block returns a Boolean value that indicates whether obj passed the test.
 #### Return value
@@ -855,4 +855,5 @@ DSSparseArray.h
 [copyWithZone:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/clm/NSObject/copyWithZone:
 [isEqual:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intfm/NSObject/isEqual:
 [DSSparseArrayEnumerator]: DSSparseArrayEnumerator.md
+[DSSparseArray]: DSSparseArray.md
 
