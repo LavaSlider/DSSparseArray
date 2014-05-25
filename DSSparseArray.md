@@ -301,7 +301,7 @@ The object to get the index of.
 #### Return value
 The lowest index whose corresponding sparse array value is equal to *anObject*. If none of the objects in the sparse array is equal to *anObject*, returns NSNotFound.  
 #### Discussion
-If *anObject* is not **nil**, starting at index 0, each element of the sparse array is sent an [isEqual:][] message until a match is found or the end of the sparse array is reached. This method passes the *anObject* parameter to each [isEqual:][] message. Objects are considered equal if [isEqual:][] (declared in the [NSObject protocol][NSObject Protocol) returns YES.  
+If *anObject* is not **nil**, starting at index 0, each element of the sparse array is sent an [isEqual:][] message until a match is found or the end of the sparse array is reached. This method passes the *anObject* parameter to each [isEqual:][] message. Objects are considered equal if [isEqual:][] (declared in the [NSObject protocol][NSObject Protocol] returns YES.  
 If *anObject* is **nil** the index of the first empty sparse array location is returned or NSNotFound if completely full.
 #### Availability
 #### See Also
@@ -332,7 +332,7 @@ DSSparseArray.h
 
 ### objectEnumerator
 Returns an enumerator object that lets you access each object in the sparse array.  
-\- (DSSparseArrayEnumerator *) objectEnumerator  
+\- ([DSSparseArrayEnumerator][] *) objectEnumerator  
 #### Return value
 An enumerator object that lets you access each object in the array, in order, from the element at the lowest index upwards to the element at the highest index skipping empty entries. Returns **nil** when there are not more entries.  
 #### Discussion
@@ -345,9 +345,9 @@ Returns an enumerator object that lets you access each object in the array, in o
         /* code to act on each element as it is returned */
     }
 
-The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- ([NSUInteger][]) indexOfNextObject](#indexofnextobject) that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](#nextobject).
+The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- (NSUInteger) indexOfNextObject](#indexofnextobject) that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](#nextobject).
 
-    [DSSparseArrayEnumerator][] *enumerator = [mySparseArray objectEnumerator];
+    DSSparseArrayEnumerator *enumerator = [mySparseArray objectEnumerator];
     NSUInteger idx;
     id anObject;
 
@@ -370,11 +370,11 @@ DSSparseArray.h
 
 ### reverseObjectEnumerator
 Returns an enumerator object that lets you access each object in the sparse array, in reverse order.  
-\- (DSSparseArrayEnumerator *) reverseObjectEnumerator  
+\- ([DSSparseArrayEnumerator][] *) reverseObjectEnumerator  
 #### Return value
 An enumerator object that lets you access each object in the array, in order, from the element at the highest index down to the element at the lowest index skipping empty entries. Returns **nil** when there are no more entries  
 #### Discussion
-The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- ([NSUInteger][]) indexOfNextObject](DSSparseArrayEnumerator.md#indexofnextobject) method that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](DSSparseArrayEnumerator.md#nextobject).
+The [DSSparseArrayEnumerator][] is a subclass of [NSEnumerator][] that adds the [- (NSUInteger) indexOfNextObject](DSSparseArrayEnumerator.md#indexofnextobject) method that will return the index in the sparse array of the object that will be returned with the next call to [-(id) nextObject](DSSparseArrayEnumerator.md#nextobject).
 #### Special Considerations
 When you use this method with mutable subclasses of [DSSparseArray][], you must not modify the array during enumeration.  
 #### Availability
