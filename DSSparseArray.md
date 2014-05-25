@@ -29,6 +29,7 @@
 
 ### Querying a Sparse Array
 [- count](#countMethod)  
+[- containsObject:](#containsobject)  
 [- allIndexes](#allindexes)  
 [- objectAtIndex:](#objectatindex)  
 [- valueAtIndex:](#valueatindex)  
@@ -257,6 +258,25 @@ Unlike a regular array the objects in sparse array do not necessarily be at cont
 [- allIndexes](#allindexes)  
 #### Declared In
 DSSparseArray.h  
+
+
+
+### containsObject:
+Returns a Boolean value that indicates whether a given object is present in the sparse array.  
+\- (BOOL) containsObject: (id) anObject  
+#### Parameters
+##### *anObject*
+An object.  
+#### Return value
+YES if *anObject* is present in the sparse array, otherwise NO.  
+#### Discussion
+This method determines whether *anObject* is present in the sparse array by sending an [isEqual:][] message to each of the array’s objects (and passing *anObject* as the parameter to each [isEqual:][] message).  
+#### Availability
+#### See Also
+[- indexOfObject:](#indexofobject)  
+#### Declared In
+DSSparseArray.h  
+
 
 
 ### objectAtIndex:

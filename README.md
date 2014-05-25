@@ -6,7 +6,7 @@ These classes provide sparse array functionality for objective-c. They should be
 
 [DSMutableSparseArray][] provides mutable array functionality that can contain empty or **nil** entries.
 
-These classes are implemented using an [NSIndexSet][] internal to keep track of what entries of the array have objects in them and an [NDDictionary][] to keep the objects themselves.
+These classes are implemented using an [NSIndexSet][] internally to keep track of what entries of the array have objects in them and an [NDDictionary][] to keep the objects themselves.
 
 # Installation and Usage
 Copy the [DSSparseArray.h][], [DSSparseArray.m][], [DSSparseArrayEnumerator.h][], and [DSSparseArrayEnumerator.m][] files into your project then just use like an [NSArray][] or [NSMutableArray][], substituting [DSSparseArray][] or [DSMutableSparseArray][].

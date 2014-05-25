@@ -35,6 +35,7 @@ typedef enum : unsigned int {
 
 @interface DSSparseArray (DSExtendedSparseArray)
 
+- (BOOL) containsObject: (id) anObject;
 - (NSIndexSet *) allIndexes;
 - (NSIndexSet *) allIndexesForObject: (id) anObject;
 - (NSArray *) allValues; // Should this be 'allObjects'?

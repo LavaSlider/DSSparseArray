@@ -152,6 +152,10 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 
 #pragma mark - Extensions to DSSparseArray methods
 @implementation DSSparseArray (DSExtendedSparseArray)
+- (BOOL) containsObject: (id) anObject {
+	NSUInteger idx = [self indexOfObject: anObject];
+	return( idx != NSNotFound );
+}
 - (NSIndexSet *) allIndexes {
 	return [self.indexes copy];
 }

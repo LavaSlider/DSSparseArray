@@ -203,7 +203,7 @@
 	XCTAssertTrue( idx == 0, @"The firt empty slot is at index 0 not %lu", idx );
 	idx = [sparseArray indexOfObject: @"hello sparse array"];
 	XCTAssertTrue( idx == NSNotFound, @"The 'hello sparse array' is not in the array and not at %lu", idx );
-
+	
 	sparseArray = [DSSparseArray sparseArrayWithArray: objects];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
@@ -218,6 +218,34 @@
 	XCTAssertTrue( idx == 5, @"The firt empty slot is at index 5 not %lu", idx );
 	idx = [sparseArray indexOfObject: @"hello sparse array"];
 	XCTAssertTrue( idx == NSNotFound, @"The 'hello sparse array' is not in the array and not at %lu", idx );
+	
+	//XCTFail( @"Just something to fail" );
+}
+- (void) test_DSSparseArray_containsObject {
+	DSSparseArray *sparseArray;
+	NSMutableIndexSet *mutableIndexes;
+	NSArray *objects;
+	id obj;
+	
+	obj = @"two";
+	objects = @[ @"one", obj, @"three", @"four", @"five" ];
+	mutableIndexes = [NSMutableIndexSet indexSet];
+	[mutableIndexes addIndex: 34];
+	[mutableIndexes addIndex: 57];
+	[mutableIndexes addIndex: 274];
+	[mutableIndexes addIndex: 764789];
+	[mutableIndexes addIndex: 97835745];
+	sparseArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: mutableIndexes];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 5, @"A sparse array with five objects should have a count of 5 not %lu", sparseArray.count );
+	XCTAssertTrue( [sparseArray containsObject: @"one"], @"'one' is in the array" );
+	XCTAssertTrue( [sparseArray containsObject: @"three"], @"'three' is in the array" );
+	XCTAssertTrue( [sparseArray containsObject: @"two"], @"'two' is in the array" );
+	XCTAssertTrue( [sparseArray containsObject: obj], @"'%@' is in the array", obj );
+	XCTAssertTrue( [sparseArray containsObject: @"four"], @"'four' is in the array" );
+	XCTAssertTrue( [sparseArray containsObject: @"five"], @"'five' is in the array" );
+	XCTAssertFalse( [sparseArray containsObject: @"hello sparse array"], @"'hello sparse array' is not in the array" );
 	
 	//XCTFail( @"Just something to fail" );
 }
