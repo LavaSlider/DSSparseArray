@@ -52,7 +52,7 @@ A DSMutableSparseArray object with enough allocated memory to initially hold num
 Mutable sparse arrays expand as needed; numItems simply establishes the object’s initial capacity.
 #### Availability
 #### See Also
-[+ sparseArray](#sparsearray)  
+[+ sparseArray](DSSparseArray.md#sparsearray)  
 [- initWithCapacity](#initwithcapacity)  
 #### Declared In
 DSSparseArray.h  
