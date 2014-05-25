@@ -13,7 +13,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 [- initWithCapacity:](#initWithCapacity)  
 
 ### Setting and/or Replacing Objects
-[- setObject:atIndex:](#setObjectatIndex)  
+[- setObject:atIndex:](#setobjectatindex)  
 [- setObjects:atIndexes:](#setObjectsatIndexes)  
 [- setValue:atIndex:](#setValueatIndex)  
 [- setSparseArray:](#setSparseArray)  
@@ -40,7 +40,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ## Class Methods
 
-### <a name="sparseArrayWithCapacity"/>sparseArrayWithCapacity:  
+### sparseArrayWithCapacity:  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
 \+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 #### Parameters
@@ -61,7 +61,7 @@ DSSparseArray.h
 
 ## Instance Methods
 
-### <a name="setObjectatIndex"/>setObject:atIndex:
+### setObject:atIndex:
 Sets the object at index with anObject.  
 \- (void) setObject: (id) anObject atIndex: (NSUInteger) index  
 #### Parameters
@@ -72,7 +72,7 @@ The index within the sparse array at which to store the object.
 #### Return value
 None.  
 #### Discussion
-This method stores the object at the location indicated by the index. If the location already has an object stored at it that object is replaced. There is no shifting up or down of other entries. If *anObject* is *nil* it effectively removes the entry previoulsy stored at the specified index from the sparse array.  
+This method stores the object at the location indicated by the index. If the location already has an object stored at it that object is replaced. There is no shifting up or down of other entries. If *anObject* is **nil** it effectively removes the entry previoulsy stored at the specified index from the sparse array.  
 #### Availability
 #### See Also
 [- insertObject:atIndex:](#insertObjectatIndex)  
@@ -82,7 +82,7 @@ DSSparseArray.h
 
 
 
-### <a name="setObjectsatIndexes"/>setObjects:atIndexes:
+### setObjects:atIndexes:
 Sets the sparse array entries as specified by contents of the array of objects and indexes  
 \- (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes  
 #### Parameters
@@ -103,7 +103,7 @@ DSSparseArray.h
 
 
 
-### <a name="setValueatIndex"/>setValue:atIndex:
+### setValue:atIndex:
 Sets the object at index with anObject.  
 \- (void) setValue: (id) value atIndex: (NSUInteger) index  
 #### Parameters
@@ -123,7 +123,7 @@ DSSparseArray.h
 
 
 
-### <a name="setObjectsFromSparseArray"/>setObjectsFromSparseArray:
+### setObjectsFromSparseArray:
 Sets the sparse array entries as specified by contents of the other sparse array  
 \- (void) setObjectsFromSparseArray: (DSMutableSparseArray *) otherSparseArray  
 #### Parameters
@@ -148,7 +148,7 @@ This method stores the objects from the *otherSparseArray* at the locations that
 DSSparseArray.h  
 
 
-### <a name="setSparseArray"/>setSparseArray:
+### setSparseArray:
 Sets the receiving sparse array’s entries to those in another given sparse array.  
 \- (void) setSparseArray: (DSSparseArray *) otherSparseArray  
 #### Parameters
@@ -167,7 +167,7 @@ This method empties the reveiving sparse array's content then stores the objects
 DSSparseArray.h
 
 
-### <a name="insertObjectatIndex"/>insertObject:atIndex:
+### insertObject:atIndex:
 Inserts the given object into the sparse array's contents at the given index.  
 \- (void) insertObject: (id) object atIndex: (NSUInteger) index  
 #### Parameters
@@ -180,7 +180,7 @@ None.
 #### Discussion
 If index is already occupied, the objects at index and beyond are shifted by adding 1 to their indices to make room.
 
-Note that unlike NSArray objects, mutable sparse arrays do not have a fixed size and objects can be inserted at any index from 0 to NSNotFound - 1. If the object to be inserted is *nil* then it just shifts the remainder of the array by one creating an empty entry.
+Note that unlike NSArray objects, mutable sparse arrays do not have a fixed size and objects can be inserted at any index from 0 to NSNotFound - 1. If the object to be inserted is **nil** then it just shifts the remainder of the array by one creating an empty entry.
 
 If an existing array element is shifted beyond the permissible index range (i.e., its index > NSNotFound - 1) it will be silently deleted or generate an **NSRangeException** depending on the status of [setThrowExceptionOnOutOfRangeIndex:](DSSparseArray.md#setThrowExceptionOnOutOfRangeIndex).  
 #### Availability
@@ -191,7 +191,7 @@ DSSparseArray.h
 
 
 
-### <a name="insertObjectsatIndexes"/>insertObjects:atIndexes:
+### insertObjects:atIndexes:
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.  
 \- (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes  
 #### Parameters
@@ -238,7 +238,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectAtIndex"/>removeObjectAtIndex:
+### removeObjectAtIndex:
 Removes the object at *index*.  
 \- (void) removeObjectAtIndex: (NSUInteger) index  
 #### Parameters
@@ -265,7 +265,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObject"/>removeObject:
+### removeObject:
 Removes all occurrences in the sparse array of a given object.  
 \- (void) removeObject: (id) anObject  
 #### Parameters
@@ -276,7 +276,7 @@ The index within the sparse array at which to store the object.
 #### Return value
 None.  
 #### Discussion
-If the *anObject* parameter is not *nil* this method uses [allIndexesForObject:](#allIndexesForObject) to get all the indexes then [removeObjectsAtIndexes:](#removeObjectsAtIndexes) to remove them from the sparse array. If the *anObject* parameter is *nil* this method removes all the empty sparse array entries, thus compacting all the occupied entries in locations zero to count - 1.  
+If the *anObject* parameter is not **nil** this method uses [allIndexesForObject:](#allIndexesForObject) to get all the indexes then [removeObjectsAtIndexes:](#removeObjectsAtIndexes) to remove them from the sparse array. If the *anObject* parameter is **nil** this method removes all the empty sparse array entries, thus compacting all the occupied entries in locations zero to count - 1.  
 #### Availability
 #### See Also
 [- allIndexesForObject:](#allIndexesForObject)  
@@ -287,7 +287,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectsAtIndexes"/>removeObjectsAtIndexes:
+### removeObjectsAtIndexes:
 Removes the objects at the specified indexes from the sparse array.  
 \- (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet  
 #### Parameters
@@ -317,7 +317,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeAllObjects"/>removeAllObjects
+### removeAllObjects
 Empties the sparse array of all its elements.  
 \- (void) removeAllObjects  
 #### Return value
@@ -332,7 +332,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectsInRange"/>removeObjectsInRange:
+### removeObjectsInRange:
 Removes from the sparse array each of the objects within a given range.  
 \- (void) removeObjectsInRange: (NSRange) aRange  
 #### Parameters
@@ -351,7 +351,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectsInArray"/>removeObjectsInArray:
+### removeObjectsInArray:
 Removes the objects in the given array from the receiving sparse array.  
 \- (void) removeObjectsInArray: (NSArray *) array  
 #### Parameters
@@ -360,7 +360,7 @@ An array containing the objects to be removed from the receiving array.
 #### Return value
 None.  
 #### Discussion
-This method is similar to `removeObject:`, but allows you to efficiently remove large sets of objects with a single operation. It thus removes all occurances in the receiver sparse array of all objects in the *array*. If the receiving sparse array does not contain objects in *array*, the method has no effect (although it does incur the overhead of searching the contents).  
+This method is similar to [removeObject:](#removeobject), but allows you to efficiently remove large sets of objects with a single operation. It thus removes all occurances in the receiver sparse array of all objects in the *array*. If the receiving sparse array does not contain objects in *array*, the method has no effect (although it does incur the overhead of searching the contents).  
 #### Availability
 #### See Also
 [- removeObject:](#removeObject)  
@@ -371,7 +371,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeLastObject"/>removeLastObject
+### removeLastObject
 Removes the object with the highest-valued index in the array  
 \- (void) removeLastObject  
 #### Return value
@@ -388,7 +388,7 @@ DSSparseArray.h
 
 
 
-### <a name="shiftObjectsStartingAtIndexby"/>shiftObjectsStartingAtIndex:by:
+### shiftObjectsStartingAtIndex:by:
 Shifts a group of sparse array entries up or down within the receiver.  
 \- (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta  
 #### Parameters
@@ -423,7 +423,7 @@ DSSparseArray.h
 
 
 
-### <a name="filterUsingPredicate"/>filterUsingPredicate:
+### filterUsingPredicate:
 Evaluates a given predicate against the sparse array’s content and leaves only objects that match  
 \- (void) filterUsingPredicate: (NSPredicate *) predicate  
 #### Parameters
@@ -443,7 +443,7 @@ DSSparseArray.h
 
 
 
-### <a name="init"/>init
+### init
 Initializes a newly allocated sparse array.  
 \- (instancetype) init  
 #### Return value
@@ -458,7 +458,7 @@ DSSparseArray.h
 
 
 
-### <a name="initWithCapacity"/>initWithCapacity:   
+### initWithCapacity:   
 Returns a mutable sparse array, initialized with enough memory to initially hold a given number of objects.  
 \- (instancetype) initWithCapacity: (NSUInteger) numItems  
 #### Parameters
