@@ -13,10 +13,10 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 [- initWithCapacity:](#initWithCapacity)  
 
 ### Setting and/or Replacing Objects
-[- setObject:atIndex:](#setObject:atIndex:)  
-[- setObjects:atIndexes:](#setObjects:atIndexes:)  
-[- setValue:atIndex:](#setValue:atIndex:)  
-[- setSparseArray:](#setSparseArray:)  
+[- setObject:atIndex:](#setObjectatIndex)  
+[- setObjects:atIndexes:](#setObjectsatIndexes)  
+[- setValue:atIndex:](#setValueatIndex)  
+[- setSparseArray:](#setSparseArray)  
 
 ### Adding Objects
 [- insertObject:atIndex:](#insertObjectatIndex)  
@@ -40,7 +40,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ## Class Methods
 
-### <a name="sparseArrayWithCapacity">sparseArrayWithCapacity:</a>   
+### <a name="sparseArrayWithCapacity"/>sparseArrayWithCapacity:  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
 \+ (instancetype) sparseArrayWithCapacity: (NSUInteger) numItems  
 #### Parameters
@@ -61,7 +61,7 @@ DSSparseArray.h
 
 ## Instance Methods
 
-### <a name="setObjectatIndex">setObject:atIndex:</a>
+### <a name="setObjectatIndex"/>setObject:atIndex:
 Sets the object at index with anObject.  
 \- (void) setObject: (id) anObject atIndex: (NSUInteger) index  
 #### Parameters
@@ -82,7 +82,7 @@ DSSparseArray.h
 
 
 
-### <a name="setObjectsatIndexes">setObjects:atIndexes:</a>
+### <a name="setObjectsatIndexes"/>setObjects:atIndexes:
 Sets the sparse array entries as specified by contents of the array of objects and indexes  
 \- (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes  
 #### Parameters
@@ -103,7 +103,7 @@ DSSparseArray.h
 
 
 
-### <a name="setValueatIndex">setValue:atIndex:</a>
+### <a name="setValueatIndex"/>setValue:atIndex:
 Sets the object at index with anObject.  
 \- (void) setValue: (id) value atIndex: (NSUInteger) index  
 #### Parameters
@@ -123,7 +123,7 @@ DSSparseArray.h
 
 
 
-### <a name="setObjectsFromSparseArray">setObjectsFromSparseArray:</a>
+### <a name="setObjectsFromSparseArray"/>setObjectsFromSparseArray:
 Sets the sparse array entries as specified by contents of the other sparse array  
 \- (void) setObjectsFromSparseArray: (DSMutableSparseArray *) otherSparseArray  
 #### Parameters
@@ -148,7 +148,7 @@ This method stores the objects from the *otherSparseArray* at the locations that
 DSSparseArray.h  
 
 
-### <a name="setSparseArray">setSparseArray:</a>
+### <a name="setSparseArray"/>setSparseArray:
 Sets the receiving sparse array’s entries to those in another given sparse array.  
 \- (void) setSparseArray: (DSSparseArray *) otherSparseArray  
 #### Parameters
@@ -166,7 +166,7 @@ This method empties the reveiving sparse array's content then stores the objects
 DSSparseArray.h
 
 
-### <a name="insertObjectatIndex">insertObject:atIndex:</a>
+### <a name="insertObjectatIndex"/>insertObject:atIndex:
 Inserts the given object into the sparse array's contents at the given index.  
 \- (void) insertObject: (id) object atIndex: (NSUInteger) index  
 #### Parameters
@@ -190,7 +190,7 @@ DSSparseArray.h
 
 
 
-### <a name="insertObjectsatIndexes">insertObjects:atIndexes:</a>
+### <a name="insertObjectsatIndexes"/>insertObjects:atIndexes:
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.  
 \- (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes  
 #### Parameters
@@ -237,7 +237,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectAtIndex">removeObjectAtIndex:</a>
+### <a name="removeObjectAtIndex"/>removeObjectAtIndex:
 Removes the object at *index*.  
 \- (void) removeObjectAtIndex: (NSUInteger) index  
 #### Parameters
@@ -264,7 +264,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObject">removeObject:</a>
+### <a name="removeObject"/>removeObject:
 Removes all occurrences in the sparse array of a given object.  
 \- (void) removeObject: (id) anObject  
 #### Parameters
@@ -286,7 +286,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectsAtIndexes">removeObjectsAtIndexes:</a>
+### <a name="removeObjectsAtIndexes"/>removeObjectsAtIndexes:
 Removes the objects at the specified indexes from the sparse array.  
 \- (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet  
 #### Parameters
@@ -316,7 +316,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeAllObjects">removeAllObjects</a>
+### <a name="removeAllObjects"/>removeAllObjects
 Empties the sparse array of all its elements.  
 \- (void) removeAllObjects  
 #### Return value
@@ -331,7 +331,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectsInRange">removeObjectsInRange:</a>
+### <a name="removeObjectsInRange"/>removeObjectsInRange:
 Removes from the sparse array each of the objects within a given range.  
 \- (void) removeObjectsInRange: (NSRange) aRange  
 #### Parameters
@@ -350,7 +350,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeObjectsInArray">removeObjectsInArray:</a>
+### <a name="removeObjectsInArray"/>removeObjectsInArray:
 Removes the objects in the given array from the receiving sparse array.  
 \- (void) removeObjectsInArray: (NSArray *) array  
 #### Parameters
@@ -370,7 +370,7 @@ DSSparseArray.h
 
 
 
-### <a name="removeLastObject">removeLastObject</a>
+### <a name="removeLastObject"/>removeLastObject
 Removes the object with the highest-valued index in the array  
 \- (void) removeLastObject  
 #### Return value
@@ -387,7 +387,7 @@ DSSparseArray.h
 
 
 
-### <a name="shiftObjectsStartingAtIndexby">shiftObjectsStartingAtIndex:by:</a>
+### <a name="shiftObjectsStartingAtIndexby"/>shiftObjectsStartingAtIndex:by:
 Shifts a group of sparse array entries up or down within the receiver.  
 \- (void) shiftObjectsStartingAtIndex: (NSUInteger) startIndex by: (NSInteger) delta  
 #### Parameters
@@ -422,7 +422,7 @@ DSSparseArray.h
 
 
 
-### <a name="filterUsingPredicate">filterUsingPredicate:</a>
+### <a name="filterUsingPredicate"/>filterUsingPredicate:
 Evaluates a given predicate against the sparse array’s content and leaves only objects that match  
 \- (void) filterUsingPredicate: (NSPredicate *) predicate  
 #### Parameters
@@ -442,7 +442,7 @@ DSSparseArray.h
 
 
 
-### <a name="init">init</a>
+### <a name="init"/>init
 Initializes a newly allocated sparse array.  
 \- (instancetype) init  
 #### Return value
@@ -457,7 +457,7 @@ DSSparseArray.h
 
 
 
-### <a name="initWithCapacity">initWithCapacity:</a>   
+### <a name="initWithCapacity"/>initWithCapacity:   
 Returns a mutable sparse array, initialized with enough memory to initially hold a given number of objects.  
 \- (instancetype) initWithCapacity: (NSUInteger) numItems  
 #### Parameters
