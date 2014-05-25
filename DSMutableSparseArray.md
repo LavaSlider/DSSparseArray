@@ -132,7 +132,7 @@ A sparse array containing the objects and indexes to be stored in the sparse arr
 #### Return value
 None.  
 #### Discussion
-This method stores the objects from the *otherSparseArray* at the locations that they are at in *otherSparseArray*. If a location already has an object stored at it, that object is replaced. There is no shifting up or down of other entries. Unlike `setObject:atIndex:`, this method will not clear existing entries. In other words, empty entries from *otherSparseArray* are not transfered.  
+This method stores the objects from the *otherSparseArray* at the locations that they are at in *otherSparseArray*. If a location already has an object stored at it, that object is replaced. There is no shifting up or down of other entries. Unlike [setObject:atIndex:](#setObjectatIndex), this method will not clear existing entries. In other words, empty entries from *otherSparseArray* are not transfered.  
 
     sparseArray1 = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"b", 1, @"c", 2, @"m", 13, nil];
     sparseArray2 = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"d", 3, @"n", 13, nil];
@@ -157,7 +157,8 @@ The sparse array of objects with which to replace the receiving sparse array's c
 #### Return value
 None.  
 #### Discussion
-This method empties the reveiving sparse array's content then stores the objects from the *otherSparseArray* in the locations that they are at in *otherSparseArray*. #### Availability
+This method empties the reveiving sparse array's content then stores the objects from the *otherSparseArray* in the locations that they are at in *otherSparseArray*.  
+#### Availability
 #### See Also
 [- setObjects:atIndexes:](#setObjectsatIndexes)  
 [- setObject:atIndex:](#setObjectatIndex)  
@@ -181,7 +182,7 @@ If index is already occupied, the objects at index and beyond are shifted by add
 
 Note that unlike NSArray objects, mutable sparse arrays do not have a fixed size and objects can be inserted at any index from 0 to NSNotFound - 1. If the object to be inserted is *nil* then it just shifts the remainder of the array by one creating an empty entry.
 
-If an existing array element is shifted beyond the permissible index range (i.e., its index > NSNotFound - 1) it will be silently deleted or generate an NSRangeException depending on the status of setThrowExceptionOnOutOfRangeIndex:.  
+If an existing array element is shifted beyond the permissible index range (i.e., its index > NSNotFound - 1) it will be silently deleted or generate an **NSRangeException** depending on the status of [setThrowExceptionOnOutOfRangeIndex:](DSSparseArray.md#setThrowExceptionOnOutOfRangeIndex).  
 #### Availability
 #### See Also
 [- setObject:atIndex:](#setObjectatIndex)  
@@ -227,7 +228,7 @@ The resulting behaviour is illustrated by:
 
 Because this is a sparse array there are no requirements that the insertion points be contiguous with existing array elements. It should be kept in mind, however, that all indexes greater than or equal to the insertion point are shifted up whether they are empty or not, as illustrated above.
 
-If an existing array element is shifted beyond the permissible index range (i.e., its index > NSNotFound - 1) it will be silently deleted or generate an NSRangeException depending on the status of setThrowExceptionOnOutOfRangeIndex:.  
+If an existing array element is shifted beyond the permissible index range (i.e., its index > NSNotFound - 1) it will be silently deleted or generate an **NSRangeException** depending on the status of [setThrowExceptionOnOutOfRangeIndex:](DSSparseArray.md#setThrowExceptionOnOutOfRangeIndex).  
 #### Availability
 #### See Also
 [- insertObject:atIndex:](#insertObjectatIndex)  
@@ -275,7 +276,7 @@ The index within the sparse array at which to store the object.
 #### Return value
 None.  
 #### Discussion
-If the *anObject* parameter is not *nil* this method uses `allIndexesForObject:` to get all the indexes then `removeObjectsAtIndexes:` to remove them from the sparse array. If the *anObject* parameter is *nil* this method removes all the empty sparse array entries, thus compacting all the occupied entries in locations zero to count - 1.  
+If the *anObject* parameter is not *nil* this method uses [allIndexesForObject:](#allIndexesForObject) to get all the indexes then [removeObjectsAtIndexes:](#removeObjectsAtIndexes) to remove them from the sparse array. If the *anObject* parameter is *nil* this method removes all the empty sparse array entries, thus compacting all the occupied entries in locations zero to count - 1.  
 #### Availability
 #### See Also
 [- allIndexesForObject:](#allIndexesForObject)  
@@ -297,7 +298,7 @@ The indexes in the sparse array to remove.
 #### Return value
 None.
 #### Discussion
-This method is similar to `removeObjectAtIndex:`, but allows you to efficiently remove multiple objects with a single operation. *indexes* specifies the locations of objects to be removed given the state of the array when the method is invoked, as illustrated in the following example. Both empty entries and entries containing objects can be removed with similar effects.
+This method is similar to [removeObjectAtIndex:](#removeObjectAtIndex), but allows you to efficiently remove multiple objects with a single operation. *indexes* specifies the locations of objects to be removed given the state of the array when the method is invoked, as illustrated in the following example. Both empty entries and entries containing objects can be removed with similar effects.
 
     DSMutableSparseArray *sparseArray = [DSMutableSparseArray sparseArrayWithObjectsAndIndexes: @"one", 0, @"a", 1, @"two", 2, @"b", 3, @"three", 4, @"four", 5, @"j", 11, @"ten", 12, nil];
     NSMutableIndexSet *indexes = [NSMutableIndexSet indexSetWithIndex: 1];
@@ -340,7 +341,7 @@ The range of the objects to remove from the array.
 #### Return value
 None.  
 #### Discussion
-The objects are removed by using `shiftObjectsStartingAtIndex:by:` with the *startIndex* one higher than the range (range.loc + range.length) and the *delta* equal to the length of the range (range.length).  
+The objects are removed by using [shiftObjectsStartingAtIndex:by:](#shiftObjectsStartingAtIndexby) with the *startIndex* one higher than the range (range.loc + range.length) and the *delta* equal to the length of the range (range.length).  
 #### Availability
 #### See Also
 [- removeObject:atIndex:](#removeObjectatIndex)  
@@ -376,7 +377,7 @@ Removes the object with the highest-valued index in the array
 #### Return value
 None.  
 #### Discussion
-If there are no objects in the sparse array `removeLastObject` either nothing will happen, a warning will be written with NSLog() or an NSRangeException will be raised depending on the status of `setThrowExceptionOnOutOfRangeIndex:`.  
+If there are no objects in the sparse array [removeLastObject](#removeLastObject) either nothing will happen, a warning will be written with NSLog() or an **NSRangeException** will be raised depending on the status of [setThrowExceptionOnOutOfRangeIndex:](DSSparseArray.md#setThrowExceptionOnOutOfRangeIndex).  
 #### Availability
 #### See Also
 [- removeAllObjects](#removeAllObjects)  
@@ -412,7 +413,7 @@ The group of array entries shifted is made up by *startIndex* and all the entrie
     //   sparse array: ( 0: one, 2: two, 3: three, 4: four, 10: ten )
     //   sparse array: ( 0: one, 2: two, 3: three, 5: ten )
 
-The indexes of the resulting sparse array must all be in the range of 0 to NSNotFound - 1. If an existing array element is shifted beyond the permissible index range (i.e., its index < 0 or index > NSNotFound - 1) it will be silently deleted or generate an NSRangeException depending on the status of `setThrowExceptionOnOutOfRangeIndex:`.  
+The indexes of the resulting sparse array must all be in the range of 0 to NSNotFound - 1. If an existing array element is shifted beyond the permissible index range (i.e., its index < 0 or index > NSNotFound - 1) it will be silently deleted or generate an **NSRangeException** depending on the status of [setThrowExceptionOnOutOfRangeIndex:](DSSparseArray.md#setThrowExceptionOnOutOfRangeIndex).  
 #### Availability
 #### See Also
 [- insertObject:atIndex:](#insertObjectatIndex)  
