@@ -412,6 +412,90 @@
 
 	//XCTFail( @"Testing of allIndexes needs to be completed" );
 }
+- (void) test_DSSparseArray_objectsForIndexes {
+	DSSparseArray *sparseArray;
+	DSSparseArray *selectedEntries;
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
+	
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 400, 500 )]];
+	XCTAssertTrue( selectedEntries.count == 2, @"A sparse array with two objects should have a count of 2 not %lu", selectedEntries.count );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 456] isEqualToString: @"one"], @"Entry 456 should be 'one' not '%@'", [selectedEntries objectAtIndex: 456] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 876] isEqualToString: @"two"], @"Entry 876 should be 'two' not '%@'", [selectedEntries objectAtIndex: 876] );
+	
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 10, 50 )]];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 0, @"A sparse array with no objects should have a count of 0 not %lu", selectedEntries.count );
+	
+	// Put test if when the sparse array is empty
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSet]];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 0, @"A sparse array with two objects should have a count of 2 not %lu", selectedEntries.count );
+	
+	// Put test if when the sparse array is empty
+	selectedEntries = [sparseArray objectsForIndexes: nil];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 0, @"A sparse array with two objects should have a count of 2 not %lu", selectedEntries.count );
+	
+	//XCTFail( @"Testing of allIndexes needs to be completed" );
+}
+- (void) test_DSSparseArray_objectsForIndexesnotFoundMarker {
+	DSSparseArray *sparseArray;
+	DSSparseArray *selectedEntries;
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
+	
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 400, 500 )] notFoundMarker: @"boo"];
+	XCTAssertTrue( selectedEntries.count == 500, @"A sparse array with 500 objects should have a count of 500 not %lu", selectedEntries.count );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 400] isEqualToString: @"boo"], @"Entry 400 should be 'boo' not '%@'", [selectedEntries objectAtIndex: 400] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 456] isEqualToString: @"one"], @"Entry 456 should be 'one' not '%@'", [selectedEntries objectAtIndex: 456] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 876] isEqualToString: @"two"], @"Entry 876 should be 'two' not '%@'", [selectedEntries objectAtIndex: 876] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 899] isEqualToString: @"boo"], @"Entry 899 should be 'boo' not '%@'", [selectedEntries objectAtIndex: 899] );
+	XCTAssertFalse( [[selectedEntries objectAtIndex: 900] isEqualToString: @"boo"], @"Entry 900 should not be 'boo' not '%@'", [selectedEntries objectAtIndex: 900] );
+	XCTAssertNil( [selectedEntries objectAtIndex: 900], @"Entry 900 should be nil not '%@'", [selectedEntries objectAtIndex: 900] );
+	
+	
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( 10, 10 )] notFoundMarker: @"foo"];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 10, @"A sparse array with 10 objects should have a count of 10 not %lu", selectedEntries.count );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 10] isEqualToString: @"foo"], @"Entry 10 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 10] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 11] isEqualToString: @"foo"], @"Entry 11 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 11] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 12] isEqualToString: @"foo"], @"Entry 12 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 12] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 13] isEqualToString: @"foo"], @"Entry 13 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 13] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 14] isEqualToString: @"foo"], @"Entry 14 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 14] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 15] isEqualToString: @"foo"], @"Entry 15 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 15] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 16] isEqualToString: @"foo"], @"Entry 16 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 16] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 17] isEqualToString: @"foo"], @"Entry 17 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 17] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 18] isEqualToString: @"foo"], @"Entry 18 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 18] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: 19] isEqualToString: @"foo"], @"Entry 19 should be 'foo' not '%@'", [selectedEntries objectAtIndex: 19] );
+
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 5, 5 )] notFoundMarker: @"bar"];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 5, @"A sparse array with 10 objects should have a count of 10 not %lu", selectedEntries.count );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: NSNotFound - 5] isEqualToString: @"bar"], @"Entry NSNotFound-5 should be 'bar' not '%@'", [selectedEntries objectAtIndex: NSNotFound - 5] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: NSNotFound - 4] isEqualToString: @"bar"], @"Entry NSNotFound-5 should be 'bar' not '%@'", [selectedEntries objectAtIndex: NSNotFound - 4] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: NSNotFound - 3] isEqualToString: @"bar"], @"Entry NSNotFound-5 should be 'bar' not '%@'", [selectedEntries objectAtIndex: NSNotFound - 3] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: NSNotFound - 2] isEqualToString: @"bar"], @"Entry NSNotFound-5 should be 'bar' not '%@'", [selectedEntries objectAtIndex: NSNotFound - 2] );
+	XCTAssertTrue( [[selectedEntries objectAtIndex: NSNotFound - 1] isEqualToString: @"bar"], @"Entry NSNotFound-5 should be 'bar' not '%@'", [selectedEntries objectAtIndex: NSNotFound - 1] );
+
+	// Put test if when the sparse array is empty
+	selectedEntries = [sparseArray objectsForIndexes: [NSIndexSet indexSet] notFoundMarker: @"nothing"];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 0, @"A sparse array with two objects should have a count of 0 not %lu", selectedEntries.count );
+
+	// Put test if when the sparse array is empty
+	selectedEntries = [sparseArray objectsForIndexes: nil notFoundMarker: @"fooy"];
+	XCTAssertNotNil( selectedEntries, @"It should be an empty sparse array not nil" );
+	XCTAssertTrue( selectedEntries.count == 0, @"A sparse array with two objects should have a count of 0 not %lu", selectedEntries.count );
+
+	//XCTFail( @"Testing of allIndexes needs to be completed" );
+}
 - (void) test_DSSparseArray_getObjectsAndIndexes {
 	// From Stackoverfow http://stackoverflow.com/questions/2894093/example-of-nsdictionary-getobjectsandkeys
 	//NSDictionary *myDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"1", @"A", @"2", @"B", nil];

@@ -244,17 +244,58 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	return NO;
 }
 - (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject {
-	NSMutableArray *objects = [NSMutableArray arrayWithCapacity: indexes.count];
-	NSMutableIndexSet *setIndexes = [NSMutableIndexSet indexSet];
-	[indexes enumerateIndexesUsingBlock: ^( NSUInteger idx, BOOL *stop ) {
-		id obj = [self objectAtIndex: idx];
-		if( !obj ) obj = anObject;
-		if( obj ) {
-			[setIndexes addIndex: idx];
-			[objects addObject: obj];
+	DSSparseArray *derivedArray = nil;
+	NSMutableArray *objects;
+	NSMutableIndexSet *setIndexes;
+	// I only need to go through the intersection of the index sets if anObject is nil
+	if( !anObject ) {
+		// Indexes: 1   3   5   7 9
+		// self:      2 3 4 5 6
+		NSMutableIndexSet *a = [self.indexes mutableCopy];
+		[a removeIndexes: indexes];  // In self but not indexes.
+		// a = 2 4 6
+		setIndexes = [self.indexes mutableCopy];
+		[setIndexes removeIndexes: a];
+		// setIndexes = 3 5
+		if( setIndexes.count == 0 ) {
+			derivedArray = [DSSparseArray sparseArray];
+		} else {
+			objects = [NSMutableArray arrayWithCapacity: setIndexes.count];
+			NSUInteger idx = setIndexes.firstIndex;
+			while( idx != NSNotFound ) {
+				[objects addObject: [self objectAtIndex: idx]];
+				idx = [setIndexes indexGreaterThanIndex: idx];
+			}
+			derivedArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: setIndexes];
 		}
-	}];
-	return [DSSparseArray sparseArrayWithObjects: objects atIndexes: setIndexes];
+	} else {
+		objects = [NSMutableArray arrayWithCapacity: indexes.count];
+		setIndexes = [NSMutableIndexSet indexSet];
+		if( [self _NSIndexSet_enumerateIndexesUsingBlock_isBroken] ) {
+			if( indexes.count > 0 ) {
+				NSUInteger idx = [indexes firstIndex];
+				while( idx != NSNotFound ) {
+					id obj = [self objectAtIndex: idx];
+					if( !obj ) obj = anObject;
+					[setIndexes addIndex: idx];
+					[objects addObject: obj];
+					idx = [indexes indexGreaterThanIndex: idx];
+				}
+			}
+		} else {
+			[indexes enumerateIndexesUsingBlock: ^( NSUInteger idx, BOOL *stop ) {
+				id obj = [self objectAtIndex: idx];
+				if( !obj ) obj = anObject;
+				[setIndexes addIndex: idx];
+				[objects addObject: obj];
+			}];
+		}
+		derivedArray = [DSSparseArray sparseArrayWithObjects: objects atIndexes: setIndexes];
+	}
+	return derivedArray;
+}
+- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes {
+	return [self objectsForIndexes: indexes notFoundMarker: nil];
 }
 - (id) valueAtIndex: (NSUInteger) index {
 	return [self objectAtIndex: index];

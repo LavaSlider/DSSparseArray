@@ -33,6 +33,8 @@
 [- allIndexes](#allindexes)  
 [- objectAtIndex:](#objectatindex)  
 [- valueAtIndex:](#valueatindex)  
+[- objectsForIndexes:](#objectsforindexes)  
+[- objectsForIndexes:notFoundMarker:](#objectsforindexesnotfoundmarker)  
 [- objectEnumerator](#objectenumerator)  
 [- enumerateIndexesAndObjectsUsingBlock:](#enumerateindexesandobjectsusingblock)  
 [- enumerateIndexesAndObjectsWithOptions:usingBlock:](#enumerateindexesandobjectswithoptionsusingblock)  
@@ -840,6 +842,26 @@ DSSparseArray.h
 
 
 
+### objectsForIndexes:
+Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
+\- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes  
+#### Parameters
+##### *indexes*
+An index set.
+#### Return value
+A sparse array containing the objects in the sparse array at the indexes specified by *indexes*.  
+#### Discussion
+The returned objects are at the indexes specified by *indexes*. This method is equivalent to [objectsForIndexes:notFoundMarker:](#objectsforindexesnotfoundmarker) with **nil** passed as the **notFoundMarker** object.  
+#### Availability
+Available in OS X v10.0 and later.
+#### See Also
+[- allIndexes](#allindexes)  
+[- allValues](#allvalues)  
+[- objectsForIndexes:notFoundMarker:](#objectsforindexesnotfoundmarker)  
+#### Declared In
+DSSparseArray.h  
+
+
 ### objectsForIndexes:notFoundMarker:
 Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
 \- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject  
@@ -849,15 +871,16 @@ An index set.
 ##### *anObject*
 An object to use for empty entries in the receiving sparse array. This can be **nil**.
 #### Return value
-A sparse array containing the objects in the sparse array at the indexes specified by *indexes*. Any
+A sparse array containing the objects in the sparse array at the indexes specified by *indexes*.
 
 #### Discussion
-The returned objects are at the indexes in *indexes*.
+The returned objects are at the indexes in *indexes*. Any empty location is filled in by *anObject*.  
 #### Availability
 Available in OS X v10.0 and later.
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allValues](#allvalues) 
+[- objectsForIndexes:](#objectsforindexes) 
 #### Declared In
 DSSparseArray.h  
 
