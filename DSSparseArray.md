@@ -23,6 +23,8 @@
 [- init](#init)  
 [- initWithArray:](#initwitharray)  
 [- initWithSparseArray:](#initwithsparsearray)  
+[- initWithContentsOfURL:](#initwithcontentsofurl)  
+[- initWithContentsOfFile:](#initwithcontentsoffile)  
 [- initWithSparseArray:copyItems:](#initwithsparsearraycopyitems)  
 [- initWithObjects:atIndexes:](#initwithobjectsatindexes)  
 [- initWithObjects:atIndexes:count:](#initwithobjectsatindexescount)  
@@ -49,11 +51,16 @@
 [- indexesOfEntriesPassingTest:](#indexesofentriespassingtest)  
 [- indexesOfEntriesWithOptions:passingTest:](#indexesofentrieswithoptionspassingtest)  
 
+### Comparing Sparse Arrays
+[- isEqualToSparseArray:](#isequaltosparsearray)  
+
 ### Deriving New Sparse Arrays
 [- filteredSparseArrayUsingPredicate:](#filteredsparsearrayusingpredicate)  
 
-### Comparing Sparse Arrays
-[- isEqualToSparseArray:](#isequaltosparsearray)  
+### Creating a Description
+[- description:](#description)  
+[- writeToFile:atomically:](#writetofileatomically)  
+[- writeToURL:atomically:](#writetourlatomically)  
 
 
 ## Class Methods
@@ -283,21 +290,6 @@ DSSparseArray.h
 
 ## Instance Methods
 
-### <a name="countMethod"/>count
-Returns the number of objects currently in the sparse array  
-\- ([NSUInteger][]) count  
-#### Return value
-The number of objects currently in the sparse array.  
-#### Discussion
-Unlike a regular array the objects in sparse array do not necessarily be at contiguous indexes starting at zero. The method returns the number of non-empty array entries.  
-#### Availability
-#### See Also
-[- allIndexes](#allindexes)  
-#### Declared In
-DSSparseArray.h  
-
-
-
 ### containsObject:
 Returns a Boolean value that indicates whether a given object is present in the sparse array.  
 \- (BOOL) containsObject: (id) anObject  
@@ -316,21 +308,46 @@ DSSparseArray.h
 
 
 
-### objectAtIndex:
-Returns the object located at the specified index.  
-\- (id) objectAtIndex: ([NSUInteger][]) index  
-#### Parameters
-##### *index*
-The index of the object.  
+### <a name="countMethod"/>count
+Returns the number of objects currently in the sparse array  
+\- ([NSUInteger][]) count  
 #### Return value
-The object located at index which, since this is a sparse array, it could be **nil**.  
+The number of objects currently in the sparse array.  
 #### Discussion
-Any value of index is permissible from 0 to NSNotFound - 1 but will return **nil** for any entry that has not been set.  
+Unlike a regular array the objects in sparse array do not necessarily be at contiguous indexes starting at zero. The method returns the number of non-empty array entries.  
 #### Availability
 #### See Also
-[- count](#countMethod)  
 [- allIndexes](#allindexes)  
 #### Declared In
+DSSparseArray.h  
+
+
+
+### <a name="countMethod"/>count
+Returns the number of objects currently in the sparse array  
+\- ([NSUInteger][]) count  
+#### Return value
+The number of objects currently in the sparse array.  
+#### Discussion
+Unlike a regular array the objects in sparse array do not necessarily be at contiguous indexes starting at zero. The method returns the number of non-empty array entries.  
+#### Availability
+#### See Also
+[- allIndexes](#allindexes)  
+#### Declared In
+DSSparseArray.h  
+
+
+
+### description:
+Returns a string that represents the contents of the array.
+\- (NSString *) description  
+#### Parameters
+#### Return value
+A string that represents the contents of the array.  
+#### Discussion  
+#### Availability  
+#### See Also  
+#### Declared In  
 DSSparseArray.h  
 
 
