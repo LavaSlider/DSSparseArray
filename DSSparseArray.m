@@ -243,7 +243,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		return YES;
 	return NO;
 }
-- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject {
+- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject {
 	DSSparseArray *derivedArray = nil;
 	NSMutableArray *objects;
 	NSMutableIndexSet *setIndexes;
@@ -294,8 +294,8 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	}
 	return derivedArray;
 }
-- (DSSparseArray *) objectsForIndexes: (NSIndexSet *) indexes {
-	return [self objectsForIndexes: indexes notFoundMarker: nil];
+- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) indexes {
+	return [self objectsAtIndexes: indexes notFoundMarker: nil];
 }
 - (id) valueAtIndex: (NSUInteger) index {
 	return [self objectAtIndex: index];
