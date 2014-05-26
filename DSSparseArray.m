@@ -189,7 +189,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	}
 	return indexes;
 }
-- (NSArray *) allValues {
+- (NSArray *) allObjects {
 	NSUInteger	count = self.dictionary.count;
 	NSUInteger	idx = [self.indexes firstIndex];
 	NSMutableArray	*objects = [NSMutableArray arrayWithCapacity: count];
@@ -787,7 +787,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	self.dictionary = [otherSparseArray.dictionary mutableCopy];
 }
 - (void) setObjectsFromSparseArray: (DSSparseArray *) otherSparseArray {
-	NSArray *objects = [otherSparseArray allValues];
+	NSArray *objects = [otherSparseArray allObjects];
 	[self setObjects: objects atIndexes: otherSparseArray.indexes];
 }
 

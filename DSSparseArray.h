@@ -38,7 +38,7 @@ typedef enum : unsigned int {
 - (BOOL) containsObject: (id) anObject;
 - (NSIndexSet *) allIndexes;
 - (NSIndexSet *) allIndexesForObject: (id) anObject;
-- (NSArray *) allValues; // Should this be 'allObjects'?
+- (NSArray *) allObjects;
 - (void) getObjects: (__unsafe_unretained id []) objects andIndexes: (NSUInteger []) indexes;
 - (BOOL) isEqualToSparseArray: (DSSparseArray *) otherSparseArray;
 - (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) indexes;

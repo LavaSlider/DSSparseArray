@@ -393,20 +393,20 @@
 	
 	//XCTFail( @"Testing of allIndexesForObject needs to be completed" );
 }
-- (void) test_DSSparseArray_allValues {
+- (void) test_DSSparseArray_allObjects {
 	DSSparseArray *sparseArray;
 	
 	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"one", 986, @"two", 1029, nil];
 	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
 	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
 	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
-	NSArray *allValues = [sparseArray allValues];
-	XCTAssertNotNil( allValues, @"All values should not be nil" );
-	XCTAssertTrue( allValues.count == 4, @"All values should have four entries not %lu", (unsigned long) allValues.count );
-	XCTAssertTrue( [allValues[0] isEqualToString: @"one"], @"The first entry should be 'one' not '%@'", allValues[0] );
-	XCTAssertTrue( [allValues[1] isEqualToString: @"two"], @"The second entry should be 'two' not '%@'", allValues[1] );
-	XCTAssertTrue( [allValues[2] isEqualToString: @"one"], @"The third entry should be 'one' not '%@'", allValues[2] );
-	XCTAssertTrue( [allValues[3] isEqualToString: @"two"], @"The fourth entry should be 'tow' not '%@'", allValues[3] );
+	NSArray *allObjects = [sparseArray allObjects];
+	XCTAssertNotNil( allObjects, @"All values should not be nil" );
+	XCTAssertTrue( allObjects.count == 4, @"All values should have four entries not %lu", (unsigned long) allObjects.count );
+	XCTAssertTrue( [allObjects[0] isEqualToString: @"one"], @"The first entry should be 'one' not '%@'", allObjects[0] );
+	XCTAssertTrue( [allObjects[1] isEqualToString: @"two"], @"The second entry should be 'two' not '%@'", allObjects[1] );
+	XCTAssertTrue( [allObjects[2] isEqualToString: @"one"], @"The third entry should be 'one' not '%@'", allObjects[2] );
+	XCTAssertTrue( [allObjects[3] isEqualToString: @"two"], @"The fourth entry should be 'tow' not '%@'", allObjects[3] );
 	
 	// Put test if when the sparse array is empty
 

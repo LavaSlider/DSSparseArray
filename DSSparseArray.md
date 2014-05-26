@@ -35,6 +35,7 @@
 [- valueAtIndex:](#valueatindex)  
 [- objectsAtIndexes:](#objectsatindexes)  
 [- objectsAtIndexes:notFoundMarker:](#objectsatindexesnotfoundmarker)  
+[- allObjects](#allobjects)
 [- objectEnumerator](#objectenumerator)  
 [- enumerateIndexesAndObjectsUsingBlock:](#enumerateindexesandobjectsusingblock)  
 [- enumerateIndexesAndObjectsWithOptions:usingBlock:](#enumerateindexesandobjectswithoptionsusingblock)  
@@ -309,7 +310,7 @@ This can be used for finding the first, last, or other entries in the sparse arr
 #### Availability
 #### See Also
 [- count](#countMethod)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 #### Declared In
 DSSparseArray.h  
 
@@ -444,9 +445,9 @@ This is a synonym for [objectAtIndex:](#objectatindex). Any value of index is pe
 DSSparseArray.h  
 
 
-### allValues
+### allObjects
 Returns a new array containing the sparse array's values.  
-\- (NSArray *) allValues  
+\- (NSArray *) allObjects  
 #### Return value
 A new array containing the sparse array's values, or an empty array if the sparse array has no entries.
 #### Discussion
@@ -490,7 +491,7 @@ The elements in the returned arrays are ordered from smallest index to largest i
 #### Availability
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 #### Declared In
 DSSparseArray.h  
 
@@ -516,7 +517,7 @@ This method executes synchronously.
 #### Availability
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 [- enumerateIndexesAndObjectsWithOptions:usingBlock:](#enumerateindexesandobjectswithoptionsusingblock)  
 #### Declared In
 DSSparseArray.h  
@@ -546,7 +547,7 @@ This method executes synchronously.
 #### Availability
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 [- enumerateIndexesAndObjectsUsingBlock:](#enumerateindexesandobjectsusingblock)  
 #### Declared In
 DSSparseArray.h  
@@ -593,7 +594,7 @@ The indexes whose corresponding entries in the sparse array pass the test specif
 Available in OS X v10.6 and later.
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 [- enumerateIndexesAndObjectsUsingBlock:](#enumerateindexesandobjectsusingblock)  
 [- indexesOfEntriesWithOptions:passingTest:](#indexesofentrieswithoptionspassingtest)  
 #### Declared In
@@ -627,7 +628,7 @@ By default, the enumeration starts with the first object and continues serially 
 Available in OS X v10.6 and later.
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 [- indexesOfEntriesPassingTest:](#indexesofentriespassingtest)  
 #### Declared In
 DSSparseArray.h  
@@ -836,7 +837,7 @@ Two arrays have equal contents if they each hold the same number of objects and 
 Available in OS X v10.0 and later.
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 #### Declared In
 DSSparseArray.h  
 
@@ -856,7 +857,7 @@ The returned objects are at the indexes specified by *indexes*. This method is e
 Available in OS X v10.0 and later.
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues)  
+[- allObjects](#allobjects)  
 [- objectsAtIndexes:notFoundMarker:](#objectsatindexesnotfoundmarker)  
 #### Declared In
 DSSparseArray.h  
@@ -879,7 +880,7 @@ The returned objects are at the indexes in *indexes*. Any empty location is fill
 Available in OS X v10.0 and later.
 #### See Also
 [- allIndexes](#allindexes)  
-[- allValues](#allvalues) 
+[- allObjects](#allobjects) 
 [- objectsAtIndexes:](#objectsatindexes) 
 #### Declared In
 DSSparseArray.h  
