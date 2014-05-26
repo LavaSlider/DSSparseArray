@@ -45,6 +45,9 @@ typedef enum : unsigned int {
 - (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObjectOrNil;
 - (id) valueAtIndex: (NSUInteger) index;
 - (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate;
+- (BOOL) writeToFile: (NSString *) path atomically: (BOOL) atomically;
+- (BOOL) writeToURL: (NSURL *) url atomically: (BOOL) atomically;
+
 
 #if NS_BLOCKS_AVAILABLE
 - (void) enumerateIndexesAndObjectsUsingBlock: (void (^)( id obj, NSUInteger idx, BOOL *stop )) block;
@@ -74,6 +77,11 @@ typedef enum : unsigned int {
 - (instancetype) initWithObjects: (const id []) objects atIndexes: (const NSUInteger[]) indexes count: (NSUInteger) count;
 - (instancetype) initWithObjectsAndIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
 - (instancetype) initWithObjectsAndNSUIntegerIndexes: (id) firstObject, ... NS_REQUIRES_NIL_TERMINATION;
+
++ (id /* DSSparseArray * */) sparseArrayWithContentsOfFile: (NSString *) path;
++ (id /* DSSparseArray * */) sparseArrayWithContentsOfURL: (NSURL *) url;
+- (id /* DSSparseArray * */) initWithContentsOfFile: (NSString *) path;
+- (id /* DSSparseArray * */) initWithContentsOfURL: (NSURL *) url;
 
 @end
 

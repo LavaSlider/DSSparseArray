@@ -1175,6 +1175,109 @@
 	[DSSparseArray setThrowExceptionOnIndexOutOfRange: IndexOutOfRangeNoThrowNoWarn];
 	//NSLog( @"---------------------------------------------------------------" );
 }
+- (void) test_DSSparsArray_sparseArrayWithContentsOfFile {
+	DSSparseArray *sparseArray1;
+	DSSparseArray *sparseArray2;
+	DSMutableSparseArray *sparseArray3;
+
+	// Create a temporary file to work with
+	NSString *tempFileTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"DSSparseArrayTest.XXXXX"];
+	const char *tempFileTemplateCString = [tempFileTemplate fileSystemRepresentation];
+	char *tempFileNameCString = (char *) malloc( strlen(tempFileTemplateCString) + 1 );
+	strcpy( tempFileNameCString, tempFileTemplateCString );
+	tempFileNameCString = mktemp( tempFileNameCString );
+	NSString *tempFileName = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempFileNameCString length: strlen(tempFileNameCString)];
+
+	NSError *error;
+	NSFileManager *fm = [NSFileManager defaultManager];
+		
+	sparseArray1 = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 10, @"two", 20, @"three", 30, @"four", 40, nil];
+
+	// Clean up in case there was some failure last time...
+	if( [fm fileExistsAtPath: tempFileName] ) [fm removeItemAtPath: tempFileName error: &error];
+	sparseArray2 = [DSSparseArray sparseArrayWithContentsOfFile: tempFileName];
+	XCTAssertNil( sparseArray2, @"I have not written the file yet, it should not exist" );
+	
+	XCTAssertTrue( [sparseArray1 writeToFile: tempFileName atomically: YES], @"Should be able to write to %@", tempFileName );
+	sparseArray2 = [DSSparseArray sparseArrayWithContentsOfFile: tempFileName];
+	XCTAssertNotNil( sparseArray2, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray2 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	
+	sparseArray3 = [DSMutableSparseArray sparseArrayWithContentsOfFile: tempFileName];
+	XCTAssertNotNil( sparseArray3, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray3 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	[sparseArray3 setObject: @"five" atIndex: 50];
+	XCTAssertTrue( sparseArray3.count == 5, @"After adding one to the array its size should be %lu", (unsigned long) sparseArray3.count );
+	
+	sparseArray1 = [DSMutableSparseArray sparseArray];
+	[sparseArray1 writeToFile: tempFileName atomically: YES];
+	sparseArray2 = [DSSparseArray sparseArrayWithContentsOfFile: tempFileName];
+	XCTAssertNotNil( sparseArray2, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray2 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	
+	sparseArray3 = [DSMutableSparseArray sparseArrayWithContentsOfFile: tempFileName];
+	XCTAssertNotNil( sparseArray3, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray3 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	[sparseArray3 setObject: @"five" atIndex: 50];
+	XCTAssertTrue( sparseArray3.count == 1, @"After adding one to the array its size should be %lu", (unsigned long) sparseArray3.count );
+
+	// Clean up our memory and temporary file
+	[fm removeItemAtPath: tempFileName error: &error];
+	if( error ) NSLog( @"***** error: Unable to remove %@: %@", tempFileName, error );
+	free( tempFileNameCString );
+}
+- (void) test_DSSparsArray_sparseArrayWithContentsOfURL {
+	DSSparseArray *sparseArray1;
+	DSSparseArray *sparseArray2;
+	DSMutableSparseArray *sparseArray3;
+	
+	// Create a temporary file to work with
+	NSString *tempFileTemplate = [NSTemporaryDirectory() stringByAppendingPathComponent: @"DSSparseArrayTest.XXXXX"];
+	const char *tempFileTemplateCString = [tempFileTemplate fileSystemRepresentation];
+	char *tempFileNameCString = (char *) malloc( strlen(tempFileTemplateCString) + 1 );
+	strcpy( tempFileNameCString, tempFileTemplateCString );
+	tempFileNameCString = mktemp( tempFileNameCString );
+	NSString *tempFilePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation: tempFileNameCString length: strlen(tempFileNameCString)];
+	NSURL *tempFileURL = [NSURL fileURLWithPath: tempFilePath];
+	
+	NSError *error;
+	NSFileManager *fm = [NSFileManager defaultManager];
+	
+	sparseArray1 = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 10, @"two", 20, @"three", 30, @"four", 40, nil];
+	
+	// Clean up in case there was some failure last time...
+	if( [fm fileExistsAtPath: tempFileURL.path] ) [fm removeItemAtPath: tempFileURL.path error: &error];
+	sparseArray2 = [DSSparseArray sparseArrayWithContentsOfURL: tempFileURL];
+	XCTAssertNil( sparseArray2, @"I have not written the file yet, it should not exist" );
+	
+	XCTAssertTrue( [sparseArray1 writeToURL: tempFileURL atomically: YES], @"Should be able to write to %@", tempFileURL );
+	sparseArray2 = [DSSparseArray sparseArrayWithContentsOfURL: tempFileURL];
+	XCTAssertNotNil( sparseArray2, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray2 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	
+	sparseArray3 = [DSMutableSparseArray sparseArrayWithContentsOfURL: tempFileURL];
+	XCTAssertNotNil( sparseArray3, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray3 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	[sparseArray3 setObject: @"five" atIndex: 50];
+	XCTAssertTrue( sparseArray3.count == 5, @"After adding one to the array its size should be %lu", (unsigned long) sparseArray3.count );
+	
+	sparseArray1 = [DSMutableSparseArray sparseArray];
+	[sparseArray1 writeToURL: tempFileURL atomically: YES];
+	sparseArray2 = [DSSparseArray sparseArrayWithContentsOfURL: tempFileURL];
+	XCTAssertNotNil( sparseArray2, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray2 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	
+	sparseArray3 = [DSMutableSparseArray sparseArrayWithContentsOfURL: tempFileURL];
+	XCTAssertNotNil( sparseArray3, @"I have written the file so it should not be nil now" );
+	XCTAssertTrue( [sparseArray3 isEqualToSparseArray: sparseArray1], @"Writing and reading should result in sparse arrays that are equal" );
+	[sparseArray3 setObject: @"five" atIndex: 50];
+	XCTAssertTrue( sparseArray3.count == 1, @"After adding one to the array its size should be %lu", (unsigned long) sparseArray3.count );
+	
+	// Clean up our memory and temporary file
+	[fm removeItemAtPath: tempFileURL.path error: &error];
+	if( error ) NSLog( @"***** error: Unable to remove %@: %@", tempFileURL.path, error );
+	free( tempFileNameCString );
+}
 - (void) test_DSSparsArray_copy {
 	NSLog( @"==== Entering %s", __func__ );
 	DSSparseArray *sparseArray1;

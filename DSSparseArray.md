@@ -11,6 +11,8 @@
 [+ sparseArray](#sparsearray)  
 [+ sparseArrayWithArray:](#sparsearraywitharray)  
 [+ sparseArrayWithSparseArray:](#sparsearraywithsparsearray)  
+[+ sparseArrayWithContentsOfFile:](#sparsearraywithcontentsoffile)  
+[+ sparseArrayWithContentsOfURL:](#sparsearraywithcontentsofurl)  
 [+ sparseArrayWithObject:atIndex:](#sparsearraywithobjectatindex)  
 [+ sparseArrayWithObjects:atIndexes:](#sparsearraywithobjectsatindexes)  
 [+ sparseArrayWithObjects:atIndexes:count:](#sparsearraywithobjectsatindexescount)  
@@ -107,22 +109,54 @@ This method is used to create a sparse array containing the contents of otherSpa
 DSSparseArray.h  
 
 
-### sparseArrayWithObject:atIndex:
-Creates and returns a sparse array containing a given object.  
-\+ (instancetype) sparseArrayWithObject: (id) anObject atIndex: ([NSUInteger][]) index  
+### sparseArrayWithSparseArray:
+Creates and returns a sparse array containing the objects in the given sparse array.  
+\+ (instancetype) sparseArrayWithSparseArray: (DSSparseArray *) otherSparseArray  
 #### Parameters
-##### *anObject*
-The object the sparse array will contain.  
-##### *index*
-The index within the sparse array at which the object will be placed. The index must be between 0 and NSNotFound - 1, inclusively.  
+##### otherSparseArray
+The sparse array to get the elements from.  
 #### Return value
-A sparse array containing the single object at the index.  
+A sparse array containing the objects from otherSparseArray at the indexes from otherSparseArray.  
 #### Discussion
-This method is used to create a sparse array containing the only the one object.  
+This method is used to create a sparse array containing the contents of otherSparseArray.  
 #### Availability
 #### See Also
-[+ sparseArrayWithObjects:atIndexes:](#sparsearraywithobjectsatindexes)  
+[+ sparseArrayWithObject:atIndex:](#sparsearraywithobjectatindex)  
 [+ sparseArrayWithObjectsAndIndexes:](#sparsearraywithobjectsandindexes)  
+#### Declared In
+DSSparseArray.h  
+
+
+### sparseArrayWithContentsOfFile:
+Creates and returns a sparse array containing the contents of the file specified by a given path.  
+\+ (id) sparseArrayWithContentsOfFile: (NSString *) *aPath*  
+#### Parameters
+##### *aPath*  
+The path to a file containing a string representation of a sparse array produced by the [writeToFile:atomically:](#writetofileatomically) method.  
+#### Return value
+A sparse array containing the contents of the file specified by *aPath*. Returns **nil** if the file can’t be opened or if the contents of the file can’t be parsed into a sparse array.  
+#### Discussion
+The sparse array representation in the file identified by *aPath* must contain only property list objects (NSString, NSData, NSDate, NSNumber, NSArray, or NSDictionary objects). For more details, see *[Property List Programming Guide][]*. The objects contained by this sparse array are immutable, even if the sparse array is mutable.  
+#### Availability
+#### See Also
+[- writeToFile:atomically:](#writetofileatomically)  
+#### Declared In
+DSSparseArray.h  
+
+
+### sparseArrayWithContentsOfURL:
+Creates and returns an array containing the contents specified by a given URL.  
+\+ (id) sparseArrayWithContentsOfURL: (NSURL *) *aURL*  
+#### Parameters
+##### *aURL*  
+The location of a file containing a string representation of a sparse array produced by the [writeToURL:atomically:](#writetourlatomically) method.  
+#### Return value
+A sparse array containing the contents specified by *aURL*. Returns **nil** if the location can’t be opened or if the contents of the location can’t be parsed into a sparse array.  
+#### Discussion
+The sparse array representation at the location identified by *aURL* must contain only property list objects (NSString, NSData, NSArray, or NSDictionary objects). For more details, see *[Property List Programming Guide][]*. The objects contained by this sparse array are immutable, even if the sparse array is mutable.  
+#### Availability
+#### See Also
+[- writeToURL:atomically:](#writetourlatomically)  
 #### Declared In
 DSSparseArray.h  
 
@@ -669,6 +703,64 @@ DSSparseArray.h
 
 
 
+### initWithSparseArray:
+Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
+\- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray  
+#### Parameters
+##### *otherSparseArray*
+A sparse array containing the objects with which to initialize the new array.
+#### Return value
+A sparse array initialized to contain the objects in *otherSparseArray*. The returned object might be different than the original receiver.
+#### Discussion
+After an immutable sparse array has been initialized in this way, it cannot be modified.
+#### Availability
+#### See Also
+[- initWithObjectsAndIndexes:](#initwithobjectsandindexes)  
+[+ sparseArrayWithObject:atIndex:](#sparsearraywithobjectatindex)  
+[+ sparseArrayWithObjectsAndIndexes:](#sparsearraywithobjectsandindexes)  
+#### Declared In
+DSSparseArray.h  
+
+
+
+### initWithContentsOfFile:
+Initializes a newly allocated sparse array with the contents of the file specified by a given path.  
+\- (id) initWithContentsOfFile: (NSString *) *aPath*  
+#### Parameters
+##### *aPath*
+The path to a file containing a representation of a sparse array produced by the [writeToFile:atomically:](#writetofileatomically) method.  
+#### Return value
+A sparse array initialized to contain the contents of the file specified by *aPath* or **nil** if the file can’t be opened or the contents of the file can’t be parsed into a sparse array. The returned object might be different than the original receiver.  
+#### Discussion
+The sparse array representation in the file identified by *aPath* must contain only property list objects (NSString, NSData, NSArray, or NSDictionary objects). For more details, see *[Property List Programming Guide][]*. The objects contained by this sparse array are immutable, even if the sparse array is mutable.  
+#### Availability
+#### See Also
+[+ sparseArrayWithContentsOfFile:](#sparsearraywithcontentsoffile)  
+[- writeToFile:atomically:](#writetofileatomically)  
+#### Declared In
+DSSparseArray.h  
+
+
+
+### initWithContentsOfURL:
+Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
+\- (id) initWithContentsOfURL: (NSURL *) *aURL*  
+#### Parameters
+##### *aURL*
+The location of a file containing a string representation of an array produced by the [writeToURL:atomically:](#writetourlatomically) method.
+#### Return value
+A sparse array initialized to contain the contents specified by *aURL*. Returns **nil** if the location can’t be opened or if the contents of the location can’t be parsed into a sparse array. The returned object might be different than the original receiver.
+#### Discussion
+The sparse array representation at the location identified by *aURL* must contain only property list objects (NSString, NSData, NSArray, or NSDictionary objects). For more details, see *[Property List Programming Guide][]*. The objects contained by this sparse array are immutable, even if the sparse array is mutable.  
+#### Availability
+#### See Also
+[+ sparseArrayWithContentsOfURL:](#sparsearraywithcontentsofurl)  
+[- writeToURL:atomically:](#writetourlatomically)  
+#### Declared In
+DSSparseArray.h  
+
+
+
 ### initWithObjects:atIndexes:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given array at the indexes in the index set.  
 \- (instancetype) initWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet  
@@ -778,26 +870,6 @@ DSSparseArray.h
 
 
 
-### initWithSparseArray:
-Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
-\- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray  
-#### Parameters
-##### *otherSparseArray*
-A sparse array containing the objects with which to initialize the new array.
-#### Return value
-A sparse array initialized to contain the objects in *otherSparseArray*. The returned object might be different than the original receiver.
-#### Discussion
-After an immutable sparse array has been initialized in this way, it cannot be modified.
-#### Availability
-#### See Also
-[- initWithObjectsAndIndexes:](#initwithobjectsandindexes)  
-[+ sparseArrayWithObject:atIndex:](#sparsearraywithobjectatindex)  
-[+ sparseArrayWithObjectsAndIndexes:](#sparsearraywithobjectsandindexes)  
-#### Declared In
-DSSparseArray.h  
-
-
-
 ### initWithSparseArray:copyItems:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
 \- (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray copyItems: (BOOL) flag  
@@ -845,7 +917,7 @@ DSSparseArray.h
 
 ### objectsAtIndexes:
 Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
-\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) indexes  
+\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) *indexes*  
 #### Parameters
 ##### *indexes*
 An index set.
@@ -863,19 +935,19 @@ Available in OS X v10.0 and later.
 DSSparseArray.h  
 
 
+
 ### objectsAtIndexes:notFoundMarker:
 Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
-\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) indexes notFoundMarker: (id) anObject  
+\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) *indexes* notFoundMarker: (id) *anObject*  
 #### Parameters
 ##### *indexes*
 An index set.
 ##### *anObject*
-An object to use for empty entries in the receiving sparse array. This can be **nil**.
+An object to use for empty entries in the receiving sparse array. This can be **nil**.  
 #### Return value
-A sparse array containing the objects in the sparse array at the indexes specified by *indexes*.
-
+A sparse array containing the objects in the sparse array at the indexes specified by *indexes*.  
 #### Discussion
-The returned objects are at the indexes in *indexes*. Any empty location is filled in by *anObject*.  
+The returned objects are at the indexes in *indexes*. Any empty location is filled in by *anObject*.    
 #### Availability
 Available in OS X v10.0 and later.
 #### See Also
@@ -884,6 +956,56 @@ Available in OS X v10.0 and later.
 [- objectsAtIndexes:](#objectsatindexes) 
 #### Declared In
 DSSparseArray.h  
+
+
+
+### writeToFile:atomically:
+Writes the contents of the sparse array to a file at a given path.  
+\- (BOOL) writeToFile: (NSString *) *path* atomically: (BOOL) *flag*  
+#### Parameters
+##### *path*
+The path at which to write the contents of the sparse array.  
+If path contains a tilde (~) character, you must expand it with [stringByExpandingTildeInPath][] before invoking this method.
+##### *flag*
+If **YES**, the sparse array is written to an auxiliary file, and then the auxiliary file is renamed to path. If **NO**, the array is written directly to path. The **YES** option guarantees that path, if it exists at all, won’t be corrupted even if the system should crash during writing.
+#### Return value
+YES if the file is written successfully, otherwise NO.  
+#### Discussion
+If the sparse array’s contents are all property list objects (NSString, NSData, NSArray, or NSDictionary objects), the file written by this method can be used to initialize a new sparse array with the class method [sparseArrayWithContentsOfFile:](#sparsearraywithcontentsoffile) or the instance method [initWithContentsOfFile:](#initwithcontentsoffile). This method recursively validates that all the contained objects are property list objects before writing out the file, and returns **NO** if all the objects are not property list objects, since the resultant file would not be a valid property list.  
+
+For more information about property lists, see *[Property List Programming Guide][]*.  
+#### Availability
+Available in OS X v10.0 and later.
+#### See Also
+[+ sparseArrayWithContentsOfFile:](#sparsearraywithcontentsoffile)  
+[- initWithContentsOfFile:](#initwithcontentsoffile)  
+#### Declared In
+DSSparseArray.h  
+
+
+
+### writeToURL:atomically:  
+Writes the contents of the sparse array to the location specified by a given URL.  
+\- (BOOL) writeToURL: (NSURL *) *aURL* atomically: (BOOL) *flag*  
+#### Parameters
+##### *aURL*
+The location at which to write the sparse array.  
+##### *flag*
+If **YES**, the sparse array is written to an auxiliary location, and then the auxiliary location is renamed to *aURL*. If **NO**, the array is written directly to *aURL*. The **YES** option guarantees that *aURL*, if it exists at all, won’t be corrupted even if the system should crash during writing.  
+#### Return Value
+**YES** if the location is written successfully, otherwise **NO**.  
+#### Discussion
+If the sparse array’s contents are all property list objects (NSString, NSData, NSArray, or NSDictionary objects), the location written by this method can be used to initialize a new sparse array with the class method [sparseArrayWithContentsOfURL:](#sparsearraywithcontentsofurl) or the instance method [initWithContentsOfURL:](#initwithcontentsofurl).
+
+For more information about property lists, see *[Property List Programming Guide][]*.  
+#### Availability
+Available in OS X v10.0 and later.  
+#### See Also
+[+ sparseArrayWithContentsOfURL:](#sparsearraywithcontentsofurl)  
+[- initWithContentsOfURL:](#initwithcontentsofurl)  
+#### Declared In
+DSSparseArray.h  
+
 
 
 [NSUInteger]: https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/Miscellaneous/Foundation_DataTypes/Reference/reference.html#//apple_ref/doc/c_ref/NSUInteger
@@ -898,6 +1020,8 @@ DSSparseArray.h
 [NSRangeException]: https://developer.apple.com/library/mac/documentation/cocoa/reference/foundation/Miscellaneous/Foundation_Constants/Reference/reference.html#//apple_ref/c/data/NSRangeException
 [copyWithZone:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/Reference/Reference.html#//apple_ref/occ/clm/NSObject/copyWithZone:
 [isEqual:]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/Reference/NSObject.html#//apple_ref/occ/intfm/NSObject/isEqual:
+[Property List Programming Guide]: https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/PropertyLists/Introduction/Introduction.html#//apple_ref/doc/uid/10000048i
+[stringByExpandingTildeInPath]: https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSString_Class/Reference/NSString.html#//apple_ref/occ/instm/NSString/stringByExpandingTildeInPath
 [DSSparseArrayEnumerator]: DSSparseArrayEnumerator.md
 [DSSparseArray]: DSSparseArray.md
 [DSMutableSparseArray]: DSMutableSparseArray.md

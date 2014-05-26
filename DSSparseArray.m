@@ -305,6 +305,25 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	[mutableCopy filterUsingPredicate: predicate];
 	return mutableCopy;
 }
+- (BOOL) writeToFile: (NSString *) path atomically: (BOOL) atomically {
+	NSLog( @">>>>> calling: [self.dictionary writeToFile: \"%@\" atomically: %s]", path, atomically ? "YES" : "NO" );
+	// I store my keys as NSNumbers but to write to a file they have to be NSStrings!
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity: self.dictionary.count];
+	[self.dictionary enumerateKeysAndObjectsUsingBlock: ^( NSNumber *key, id obj, BOOL *stop ) {
+		[dictionary setObject: obj forKey:[key descriptionWithLocale: nil]];
+	}];
+	BOOL status = [dictionary writeToFile: path atomically: atomically];
+	NSLog( @">>>>> return value of %s", status ? "YES" : "NO" );
+	return status;
+}
+- (BOOL) writeToURL: (NSURL *) url atomically: (BOOL) atomically {
+	// I store my keys as NSNumbers but to write to a file they have to be NSStrings!
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity: self.dictionary.count];
+	[self.dictionary enumerateKeysAndObjectsUsingBlock: ^( NSNumber *key, id obj, BOOL *stop ) {
+		[dictionary setObject: obj forKey:[key descriptionWithLocale: nil]];
+	}];
+	return [dictionary writeToURL: url atomically: atomically];
+}
 
 #if NS_BLOCKS_AVAILABLE
 - (NSIndexSet *) indexesOfEntriesPassingTest: (BOOL (^)( NSUInteger idx, id obj, BOOL *stop) ) predicate {
@@ -535,6 +554,49 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		self.indexes = indexes;
 		self.dictionary = [[NSMutableDictionary alloc] initWithObjects: objects forKeys: keys];
 	}
+	return self;
+}
++ (id /* DSSparseArray * */) sparseArrayWithContentsOfFile: (NSString *) path {
+	return [[[self class] alloc] initWithContentsOfFile: path];
+}
++ (id /* DSSparseArray * */) sparseArrayWithContentsOfURL: (NSURL *) url {
+	return [[[self class] alloc] initWithContentsOfURL: url];
+}
+- (id /* DSSparseArray * */) initWithContentsOfDictionary: (NSDictionary *) dictionary {
+	self = [self init];
+	if( self ) {
+		if( !dictionary ) {
+			self = nil;
+		} else {
+			self.indexes = [NSMutableIndexSet indexSet];
+			self.dictionary = [NSMutableDictionary dictionaryWithCapacity: dictionary.count];
+#if NS_BLOCKS_AVAILABLE
+			[dictionary enumerateKeysAndObjectsUsingBlock: ^( id key, id obj, BOOL *stop ) {
+				// Should I make sure the key responds to 'unsignedIntegerValue'?
+				NSUInteger idx = [key integerValue];
+				[self.indexes addIndex: idx];
+				[self.dictionary setObject: [dictionary objectForKey: key] forKey: [NSNumber numberWithUnsignedInteger: idx]];
+			}];
+#else
+			NSArray *keys = [dictionary allKeys];
+			for( id key in keys ) {
+				NSUInteger idx = [key unsignedIntegerValue];
+				[self.indexes addIndex: idx];
+				[self.dictionary setObject: [dictionary objectForKey: key] forKey: [NSNumber numberWithUnsignedInteger: idx]];
+			}
+#endif
+		}
+	}
+	return self;
+}
+- (id /* DSSparseArray * */) initWithContentsOfFile: (NSString *) path {
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile: path];
+	self = [self initWithContentsOfDictionary: dictionary];
+	return self;
+}
+- (id /* DSSparseArray * */) initWithContentsOfURL: (NSURL *) url {
+	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfURL: url];
+	self = [self initWithContentsOfDictionary: dictionary];
 	return self;
 }
 
