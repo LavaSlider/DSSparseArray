@@ -23,22 +23,24 @@
 [- init](#init)  
 [- initWithArray:](#initwitharray)  
 [- initWithSparseArray:](#initwithsparsearray)  
+[- initWithSparseArray:copyItems:](#initwithsparsearraycopyitems)  
 [- initWithContentsOfURL:](#initwithcontentsofurl)  
 [- initWithContentsOfFile:](#initwithcontentsoffile)  
-[- initWithSparseArray:copyItems:](#initwithsparsearraycopyitems)  
 [- initWithObjects:atIndexes:](#initwithobjectsatindexes)  
 [- initWithObjects:atIndexes:count:](#initwithobjectsatindexescount)  
 [- initWithObjectsAndIndexes:](#initwithobjectsandindexes)  
 [- initWithObjectsAndNSUIntegerIndexes:](#initwithobjectsandnsuintegerindexes)  
 
 ### Querying a Sparse Array
-[- count](#countMethod)  
 [- containsObject:](#containsobject)  
-[- allIndexes](#allindexes)  
+[- count](#countMethod)  
+[- firstObject](#firstobject) - to be done  
+[- lastObject](#lastobject) - to be done  
 [- objectAtIndex:](#objectatindex)  
 [- valueAtIndex:](#valueatindex)  
 [- objectsAtIndexes:](#objectsatindexes)  
 [- objectsAtIndexes:notFoundMarker:](#objectsatindexesnotfoundmarker)  
+[- allIndexes](#allindexes)  
 [- allObjects](#allobjects)  
 [- objectEnumerator](#objectenumerator)  
 [- enumerateIndexesAndObjectsUsingBlock:](#enumerateindexesandobjectsusingblock)  
