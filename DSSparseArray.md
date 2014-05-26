@@ -35,17 +35,17 @@
 [- valueAtIndex:](#valueatindex)  
 [- objectsAtIndexes:](#objectsatindexes)  
 [- objectsAtIndexes:notFoundMarker:](#objectsatindexesnotfoundmarker)  
-[- allObjects](#allobjects)
+[- allObjects](#allobjects)  
 [- objectEnumerator](#objectenumerator)  
 [- enumerateIndexesAndObjectsUsingBlock:](#enumerateindexesandobjectsusingblock)  
 [- enumerateIndexesAndObjectsWithOptions:usingBlock:](#enumerateindexesandobjectswithoptionsusingblock)  
-[- indexesOfEntriesPassingTest:](#indexesofentriespassingtest)  
-[- indexesOfEntriesWithOptions:passingTest:](#indexesofentrieswithoptionspassingtest)  
 
 ### Finding Objects in a Sparse Array
 [- indexOfObject:](#indexofobject)  
 [- allIndexesForObject:](#allindexesforobject)  
 [- indexOfObjectIdenticalTo:](#indexofobjectidenticalto)  
+[- indexesOfEntriesPassingTest:](#indexesofentriespassingtest)  
+[- indexesOfEntriesWithOptions:passingTest:](#indexesofentrieswithoptionspassingtest)  
 
 ### Deriving New Sparse Arrays
 [- filteredSparseArrayUsingPredicate:](#filteredsparsearrayusingpredicate)  
