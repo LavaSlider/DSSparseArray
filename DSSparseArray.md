@@ -34,8 +34,8 @@
 ### Querying a Sparse Array
 [- containsObject:](#containsobject)  
 [- count](#countMethod)  
-[- firstObject](#firstobject) - to be done  
-[- lastObject](#lastobject) - to be done  
+[- firstObject](#firstobject)  
+[- lastObject](#lastobject)  
 [- objectAtIndex:](#objectatindex)  
 [- valueAtIndex:](#valueatindex)  
 [- objectsAtIndexes:](#objectsatindexes)  
@@ -325,22 +325,7 @@ DSSparseArray.h
 
 
 
-### <a name="countMethod"/>count
-Returns the number of objects currently in the sparse array  
-\- ([NSUInteger][]) count  
-#### Return value
-The number of objects currently in the sparse array.  
-#### Discussion
-Unlike a regular array the objects in sparse array do not necessarily be at contiguous indexes starting at zero. The method returns the number of non-empty array entries.  
-#### Availability
-#### See Also
-[- allIndexes](#allindexes)  
-#### Declared In
-DSSparseArray.h  
-
-
-
-### description:
+### description
 Returns a string that represents the contents of the array.
 \- (NSString *) description  
 #### Parameters
@@ -403,6 +388,32 @@ If *anObject* is **nil** the index of the first empty sparse array location is r
 [- allIndexesForObject:](#allindexesforobject)  
 [- indexOfObject:](#indexofobject)  
 #### Declared In
+DSSparseArray.h  
+
+
+### firstObject
+Returns the first object in the sparse array.  
+\- (id) firstObject  
+#### Parameters
+#### Return value
+The first object in the sparse array. If the array is empty, returns **nil**.  
+#### Discussion  
+#### Availability  
+#### See Also  
+#### Declared In  
+DSSparseArray.h  
+
+
+### lastObject
+Returns the last object in the sparse array.  
+- (id) lastObject
+#### Parameters
+#### Return value
+The last object in the sparse array. If the array is empty, returns **nil**. 
+#### Discussion  
+#### Availability  
+#### See Also  
+#### Declared In  
 DSSparseArray.h  
 
 

@@ -409,7 +409,63 @@
 	XCTAssertTrue( [allObjects[3] isEqualToString: @"two"], @"The fourth entry should be 'tow' not '%@'", allObjects[3] );
 	
 	// Put test if when the sparse array is empty
-
+	
+	//XCTFail( @"Testing of allIndexes needs to be completed" );
+}
+- (void) test_DSSparseArray_firstObject {
+	DSSparseArray *sparseArray;
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"three", 986, @"four", 1029, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array should not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
+	id firstObj = [sparseArray firstObject];
+	XCTAssertNotNil( firstObj, @"The first object should not be nil" );
+	XCTAssertTrue( [firstObj isEqualToString: @"one"], @"The first entry should be 'one' not '%@'", firstObj );
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndNSUIntegerIndexes: @"one", NSNotFound - 1, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array should not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 1, @"A sparse array with one object should have a count of 1 not %lu", sparseArray.count );
+	firstObj = [sparseArray firstObject];
+	XCTAssertNotNil( firstObj, @"The first object should not be nil" );
+	XCTAssertTrue( [firstObj isEqualToString: @"one"], @"The first entry should be 'one' not '%@'", firstObj );
+	
+	sparseArray = [DSSparseArray sparseArray];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with zero objects should have a count of 0 not %lu", sparseArray.count );
+	firstObj = [sparseArray firstObject];
+	XCTAssertNil( firstObj, @"The first object should be nil" );
+	
+	//XCTFail( @"Testing of allIndexes needs to be completed" );
+}
+- (void) test_DSSparseArray_lastObject {
+	DSSparseArray *sparseArray;
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndIndexes: @"one", 456, @"two", 876, @"three", 986, @"four", 1029, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array should not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 4, @"A sparse array with four objects should have a count of 4 not %lu", sparseArray.count );
+	id firstObj = [sparseArray lastObject];
+	XCTAssertNotNil( firstObj, @"The first object should not be nil" );
+	XCTAssertTrue( [firstObj isEqualToString: @"four"], @"The last entry should be 'four' not '%@'", firstObj );
+	
+	sparseArray = [DSSparseArray sparseArrayWithObjectsAndNSUIntegerIndexes: @"one", NSNotFound - 1, nil];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array should not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 1, @"A sparse array with one object should have a count of 1 not %lu", sparseArray.count );
+	firstObj = [sparseArray lastObject];
+	XCTAssertNotNil( firstObj, @"The first object should not be nil" );
+	XCTAssertTrue( [firstObj isEqualToString: @"one"], @"The last entry should be 'one' not '%@'", firstObj );
+	
+	sparseArray = [DSSparseArray sparseArray];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertNotNil( sparseArray.allIndexes, @"An allocated sparse array shoult not have empty but not nil indexes" );
+	XCTAssertTrue( sparseArray.count == 0, @"A sparse array with zero objects should have a count of 0 not %lu", sparseArray.count );
+	firstObj = [sparseArray lastObject];
+	XCTAssertNil( firstObj, @"The last object should be nil" );
+	
 	//XCTFail( @"Testing of allIndexes needs to be completed" );
 }
 - (void) test_DSSparseArray_objectsAtIndexes {

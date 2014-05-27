@@ -300,6 +300,20 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (id) valueAtIndex: (NSUInteger) index {
 	return [self objectAtIndex: index];
 }
+- (id) firstObject {
+	id obj = nil;
+	if( self.indexes.count > 0 ) {
+		obj = [self objectAtIndex: self.indexes.firstIndex];
+	}
+	return obj;
+}
+- (id) lastObject {
+	id obj = nil;
+	if( self.indexes.count > 0 ) {
+		obj = [self objectAtIndex: self.indexes.lastIndex];
+	}
+	return obj;
+}
 - (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) predicate {
 	DSMutableSparseArray *mutableCopy = [self mutableCopy];
 	[mutableCopy filterUsingPredicate: predicate];
