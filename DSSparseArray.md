@@ -394,25 +394,23 @@ DSSparseArray.h
 ### firstObject
 Returns the first object in the sparse array.  
 \- (id) firstObject  
-#### Parameters
 #### Return value
 The first object in the sparse array. If the array is empty, returns **nil**.  
-#### Discussion  
 #### Availability  
 #### See Also  
+[- lastObject](#lastobject)  
 #### Declared In  
 DSSparseArray.h  
 
 
 ### lastObject
 Returns the last object in the sparse array.  
-- (id) lastObject
-#### Parameters
-#### Return value
-The last object in the sparse array. If the array is empty, returns **nil**. 
-#### Discussion  
+\- (id) lastObject  
+#### Return value  
+The last object in the sparse array. If the array is empty, returns **nil**.  
 #### Availability  
 #### See Also  
+[- firstObject](#firstobject)  
 #### Declared In  
 DSSparseArray.h  
 
