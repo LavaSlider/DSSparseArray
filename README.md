@@ -1,6 +1,6 @@
 # DSSparseArray and DSMutableSparseArray
 
-These classes provide sparse array functionality for objective-c. They should be able to be used anyplace an [NSArray][] or [NSMutableArray][] is used but, unless the arrays have empty entries, are less efficient.
+These classes provide sparse array functionality for objective-c. They manage ordered collections of objects that are similar to regular arrays but can hold **nil** entries. The efficiency comes from the fact that a **nil** entry takes _no space_, it simply does not exist. They should be able to be used anyplace an [NSArray][] or [NSMutableArray][] is used but, unless the arrays actually have empty entries, are less efficient.
 
 [DSSparseArray][] provides immutible array functionality that can contain empty or **nil** entries.
 

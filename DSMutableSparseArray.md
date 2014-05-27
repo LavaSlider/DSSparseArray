@@ -4,7 +4,7 @@
 **Conforms to:** [NSObject] [NSObject Protocol], [NSCopying] [NSCopying Protocol], [NSMutableCopying] [NSMutableCopying Protocol], [NSSecureCoding] [NSSecureCoding Protocol]
 
 ## Overview
-The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic array-handling behavior inherited from [DSSparseArray][].
+The DSMutableSparseArray class declares the programmatic interface to objects that manage a modifiable sparse array of objects. This class adds insertion and deletion operations to the basic sparse array-handling behavior inherited from [DSSparseArray][].
 
 ## Tasks
 ### Creating and Initializing a Mutable Sparse Array
@@ -42,9 +42,9 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 
 ### sparseArrayWithCapacity:  
 Creates and returns a DSMutableSparseArray object with enough allocated memory to initially hold a given number of objects.  
-\+ (instancetype) sparseArrayWithCapacity: ([NSUInteger][]) numItems  
+\+ (instancetype) sparseArrayWithCapacity: ([NSUInteger][]) *numItems*  
 #### Parameters
-##### numItems
+##### *numItems*
 The initial capacity of the new array.
 #### Return value
 A DSMutableSparseArray object with enough allocated memory to initially hold numItems objects.
@@ -63,11 +63,11 @@ DSSparseArray.h
 
 ### setObject:atIndex:
 Sets the object at index with anObject.  
-\- (void) setObject: (id) anObject atIndex: ([NSUInteger][]) index  
+\- (void) setObject: (id) *anObject* atIndex: ([NSUInteger][]) *index*  
 #### Parameters
-##### anObject
+##### *anObject*
 The object to be stored in the sparse array.  
-##### index
+##### *index*
 The index within the sparse array at which to store the object.  
 #### Return value
 None.  
@@ -84,11 +84,11 @@ DSSparseArray.h
 
 ### setObjects:atIndexes:
 Sets the sparse array entries as specified by contents of the array of objects and indexes  
-\- (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes  
+\- (void) setObjects: (NSArray *) *objects* atIndexes: (NSIndexSet *) *indexes*  
 #### Parameters
-##### objects
+##### *objects*
 An NSArray containing the objects to be stored in the sparse array.
-##### indexes
+##### *indexes*
 An NSIndexSet containing the indexes within the DSMutableSparse array at which to store each object. The count of indexes in the NSIndexSet must equal to the count of entries in the NSArray.
 #### Return value
 None.
@@ -105,7 +105,7 @@ DSSparseArray.h
 
 ### setValue:atIndex:
 Sets the object at index with anObject.  
-\- (void) setValue: (id) value atIndex: ([NSUInteger][]) index  
+\- (void) setValue: (id) *value* atIndex: ([NSUInteger][]) *index*  
 #### Parameters
 ##### *value*
 The object to be stored in the sparse array.  
@@ -125,7 +125,7 @@ DSSparseArray.h
 
 ### setObjectsFromSparseArray:
 Sets the sparse array entries as specified by contents of the other sparse array  
-\- (void) setObjectsFromSparseArray: (DSMutableSparseArray *) otherSparseArray  
+\- (void) setObjectsFromSparseArray: (DSMutableSparseArray *) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array containing the objects and indexes to be stored in the sparse array.  
@@ -150,7 +150,7 @@ DSSparseArray.h
 
 ### setSparseArray:
 Sets the receiving sparse array’s entries to those in another given sparse array.  
-\- (void) setSparseArray: (DSSparseArray *) otherSparseArray  
+\- (void) setSparseArray: (DSSparseArray *) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 The sparse array of objects with which to replace the receiving sparse array's content.  
@@ -169,7 +169,7 @@ DSSparseArray.h
 
 ### insertObject:atIndex:
 Inserts the given object into the sparse array's contents at the given index.  
-\- (void) insertObject: (id) object atIndex: ([NSUInteger][]) index  
+\- (void) insertObject: (id) *object* atIndex: ([NSUInteger][]) *index*  
 #### Parameters
 ##### *object*
 The object to be stored in the sparse array.  
@@ -193,7 +193,7 @@ DSSparseArray.h
 
 ### insertObjects:atIndexes:
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.  
-\- (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes  
+\- (void) insertObjects: (NSArray *) *objects* atIndexes: (NSIndexSet *) *indexes*  
 #### Parameters
 ##### *objects*
 An NSArray containing the objects to be inserted into the sparse array.  
@@ -240,7 +240,7 @@ DSSparseArray.h
 
 ### removeObjectAtIndex:
 Removes the object at *index*.  
-\- (void) removeObjectAtIndex: ([NSUInteger][]) index  
+\- (void) removeObjectAtIndex: ([NSUInteger][]) *index*  
 #### Parameters
 ##### *index*
 The location or index at which to remove the object in the array.  
@@ -267,7 +267,7 @@ DSSparseArray.h
 
 ### removeObject:
 Removes all occurrences in the sparse array of a given object.  
-\- (void) removeObject: (id) anObject  
+\- (void) removeObject: (id) *anObject*  
 #### Parameters
 ##### *anObject*
 The object to remove from the sparse array.  
@@ -289,7 +289,7 @@ DSSparseArray.h
 
 ### removeObjectsAtIndexes:
 Removes the objects at the specified indexes from the sparse array.  
-\- (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet  
+\- (void) removeObjectsAtIndexes: (NSIndexSet *) *indexSet*  
 #### Parameters
 ##### *indexSet*
 The object to remove from the sparse array.  
@@ -334,7 +334,7 @@ DSSparseArray.h
 
 ### removeObjectsInRange:
 Removes from the sparse array each of the objects within a given range.  
-\- (void) removeObjectsInRange: (NSRange) aRange  
+\- (void) removeObjectsInRange: (NSRange) *aRange*  
 #### Parameters
 ##### *aRange*
 The range of the objects to remove from the array.  
@@ -353,7 +353,7 @@ DSSparseArray.h
 
 ### removeObjectsInArray:
 Removes the objects in the given array from the receiving sparse array.  
-\- (void) removeObjectsInArray: (NSArray *) array  
+\- (void) removeObjectsInArray: (NSArray *) *array*  
 #### Parameters
 ##### *array*
 An array containing the objects to be removed from the receiving array.  
@@ -390,7 +390,7 @@ DSSparseArray.h
 
 ### shiftObjectsStartingAtIndex:by:
 Shifts a group of sparse array entries up or down within the receiver.  
-\- (void) shiftObjectsStartingAtIndex: ([NSUInteger][]) startIndex by: (NSInteger) delta  
+\- (void) shiftObjectsStartingAtIndex: ([NSUInteger][]) *startIndex* by: (NSInteger) *delta*  
 #### Parameters
 ##### *startIndex*
 The location in the sparse array to begin the shifting operation.  
@@ -425,7 +425,7 @@ DSSparseArray.h
 
 ### filterUsingPredicate:
 Evaluates a given predicate against the sparse array’s content and leaves only objects that match  
-\- (void) filterUsingPredicate: (NSPredicate *) predicate  
+\- (void) filterUsingPredicate: (NSPredicate *) *predicate*  
 #### Parameters
 ##### *predicate*
 The predicate to evaluate against the array's elements.  
@@ -460,7 +460,7 @@ DSSparseArray.h
 
 ### initWithCapacity:   
 Returns a mutable sparse array, initialized with enough memory to initially hold a given number of objects.  
-\- (instancetype) initWithCapacity: ([NSUInteger][]) numItems  
+\- (instancetype) initWithCapacity: ([NSUInteger][]) *numItems*  
 #### Parameters
 ##### *numItems*
 The initial capacity of the new mutable sparse array.  
