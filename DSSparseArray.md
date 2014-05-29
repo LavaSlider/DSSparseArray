@@ -84,7 +84,7 @@ DSSparseArray.h
 
 ### sparseArrayWithArray:
 Creates and returns a sparse array containing the objects in the given array.  
-\+ (instancetype) sparseArrayWithArray: (NSArray *) *anArray*  
+\+ (instancetype) sparseArrayWithArray: (NSArray \*) *anArray*  
 #### Parameters
 ##### *anArray*
 The array to get the elements from.  
@@ -102,7 +102,7 @@ DSSparseArray.h
 
 ### sparseArrayWithSparseArray:
 Creates and returns a sparse array containing the objects in the given sparse array.  
-\+ (instancetype) sparseArrayWithSparseArray: (DSSparseArray *) *otherSparseArray*  
+\+ (instancetype) sparseArrayWithSparseArray: (DSSparseArray \*) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 The sparse array to get the elements from.  
@@ -120,7 +120,7 @@ DSSparseArray.h
 
 ### sparseArrayWithSparseArray:
 Creates and returns a sparse array containing the objects in the given sparse array.  
-\+ (instancetype) sparseArrayWithSparseArray: (DSSparseArray *) *otherSparseArray*  
+\+ (instancetype) sparseArrayWithSparseArray: (DSSparseArray \*) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 The sparse array to get the elements from.  
@@ -138,7 +138,7 @@ DSSparseArray.h
 
 ### sparseArrayWithContentsOfFile:
 Creates and returns a sparse array containing the contents of the file specified by a given path.  
-\+ (id) sparseArrayWithContentsOfFile: (NSString *) *aPath*  
+\+ (id) sparseArrayWithContentsOfFile: (NSString \*) *aPath*  
 #### Parameters
 ##### *aPath*  
 The path to a file containing a string representation of a sparse array produced by the [writeToFile:atomically:](#writetofileatomically) method.  
@@ -155,7 +155,7 @@ DSSparseArray.h
 
 ### sparseArrayWithContentsOfURL:
 Creates and returns an array containing the contents specified by a given URL.  
-\+ (id) sparseArrayWithContentsOfURL: (NSURL *) *aURL*  
+\+ (id) sparseArrayWithContentsOfURL: (NSURL \*) *aURL*  
 #### Parameters
 ##### *aURL*  
 The location of a file containing a string representation of a sparse array produced by the [writeToURL:atomically:](#writetourlatomically) method.  
@@ -172,7 +172,7 @@ DSSparseArray.h
 
 ### sparseArrayWithObjects:atIndexes:
 Creates and returns a sparse array containing the objects at the indexes.  
-\+ (instancetype) sparseArrayWithObjects: (NSArray *) *objects* atIndexes: (NSIndexSet *) *indexSet*  
+\+ (instancetype) sparseArrayWithObjects: (NSArray \*) *objects* atIndexes: (NSIndexSet \*) *indexSet*  
 #### Parameters
 ##### *objects*
 The objects the sparse array will contain.  
@@ -623,7 +623,7 @@ DSSparseArray.h
 
 ### filteredSparseArrayUsingPredicate:
 Evaluates a given predicate against each object in the receiving sparse array and returns a new sparse array containing the objects for which the predicate returns true.  
-\- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate *) *predicate*  
+\- (DSSparseArray *) filteredSparseArrayUsingPredicate: (NSPredicate \*) *predicate*  
 #### Parameters
 ##### *predicate*
 The predicate against which to evaluate the receiving array’s elements.
@@ -724,7 +724,7 @@ DSSparseArray.h
 
 ### initWithArray:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given array.  
-\- (instancetype) initWithArray: (NSArray *) *array*  
+\- (instancetype) initWithArray: (NSArray \*) *array*  
 #### Parameters
 ##### *array*
 An array
@@ -743,7 +743,7 @@ DSSparseArray.h
 
 ### initWithSparseArray:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
-\- (instancetype) initWithSparseArray: (DSSparseArray *) *otherSparseArray*  
+\- (instancetype) initWithSparseArray: (DSSparseArray \*) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array containing the objects with which to initialize the new array.
@@ -763,7 +763,7 @@ DSSparseArray.h
 
 ### initWithContentsOfFile:
 Initializes a newly allocated sparse array with the contents of the file specified by a given path.  
-\- (id) initWithContentsOfFile: (NSString *) *aPath*  
+\- (id) initWithContentsOfFile: (NSString \*) *aPath*  
 #### Parameters
 ##### *aPath*
 The path to a file containing a representation of a sparse array produced by the [writeToFile:atomically:](#writetofileatomically) method.  
@@ -782,7 +782,7 @@ DSSparseArray.h
 
 ### initWithContentsOfURL:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
-\- (id) initWithContentsOfURL: (NSURL *) *aURL*  
+\- (id) initWithContentsOfURL: (NSURL \*) *aURL*  
 #### Parameters
 ##### *aURL*
 The location of a file containing a string representation of an array produced by the [writeToURL:atomically:](#writetourlatomically) method.
@@ -801,7 +801,7 @@ DSSparseArray.h
 
 ### initWithObjects:atIndexes:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given array at the indexes in the index set.  
-\- (instancetype) initWithObjects: (NSArray *) *objects* atIndexes: (NSIndexSet *) *indexSet*  
+\- (instancetype) initWithObjects: (NSArray \*) *objects* atIndexes: (NSIndexSet \*) *indexSet*  
 #### Parameters
 ##### *objects*
 The objects the sparse array will contain.
@@ -910,7 +910,7 @@ DSSparseArray.h
 
 ### initWithSparseArray:copyItems:
 Initializes a newly allocated sparse array by placing in it the objects contained in a given sparse array.  
-\- (instancetype) initWithSparseArray: (DSSparseArray *) *otherSparseArray* copyItems: (BOOL) *flag*  
+\- (instancetype) initWithSparseArray: (DSSparseArray \*) *otherSparseArray* copyItems: (BOOL) *flag*  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array containing the objects with which to initialize the new array.
@@ -935,7 +935,7 @@ DSSparseArray.h
 
 ### isEqualToSparseArray:
 Compares the receiving sparse array to another sparse array.  
-\- (BOOL) isEqualToSparseArray: (DSSparseArray *) *otherSparseArray*  
+\- (BOOL) isEqualToSparseArray: (DSSparseArray \*) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array.
@@ -955,7 +955,7 @@ DSSparseArray.h
 
 ### objectsAtIndexes:
 Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
-\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) *indexes*  
+\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet \*) *indexes*  
 #### Parameters
 ##### *indexes*
 An index set.
@@ -976,7 +976,7 @@ DSSparseArray.h
 
 ### objectsAtIndexes:notFoundMarker:
 Returns a sparse array containing the objects in the sparse array at the indexes specified by a given index set.  
-\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet *) *indexes* notFoundMarker: (id) *anObject*  
+\- (DSSparseArray *) objectsAtIndexes: (NSIndexSet \*) *indexes* notFoundMarker: (id) *anObject*  
 #### Parameters
 ##### *indexes*
 An index set.
@@ -999,7 +999,7 @@ DSSparseArray.h
 
 ### writeToFile:atomically:
 Writes the contents of the sparse array to a file at a given path.  
-\- (BOOL) writeToFile: (NSString *) *path* atomically: (BOOL) *flag*  
+\- (BOOL) writeToFile: (NSString \*) *path* atomically: (BOOL) *flag*  
 #### Parameters
 ##### *path*
 The path at which to write the contents of the sparse array.  
@@ -1024,7 +1024,7 @@ DSSparseArray.h
 
 ### writeToURL:atomically:  
 Writes the contents of the sparse array to the location specified by a given URL.  
-\- (BOOL) writeToURL: (NSURL *) *aURL* atomically: (BOOL) *flag*  
+\- (BOOL) writeToURL: (NSURL \*) *aURL* atomically: (BOOL) *flag*  
 #### Parameters
 ##### *aURL*
 The location at which to write the sparse array.  

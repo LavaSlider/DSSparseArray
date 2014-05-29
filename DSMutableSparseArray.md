@@ -168,7 +168,7 @@ DSSparseArray.h
 
 ### setObjectsFromSparseArray:
 Sets the sparse array entries as specified by contents of the other sparse array  
-\- (void) setObjectsFromSparseArray: (DSMutableSparseArray *) *otherSparseArray*  
+\- (void) setObjectsFromSparseArray: (DSMutableSparseArray \*) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 A sparse array containing the objects and indexes to be stored in the sparse array.  
@@ -193,7 +193,7 @@ DSSparseArray.h
 
 ### setSparseArray:
 Sets the receiving sparse array’s entries to those in another given sparse array.  
-\- (void) setSparseArray: (DSSparseArray *) *otherSparseArray*  
+\- (void) setSparseArray: (DSSparseArray \*) *otherSparseArray*  
 #### Parameters
 ##### *otherSparseArray*
 The sparse array of objects with which to replace the receiving sparse array's content.  
@@ -236,7 +236,7 @@ DSSparseArray.h
 
 ### insertObjects:atIndexes:
 Inserts the objects in the provided array into the receiving sparse array at the specified indexes.  
-\- (void) insertObjects: (NSArray *) *objects* atIndexes: (NSIndexSet *) *indexes*  
+\- (void) insertObjects: (NSArray \*) *objects* atIndexes: (NSIndexSet \*) *indexes*  
 #### Parameters
 ##### *objects*
 An NSArray containing the objects to be inserted into the sparse array.  
@@ -332,7 +332,7 @@ DSSparseArray.h
 
 ### removeObjectsAtIndexes:
 Removes the objects at the specified indexes from the sparse array.  
-\- (void) removeObjectsAtIndexes: (NSIndexSet *) *indexSet*  
+\- (void) removeObjectsAtIndexes: (NSIndexSet \*) *indexSet*  
 #### Parameters
 ##### *indexSet*
 The object to remove from the sparse array.  
@@ -396,7 +396,7 @@ DSSparseArray.h
 
 ### removeObjectsInArray:
 Removes the objects in the given array from the receiving sparse array.  
-\- (void) removeObjectsInArray: (NSArray *) *array*  
+\- (void) removeObjectsInArray: (NSArray \*) *array*  
 #### Parameters
 ##### *array*
 An array containing the objects to be removed from the receiving array.  
@@ -468,7 +468,7 @@ DSSparseArray.h
 
 ### filterUsingPredicate:
 Evaluates a given predicate against the sparse array’s content and leaves only objects that match  
-\- (void) filterUsingPredicate: (NSPredicate *) *predicate*  
+\- (void) filterUsingPredicate: (NSPredicate \*) *predicate*  
 #### Parameters
 ##### *predicate*
 The predicate to evaluate against the array's elements.  
