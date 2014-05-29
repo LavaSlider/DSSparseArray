@@ -73,6 +73,7 @@ typedef enum : unsigned int {
 
 - (instancetype) init;
 - (instancetype) initWithArray: (NSArray *) array;
+- (instancetype) initWithDictionary: (NSDictionary *) dictionary;
 - (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray;
 - (instancetype) initWithSparseArray: (DSSparseArray *) otherSparseArray copyItems: (BOOL) flag;
 - (instancetype) initWithObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexSet;

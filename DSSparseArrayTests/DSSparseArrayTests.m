@@ -1209,6 +1209,21 @@
 	XCTAssertTrue( [selectedIndexes containsIndex: 301], @"It should contain 301" );
 	XCTAssertTrue( [selectedIndexes containsIndex: 303], @"It should contain 303" );
 }
+- (void) test_DSSparseArray_initWithDictionary {
+	NSLog( @"==== Entering %s", __func__ );
+	DSSparseArray *sparseArray;
+	NSDictionary *goodDictionary = [NSDictionary dictionaryWithObjectsAndKeys: @"one", @10, @"two", @20, @"three", @30, nil];
+	NSDictionary *badDictionary = [NSDictionary dictionaryWithObjectsAndKeys: @"date", [NSDate date], @"data", [NSData data], nil];
+	
+	sparseArray = [[DSSparseArray alloc] initWithDictionary: goodDictionary];
+	XCTAssertNotNil( sparseArray, @"An allocated sparse array should not be nil" );
+	XCTAssertTrue( sparseArray.count == 3, @"The array should have three entries not %lu", (unsigned long) sparseArray.count );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 10] isEqualToString: @"one"], @"It should be 'one'" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 20] isEqualToString: @"two"], @"It should be 'two'" );
+	XCTAssertTrue( [[sparseArray objectAtIndex: 30] isEqualToString: @"three"], @"It should be 'three'" );
+	
+	XCTAssertThrows( (sparseArray = [[DSSparseArray alloc] initWithDictionary: badDictionary]), @"Should fail because a key does not respond to integerValue" );
+}
 - (void) test_DSSparsArray_sparseArrayWithObjectsAndIndexes {
 	DSSparseArray *sparseArray;
 	

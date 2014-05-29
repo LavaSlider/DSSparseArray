@@ -576,7 +576,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 + (id /* DSSparseArray * */) sparseArrayWithContentsOfURL: (NSURL *) url {
 	return [[[self class] alloc] initWithContentsOfURL: url];
 }
-- (id /* DSSparseArray * */) initWithContentsOfDictionary: (NSDictionary *) dictionary {
+- (instancetype) initWithDictionary: (NSDictionary *) dictionary {
 	self = [self init];
 	if( self ) {
 		if( !dictionary ) {
@@ -594,7 +594,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 #else
 			NSArray *keys = [dictionary allKeys];
 			for( id key in keys ) {
-				NSUInteger idx = [key unsignedIntegerValue];
+				NSUInteger idx = [key integerValue];
 				[self.indexes addIndex: idx];
 				[self.dictionary setObject: [dictionary objectForKey: key] forKey: [NSNumber numberWithUnsignedInteger: idx]];
 			}
@@ -605,12 +605,12 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 }
 - (id /* DSSparseArray * */) initWithContentsOfFile: (NSString *) path {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfFile: path];
-	self = [self initWithContentsOfDictionary: dictionary];
+	self = [self initWithDictionary: dictionary];
 	return self;
 }
 - (id /* DSSparseArray * */) initWithContentsOfURL: (NSURL *) url {
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithContentsOfURL: url];
-	self = [self initWithContentsOfDictionary: dictionary];
+	self = [self initWithDictionary: dictionary];
 	return self;
 }
 

@@ -22,6 +22,7 @@
 ### Initializing a Sparse Array
 [- init](#init)  
 [- initWithArray:](#initwitharray)  
+[- initWithDictionary:](#initwithdictionary)  
 [- initWithSparseArray:](#initwithsparsearray)  
 [- initWithSparseArray:copyItems:](#initwithsparsearraycopyitems)  
 [- initWithContentsOfURL:](#initwithcontentsofurl)  
@@ -736,6 +737,24 @@ After an immutable sparse array has been initialized in this way, it cannot be m
 #### See Also
 [- initWithObjects:atIndexes:](#initwithobjectsatindexes)  
 [- initWithObjectsAndIndexes:](#initwithobjectsandindexes)  
+#### Declared In
+DSSparseArray.h  
+
+
+
+### initWithDictionary:
+Initializes a newly allocated sparse array by placing in it the objects contained in a given dictionary.  
+\- (instancetype) initWithArray: (NSDictionary \*) *dictionary*  
+#### Parameters
+##### *dictionary*
+A dictionary
+#### Return value
+A sparse array initialized to contain the objects in *dictionary*. The returned object might be different than the original receiver.
+#### Discussion
+The **keys** for the entries in the *dictionary* must respond to the **integerValue** method with the index the object is to be placed at. After an immutable sparse array has been initialized in this way, it cannot be modified.
+#### Availability
+#### See Also
+[- initWithObjects:atIndexes:](#initwithobjectsatindexes)  
 #### Declared In
 DSSparseArray.h  
 
