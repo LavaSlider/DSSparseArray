@@ -85,7 +85,7 @@ DSSparseArray.h
 
 ### clearObjectsAtIndexes:
 Clears the sparse array entries indicate.  
-\- (void) clearObjectsAtIndexes: (NSIndexSet *) *indexes*  
+\- (void) clearObjectsAtIndexes: (NSIndexSet \*) *indexes*  
 #### Parameters
 ##### *indexes*
 An index set designating the sparse array entries to be cleared.  
@@ -127,7 +127,7 @@ DSSparseArray.h
 
 ### setObjects:atIndexes:
 Sets the sparse array entries as specified by contents of the array of objects and indexes  
-\- (void) setObjects: (NSArray *) *objects* atIndexes: (NSIndexSet *) *indexes*  
+\- (void) setObjects: (NSArray \*) *objects* atIndexes: (NSIndexSet \*) *indexes*  
 #### Parameters
 ##### *objects*
 An NSArray containing the objects to be stored in the sparse array.
