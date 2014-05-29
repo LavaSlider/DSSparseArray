@@ -773,6 +773,28 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 		}
 	}
 }
+- (void) clearObjectAtIndex: (NSUInteger) index {
+	[self setObject: nil atIndex: index];
+}
+- (void) clearObjectsAtIndexes: (NSIndexSet *) indexes {
+	// Get the subset of indexes that are in both the parameter and sparse array
+	NSMutableIndexSet *sharedIndexes;
+	// Indexes: 1   3   5   7 9
+	// self:      2 3 4 5 6
+	NSMutableIndexSet *a = [self.indexes mutableCopy];
+	[a removeIndexes: indexes];  // In self but not indexes.
+	// a = 2 4 6
+	sharedIndexes = [self.indexes mutableCopy];
+	[sharedIndexes removeIndexes: a];
+	// sharedIndexes = 3 5
+	if( sharedIndexes.count > 0 ) {
+		NSUInteger idx = [sharedIndexes firstIndex];
+		while( idx != NSNotFound ) {
+			[self setObject: nil atIndex: idx];
+			idx = [sharedIndexes indexGreaterThanIndex: idx];
+		}
+	}
+}
 - (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes {
 	if( indexes.count > 0 && objects.count > 0 ) {
 		NSUInteger idx = indexes.firstIndex;

@@ -12,17 +12,21 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 [- init](#init)  
 [- initWithCapacity:](#initwithcapacity)  
 
-### Setting and/or Replacing Objects
+### Setting and/or Replacing Entries in a Mutable Sparse Array
 [- setObject:atIndex:](#setobjectatindex)  
 [- setObjects:atIndexes:](#setobjectsatindexes)  
 [- setValue:atIndex:](#setvalueatindex)  
 [- setSparseArray:](#setsparsearray)  
 
-### Adding Objects
+### Unsetting or Clearing Entries in a Mutable Sparse Array
+[- clearObjectAtIndex:](#clearobjectatindex)  
+[- clearObjectsAtIndexes:](#clearobjectsatindexes)  
+
+### Adding Entries to a Mutable Sparse Array
 [- insertObject:atIndex:](#insertobjectatindex)  
 [- insertObjects:atIndexes:](#insertobjectsatindexes)  
 
-### Removing Objects
+### Removing Entries from a Mutable Sparse Array
 [- removeObjectAtIndex:](#removeobjectatindex)  
 [- removeObjectsAtIndexes:](#removeobjectsatindexes)  
 [- removeObjectsInRange:](#removeobjectsinrange)  
@@ -31,7 +35,7 @@ The DSMutableSparseArray class declares the programmatic interface to objects th
 [- removeLastObject](#removelastobject)  
 [- removeAllObjects](#removeallobjects)  
 
-### Filtering Content
+### Filtering Content in a Mutable Sparse Array
 [- filterUsingPredicate:](#filterusingpredicate)  
 
 ### Rearranging Content
@@ -60,6 +64,45 @@ DSSparseArray.h
 
 
 ## Instance Methods
+
+### clearObjectAtIndex:
+Clears a sparse array entry.  
+\- (void) clearObjectAtIndex: (NSUInteger) *index*  
+#### Parameters
+##### *index*
+An index in the sparse array that will be cleared.  
+#### Return value
+None.  
+#### Discussion
+This method is equivilant to [setObject:atIndex:](#setobjectatindex) with a **nil** object. It empties the location indicated by *index* without shifting any of the other entries in the array.  
+#### Availability
+#### See Also  
+[- setObject:atIndex:](#setobjectatindex)  
+[- setSparseArray:](#setsparsearray)  
+#### Declared In
+DSSparseArray.h  
+
+
+### clearObjectsAtIndexes:
+Clears the sparse array entries indicate.  
+\- (void) clearObjectsAtIndexes: (NSIndexSet *) *indexes*  
+#### Parameters
+##### *indexes*
+An index set designating the sparse array entries to be cleared.  
+#### Return value
+None.  
+#### Discussion
+This method is equivilant to calling [clearObjectsAtIndex:](#clearobjectsatindex) repeatedly for each entry in the provided index set.  
+The equivalent of **clearObjectsInRange:** can be acheived by  
+
+    [sparseArray clearObjectsAtIndexes: [NSIndexSet indexSetWithRange: NSMakeRange( 10, 20 )]];  
+#### Availability
+#### See Also  
+[- clearObjectAtIndex:](#clearobjectatindex)  
+[- setObject:atIndex:](#setobjectatindex)  
+#### Declared In
+DSSparseArray.h  
+
 
 ### setObject:atIndex:
 Sets the object at index with anObject.  

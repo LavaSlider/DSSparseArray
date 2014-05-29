@@ -110,6 +110,8 @@ typedef enum : unsigned int {
 - (void) setValue: (id) value atIndex: (NSUInteger) index;
 - (void) setObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
 - (void) setObjectsFromSparseArray: (DSSparseArray *) otherSparseArray;
+- (void) clearObjectAtIndex: (NSUInteger) index;
+- (void) clearObjectsAtIndexes: (NSIndexSet *) indexes;
 - (void) insertObjects: (NSArray *) objects atIndexes: (NSIndexSet *) indexes;
 - (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet;
 - (void) removeObjectsInRange: (NSRange) aRange;
