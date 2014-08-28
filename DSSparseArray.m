@@ -10,7 +10,7 @@
 
 #pragma mark - Class extensions for private storage
 static DSSparseArrayExceptionThrowMode __throwException = IndexOutOfRangeNoThrowNoWarn;
-static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
+static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken = NS_BLOCKS_AVAILABLE ? NO : YES;
 
 @interface DSSparseArray ()
 @property (nonatomic, strong) NSMutableDictionary *dictionary;
@@ -19,6 +19,28 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 
 #pragma mark - Core DSSparseArray methods
 @implementation DSSparseArray
+//----------------------------------------------------------------------------------------------------
+// +initialize was added to properly set the state of __NSIndexSet_enumerateIndexesUsingBlock_isBroken
+// It may be more efficient to do this testing lazily as it was previously instead of everytime
+// in every application start. This will be true if enumeration is not used by most or only used
+// once. It will not be true if everyone uses enumeration and more than once per execution...
+#if NS_BLOCKS_AVAILABLE
++ (void) initialize {
+    //NSLog( @"+++++++++ In %@ initialize for %@ +++++++++++", NSStringFromClass([DSSparseArray self]), NSStringFromClass([self class]) );
+    if( self == [DSSparseArray self] ) {
+        __block int count = 0;
+        NSIndexSet *testSet = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 5, 5 )];
+        NSLog( @"Index set with %lu entries: %@", (unsigned long) testSet.count, testSet );
+        NSLog( @"NSNotFound is %lu and NSNotFound-1 is %lu", NSNotFound, NSNotFound - 1 );
+        [testSet enumerateIndexesUsingBlock: ^( NSUInteger idx, BOOL *stop ) {
+            NSLog( @"- %lu", (unsigned long) idx );
+            ++count;
+        }];
+        NSLog( @" - The count is %d, it is %s", count, count == 5 ? "fixed!!" : "still broken" );
+        __NSIndexSet_enumerateIndexesUsingBlock_isBroken = (count != 5);
+    }
+}
+#endif
 + (void) setThrowExceptionOnIndexOutOfRange: (unsigned int) throwMode {
 	__throwException = throwMode;
 }
@@ -98,28 +120,29 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 - (DSSparseArrayEnumerator *) reverseObjectEnumerator {
 	return [DSSparseArrayEnumerator enumeratorForSparseArray: self withOptions: NSEnumerationReverse];
 }
-- (BOOL) _NSIndexSet_enumerateIndexesUsingBlock_isBroken {
-#if NS_BLOCKS_AVAILABLE
-	static BOOL checkIt = YES;
-	if( checkIt ) {
-		__block int count = 0;
-		NSIndexSet *testSet = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 5, 5 )];
-		NSLog( @"Index set with %lu entries: %@", (unsigned long) testSet.count, testSet );
-		NSLog( @"NSNotFound is %lu and NSNotFound-1 is %lu", NSNotFound, NSNotFound - 1 );
-		[testSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-			NSLog( @"- %lu", (unsigned long) idx );
-			++count;
-		}];
-		NSLog( @" - The count is %d, it is %s", count, count == 5 ? "fixed!!" : "still broken" );
-		__NSIndexSet_enumerateIndexesUsingBlock_isBroken = (count != 5);
-		checkIt = NO;
-	}
-#else
-	// If blocks are not available then it must be broken (does not work)
-	__NSIndexSet_enumerateIndexesUsingBlock_isBroken = YES;
-#endif
-	return __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
-}
+// This was moved to +initialize so it is done once and does not need to be tested each time.
+//- (BOOL) _NSIndexSet_enumerateIndexesUsingBlock_isBroken {
+//#if NS_BLOCKS_AVAILABLE
+//	static BOOL checkIt = YES;
+//	if( checkIt ) {
+//		__block int count = 0;
+//		NSIndexSet *testSet = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 5, 5 )];
+//		NSLog( @"Index set with %lu entries: %@", (unsigned long) testSet.count, testSet );
+//		NSLog( @"NSNotFound is %lu and NSNotFound-1 is %lu", NSNotFound, NSNotFound - 1 );
+//		[testSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+//			NSLog( @"- %lu", (unsigned long) idx );
+//			++count;
+//		}];
+//		NSLog( @" - The count is %d, it is %s", count, count == 5 ? "fixed!!" : "still broken" );
+//		__NSIndexSet_enumerateIndexesUsingBlock_isBroken = (count != 5);
+//		checkIt = NO;
+//	}
+//#else
+//	// If blocks are not available then it must be broken (does not work)
+//	__NSIndexSet_enumerateIndexesUsingBlock_isBroken = YES;
+//#endif
+//	return __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
+//}
 
 #pragma mark - NSMutableCopying protocol methods
 - (id) mutableCopyWithZone: (NSZone *) zone {
@@ -271,7 +294,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	} else {
 		objects = [NSMutableArray arrayWithCapacity: indexes.count];
 		setIndexes = [NSMutableIndexSet indexSet];
-		if( [self _NSIndexSet_enumerateIndexesUsingBlock_isBroken] ) {
+		if( __NSIndexSet_enumerateIndexesUsingBlock_isBroken ) {
 			if( indexes.count > 0 ) {
 				NSUInteger idx = [indexes firstIndex];
 				while( idx != NSNotFound ) {
@@ -357,7 +380,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	[self enumerateIndexesAndObjectsWithOptions: 0 usingBlock: block];
 }
 - (void) enumerateIndexesAndObjectsWithOptions: (NSEnumerationOptions) opts usingBlock: (void (^) ( id obj, NSUInteger idx, BOOL *stop )) block {
-	if( [self _NSIndexSet_enumerateIndexesUsingBlock_isBroken] ) {
+	if( __NSIndexSet_enumerateIndexesUsingBlock_isBroken ) {
 		if( self.indexes.count > 0 ) {
 			if( (opts & NSEnumerationReverse) != 0 ) {
 				BOOL stop = NO;
@@ -469,7 +492,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 }
 - (NSArray *) _keysFromIndexSet: (NSIndexSet *) indexSet {
 	NSMutableArray *keys = [NSMutableArray arrayWithCapacity: indexSet.count];
-	if( [self _NSIndexSet_enumerateIndexesUsingBlock_isBroken] ) {
+	if( __NSIndexSet_enumerateIndexesUsingBlock_isBroken ) {
 		if( indexSet.count > 0 ) {
 			NSUInteger idx = [self.indexes firstIndex];
 			while( idx != NSNotFound ) {
@@ -810,7 +833,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken;
 	[self.indexes removeAllIndexes];
 }
 - (void) removeObjectsAtIndexes: (NSIndexSet *) indexSet {
-	if( [self _NSIndexSet_enumerateIndexesUsingBlock_isBroken] ) {
+	if( __NSIndexSet_enumerateIndexesUsingBlock_isBroken ) {
 		if( indexSet.count > 0 ) {
 			NSUInteger idx = indexSet.lastIndex;
 			while( idx != NSNotFound ) {
