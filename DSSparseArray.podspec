@@ -6,6 +6,6 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/LavaSlider/DSSparseArray.git", :tag => "1.0.0" }
   s.summary = "Objective C Sparse Array Implementation"
   s.homepage = "https://github.com/LavaSlider/DSSparseArray"
-  s.source_files = 'DSSparseArray/*.{h,m}'
+  s.source_files = 'DSSparseArray/DS*SparseArray*.{h,m}'
   s.requires_arc = true
 end
