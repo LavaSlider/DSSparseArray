@@ -34,8 +34,8 @@
 
 /* Begin PBXFileReference section */
 		24191A7D1931134400F389CB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		2453F55D192867DD009AA13F /* DSSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; path = DSSparseArray.md; sourceTree = "<group>"; };
-		2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; path = DSMutableSparseArray.md; sourceTree = "<group>"; };
+		2453F55D192867DD009AA13F /* DSSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 4; name = DSSparseArray.md; path = DSSparseArray/DSSparseArray.md; sourceTree = "<group>"; };
+		2453F55F1929ADFB009AA13F /* DSMutableSparseArray.md */ = {isa = PBXFileReference; explicitFileType = text; name = DSMutableSparseArray.md; path = DSSparseArray/DSMutableSparseArray.md; sourceTree = "<group>"; };
 		2480FA72191EC961002158C9 /* DSSparseArray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DSSparseArray.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2480FA75191EC961002158C9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		2480FA78191EC961002158C9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -54,10 +54,10 @@
 		2480FA9B191EC961002158C9 /* DSSparseArrayTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DSSparseArrayTests-Info.plist"; sourceTree = "<group>"; };
 		2480FA9D191EC961002158C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2480FA9F191EC961002158C9 /* DSSparseArrayTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DSSparseArrayTests.m; sourceTree = "<group>"; };
-		2480FAA9191EC9CB002158C9 /* DSSparseArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSparseArray.h; sourceTree = "<group>"; };
-		2480FAAA191EC9CB002158C9 /* DSSparseArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSparseArray.m; sourceTree = "<group>"; };
-		24B2218C192B66F800AC6826 /* DSSparseArrayEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSSparseArrayEnumerator.h; sourceTree = "<group>"; };
-		24B2218D192B66F800AC6826 /* DSSparseArrayEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSSparseArrayEnumerator.m; sourceTree = "<group>"; };
+		2480FAA9191EC9CB002158C9 /* DSSparseArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DSSparseArray.h; path = DSSparseArray/DSSparseArray.h; sourceTree = "<group>"; };
+		2480FAAA191EC9CB002158C9 /* DSSparseArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DSSparseArray.m; path = DSSparseArray/DSSparseArray.m; sourceTree = "<group>"; };
+		24B2218C192B66F800AC6826 /* DSSparseArrayEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DSSparseArrayEnumerator.h; path = DSSparseArray/DSSparseArrayEnumerator.h; sourceTree = "<group>"; };
+		24B2218D192B66F800AC6826 /* DSSparseArrayEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DSSparseArrayEnumerator.m; path = DSSparseArray/DSSparseArrayEnumerator.m; sourceTree = "<group>"; };
 		24F50F2C19AF755C00795A67 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
