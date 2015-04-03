@@ -751,7 +751,7 @@ A dictionary
 #### Return value
 A sparse array initialized to contain the objects in *dictionary*. The returned object might be different than the original receiver.
 #### Discussion
-The **keys** for the entries in the *dictionary* must respond to the **integerValue** method with the index the object is to be placed at. After an immutable sparse array has been initialized in this way, it cannot be modified.
+The **keys** for the entries in the *dictionary* must respond to the **integerValue** method with the index the object is to be placed at in the sparse array being initialized. After an immutable sparse array has been initialized in this way, it cannot be modified.
 #### Availability
 #### See Also
 [- initWithObjects:atIndexes:](#initwithobjectsatindexes)  
