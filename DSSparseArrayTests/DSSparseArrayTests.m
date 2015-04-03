@@ -35,6 +35,20 @@
 //{
 //    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 //}
+- (void) test_NSIndexSetEnumeration {
+    // Create an index set with NSNotFound-5, NSNotFound-4, NSNotFound-3,
+    // NSNotFound-2 and NSNotFound-1
+    NSIndexSet *testSet = [NSIndexSet indexSetWithIndexesInRange:
+                           NSMakeRange( NSNotFound - 5, 5 )];
+    NSLog( @"Index set with %lu entries: %@", (unsigned long) testSet.count, testSet );
+    NSLog( @"NSNotFound is %lu and NSNotFound-1 is %lu", NSNotFound, NSNotFound - 1 );
+    __block int count = 0;
+    [testSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        NSLog( @"- %lu", (unsigned long) idx );
+        ++count;
+    }];
+    NSLog( @" - The count is %d, NSIndexSet enumeration is %s", count, count == 5 ? "fixed!!" : "still broken" );
+}
 
 - (void) test_DSSparseArray {
 	DSSparseArray *sparseArray;
