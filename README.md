@@ -8,7 +8,7 @@ These classes provide sparse array functionality for objective-c. They manage or
 
 These classes are implemented using an [NSIndexSet][] internally to keep track of what entries of the array have objects in them and an [NDDictionary][] to keep the objects themselves.
 
-### Version 1.5.1
+### Version 1.5.2
 
 # Installation and Usage
 Copy the [DSSparseArray.h][], [DSSparseArray.m][], [DSSparseArrayEnumerator.h][], and [DSSparseArrayEnumerator.m][] files into your project then just use like an [NSArray][] or [NSMutableArray][], substituting [DSSparseArray][] or [DSMutableSparseArray][].
@@ -17,7 +17,7 @@ Should be compatible with iOS or Mac OS X.
 # License
 The MIT License (MIT)
 
-Copyright (c) [2014] [David W. Stockton]
+Copyright (c) 2014 Syntonicity, LLC
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
