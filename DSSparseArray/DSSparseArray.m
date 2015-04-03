@@ -31,7 +31,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken = NS_BLOCKS_AVAILAB
         __block int count = 0;
         NSIndexSet *testSet = [NSIndexSet indexSetWithIndexesInRange: NSMakeRange( NSNotFound - 5, 5 )];
         NSLog( @"Index set with %lu entries: %@", (unsigned long) testSet.count, testSet );
-        NSLog( @"NSNotFound is %lu and NSNotFound-1 is %lu", NSNotFound, NSNotFound - 1 );
+        NSLog( @"NSNotFound is %lu and NSNotFound-1 is %lu", (unsigned long) NSNotFound, (unsigned long) NSNotFound - 1 );
         [testSet enumerateIndexesUsingBlock: ^( NSUInteger idx, BOOL *stop ) {
             NSLog( @"- %lu", (unsigned long) idx );
             ++count;
@@ -187,7 +187,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken = NS_BLOCKS_AVAILAB
 	if( !anObject ) {
 		// This has hard coded the maximum index for an index set so will be broken if Apple changes this
 		indexes = [NSMutableIndexSet indexSetWithIndexesInRange: NSMakeRange( 0, NSNotFound )];
-		NSLog( @"NSNotFound - 1 is %lu, all indexes is %@", NSNotFound - 1, indexes );
+		NSLog( @"NSNotFound - 1 is %lu, all indexes is %@", (unsigned long) NSNotFound - 1, indexes );
 		[indexes removeIndexes: self.indexes];
 		NSLog( @"The blank entry indexes are %@", indexes );
 	} else {
@@ -406,7 +406,7 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken = NS_BLOCKS_AVAILAB
 		}
 	} else {
 		[self.indexes enumerateIndexesWithOptions: opts usingBlock: ^( NSUInteger idx, BOOL *stop ) {
-			NSLog( @"Enumerating index %lu, NSNotFound is %lu", idx, NSNotFound );
+			NSLog( @"Enumerating index %lu, NSNotFound is %lu", (unsigned long) idx, (unsigned long) NSNotFound );
 			id obj = [self.dictionary objectForKey: [NSNumber numberWithUnsignedInteger: idx]];
 			block( obj, idx, stop );
 		}];
@@ -417,14 +417,14 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken = NS_BLOCKS_AVAILAB
 	NSMutableArray *contents = [NSMutableArray arrayWithCapacity: self.indexes.count];
 #if NS_BLOCKS_AVAILABLE
 	[self enumerateIndexesAndObjectsUsingBlock: ^( id obj, NSUInteger idx, BOOL *stop ) {
-		[contents addObject: [NSString stringWithFormat: @"    %3lu:%@", idx, obj]];
+		[contents addObject: [NSString stringWithFormat: @"    %3lu:%@", (unsigned long) idx, obj]];
 	}];
 #else
 	if( self.indexes.count > 0 ) {
 		NSUInteger idx = [self.indexes firstIndex];
 		while( idx != NSNotFound ) {
 			id obj = [self.dictionary objectForKey: [NSNumber numberWithUnsignedInteger: idx]];
-			[contents addObject: [NSString stringWithFormat: @"    %3lu:%@", idx, obj]];
+			[contents addObject: [NSString stringWithFormat: @"    %3lu:%@", (unsigned long) idx, obj]];
 			idx = [self.indexes indexGreaterThanIndex: idx];
 		}
 	}
@@ -695,33 +695,33 @@ static BOOL __NSIndexSet_enumerateIndexesUsingBlock_isBroken = NS_BLOCKS_AVAILAB
 		if( delta < 0 ) {
 			if( startIndex < -delta ) {
 				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
-					NSLog( @"**** warning: magnitude of delta of %ld is too large for start index of %lu in %s", delta, startIndex, __func__ );
+					NSLog( @"**** warning: magnitude of delta of %ld is too large for start index of %lu in %s", (long) delta, (unsigned long) startIndex, __func__ );
 				} else if( __throwException == IndexOutOfRangeThrowIfAny ) {
-					[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large for start index of %lu", delta, startIndex];
+					[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large for start index of %lu", (long) delta, (unsigned long) startIndex];
 				}
 			}
 			// If shifting down and the amount of the shift will make a non-empty
 			// array entry be moved below zero raise and exception.
 			if( [self.indexes indexGreaterThanOrEqualToIndex: startIndex] < -delta ) {
 				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
-					NSLog( @"**** warning: magnitude of delta of %ld is too large with first non-empty index of %lu in %s", delta, [self.indexes indexGreaterThanOrEqualToIndex: startIndex], __func__ );
+					NSLog( @"**** warning: magnitude of delta of %ld is too large with first non-empty index of %lu in %s", (long) delta, (unsigned long) [self.indexes indexGreaterThanOrEqualToIndex: startIndex], __func__ );
 				} else if( __throwException == IndexOutOfRangeThrowIfNonEmpty ) {
-					[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large with first non-empty index of %lu", delta, [self.indexes indexGreaterThanOrEqualToIndex: startIndex]];
+					[NSException raise: NSRangeException format: @"Magnitude of shift of %ld is too large with first non-empty index of %lu", (long) delta, (unsigned long) [self.indexes indexGreaterThanOrEqualToIndex: startIndex]];
 				}
 			}
 		} else /* delta > 0 */ {
 			if( startIndex > (NSNotFound - delta - 1) ) {
 				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
-					NSLog( @"**** warning: delta of %ld is too large for start index of %lu and maximum possible array index of %lu in %s", delta, startIndex, NSNotFound - 1, __func__ );
+					NSLog( @"**** warning: delta of %ld is too large for start index of %lu and maximum possible array index of %lu in %s", (long) delta, (unsigned long) startIndex, (unsigned long) NSNotFound - 1, __func__ );
 				} else if( __throwException == IndexOutOfRangeThrowIfAny ) {
-					[NSException raise: NSRangeException format: @"Shift of %ld is too large for start index of %lu and maximum possible array index of %lu", delta, startIndex, NSNotFound - 1];
+					[NSException raise: NSRangeException format: @"Shift of %ld is too large for start index of %lu and maximum possible array index of %lu", (long) delta, (unsigned long) startIndex, (unsigned long) NSNotFound - 1];
 				}
 			}
 			if( [self.indexes lastIndex] > NSNotFound - delta - 1 ) {
 				if( __throwException == IndexOutOfRangeNoThrowButLogWarning ) {
-					NSLog( @"**** warning: delta of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu in %s", delta, [self.indexes lastIndex], NSNotFound - 1, __func__ );
+					NSLog( @"**** warning: delta of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu in %s", (long) delta, (unsigned long) [self.indexes lastIndex], (unsigned long) NSNotFound - 1, __func__ );
 				} else if( __throwException >= IndexOutOfRangeThrowIfNonEmpty ) {
-					[NSException raise: NSRangeException format: @"Shift of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu", delta, [self.indexes lastIndex], NSNotFound - 1];
+					[NSException raise: NSRangeException format: @"Shift of %ld is too large for highest non-empty index of %lu and maximum possible array index of %lu", (long) delta, (unsigned long) [self.indexes lastIndex], (unsigned long) NSNotFound - 1];
 				}
 			}
 		}
